@@ -10,6 +10,7 @@ from flows.image_content_generator.pipeline.prompt_shorts.finances import (
     constants as finances_constants,
 )
 from flows.image_content_generator.pipeline.prompt_shorts.finances.models import FinancesHandler
+from flows.image_content_generator.pipeline.prompt_shorts.sprunkis.models import SprunkisHandler
 from tools.common.messenger import Messenger
 from tools.text_generation.gemini import GeminiTextGenerator
 
@@ -17,11 +18,16 @@ from tools.text_generation.gemini import GeminiTextGenerator
 class PromptManagerShorts(BasePromptManager):
     """Manager specific to Short videos (9:16), aggregating modular categories."""
 
-    # Finance voice & audio style
-    AUDIO_PROMPT: str = finances_constants.AUDIO_PROMPT
+    # Voice & audio style (We use the Sprunkis fast-paced audio prompt)
+    AUDIO_PROMPT: str = SprunkisHandler.SCRIPT_PROMPT  # Fallback
+    
+    # We load the audio prompt from constants dynamically or define it here
+    from flows.image_content_generator.pipeline.prompt_shorts.sprunkis import constants as sprunkis_constants
+    AUDIO_PROMPT: str = sprunkis_constants.AUDIO_PROMPT
 
     CATEGORIES: Sequence[Type[CategoryHandler]] = [
-        FinancesHandler,
+        # FinancesHandler,  # Comentado para enfocarnos en Sprunkis
+        SprunkisHandler,
     ]
 
     def generate_full_story(
