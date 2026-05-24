@@ -4,10 +4,18 @@ from typing import Any, List, Optional, cast
 
 from google.genai import types
 from PIL import Image
+from pydantic import BaseModel
 
 from tools.common.gemini_base import GeminiBase
 from tools.common.messenger import Messenger
-from tools.image_generation.midjourney import ImageTask
+
+
+class ImageTask(BaseModel):
+    """
+    Represents a single image generation task for batch processing.
+    """
+    prompt: str
+    output_path: Path
 
 
 class GeminiImageGenerator(GeminiBase):

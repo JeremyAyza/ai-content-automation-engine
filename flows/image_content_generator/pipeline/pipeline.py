@@ -13,8 +13,7 @@ from tools.audio_generation.audio_tool import AudioTool
 from tools.audio_generation.gemini import GeminiAudioGenerator
 from tools.common.base_model import BaseModelTool
 from tools.common.messenger import Messenger
-from tools.image_generation.gemini import GeminiImageGenerator
-from tools.image_generation.midjourney import ImageTask
+from tools.image_generation.gemini import GeminiImageGenerator, ImageTask
 from tools.text_generation.gemini import GeminiTextGenerator
 from tools.utils.text import slugify
 from tools.utils.time import retry
