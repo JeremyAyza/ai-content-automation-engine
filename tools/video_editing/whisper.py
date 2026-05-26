@@ -18,10 +18,10 @@ class WhisperTool(BaseModelTool):
     """
     DEFAULT_MODEL: ClassVar[str] = "models/whisper/ggml-small.bin"
 
-    def _run(self, cmd: str) -> None:
-        p = subprocess.run(cmd, shell=True)
+    def _run(self, cmd_args: List[str]) -> None:
+        p = subprocess.run(cmd_args, shell=False)
         if p.returncode != 0:
-            raise RuntimeError(f"Whisper Error: {cmd}")
+            raise RuntimeError(f"Whisper Error: {' '.join(cmd_args)}")
 
     def _get_transcription_json(
         self,
@@ -40,8 +40,7 @@ class WhisperTool(BaseModelTool):
                 "-ojf",
                 "-f", str(audio_path)
             ]
-            cmd = " ".join(shlex.quote(arg) for arg in cmd_args)
-            self._run(cmd)
+            self._run(cmd_args)
 
         with open(json_path, 'r', encoding='utf-8') as f:
             try:

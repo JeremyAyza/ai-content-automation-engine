@@ -20,7 +20,7 @@ class GeminiAudioGenerator(GeminiBase):
         """
         Generates audio using Gemini TTS and saves it to disk.
         """
-        time.sleep(20)
+        time.sleep(45)
 
         audio_path.parent.mkdir(parents=True, exist_ok=True)
 

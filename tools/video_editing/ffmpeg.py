@@ -1,4 +1,7 @@
 import shlex
+def _win_quote(s: str) -> str:
+    return f'"{s}"'
+shlex.quote = _win_quote
 import subprocess
 import tempfile
 from pathlib import Path
@@ -14,9 +17,10 @@ class FFmpegTool(BaseModelTool):
     """
 
     def _run(self, cmd: str) -> None:
-        p = subprocess.run(cmd, shell=True)
+        cmd_clean = cmd.replace('\n', ' ').strip()
+        p = subprocess.run(cmd_clean, shell=True)
         if p.returncode != 0:
-            raise RuntimeError(f"FFmpeg falló: {cmd}")
+            raise RuntimeError(f"FFmpeg falló: {cmd_clean}")
 
     def split_audio(
         self,

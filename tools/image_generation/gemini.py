@@ -19,7 +19,7 @@ class ImageTask(BaseModel):
 
 
 class GeminiImageGenerator(GeminiBase):
-    image_model: str = "gemini-2.5-flash-image"
+    image_model: str = "gemini-3.1-flash-image-preview"
     aspect_ratio: str
     style_references: List[Path] = []
 
@@ -47,7 +47,7 @@ class GeminiImageGenerator(GeminiBase):
         sequence_reference: Optional[Path] = None
     ) -> None:
         """Generates an image with Gemini and saves it to disk."""
-        time.sleep(5)
+        time.sleep(30)
 
         output_path.parent.mkdir(parents=True, exist_ok=True)
 

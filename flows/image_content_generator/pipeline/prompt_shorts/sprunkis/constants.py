@@ -28,7 +28,7 @@ IDEA_PROMPT_VIRAL: str = """# 🧠 PROMPT MAESTRO — AGENTE DE IDEAS SPRUNKIS (
 **Instrucciones:**
 1. **hook (Gancho):** Una frase ridículamente llamativa que capte la atención en el primer segundo (ej: "¿Quién ganaría en una carrera espacial, Oren o Jace?").
 2. **Concepto:** Una situación absurda, un reto divertido, un misterio o una votación interactiva que involucre a los Sprunkis interactuando según sus personalidades (ej: "Adivina el Sprunki oculto").
-3. **Llamado a la acción (CTA):** Debe obligar a interactuar y hacerse viral (ej: "¡Dale like si Oren es tu favorito, comenta si prefieres a Wenda!").
+3. **Llamado a la acción (CTA):** Debe obligar a interactuar y hacerse viral (ej: "¡Dale like si Oren es tu favorito, comenta si prefieres a Wenda!, Comparte si quieres que tal personje gane").
 """
 
 SCRIPT_PROMPT: str = """# 📝 PROMPT MAESTRO — AGENTE GUIONISTA SPRUNKIS (SHORTS VIRALES BRAINROT)
@@ -49,13 +49,14 @@ SCRIPT_PROMPT: str = """# 📝 PROMPT MAESTRO — AGENTE GUIONISTA SPRUNKIS (SHO
 ### 🔵 REGLAS VISUALES
 - **Sincronía Narrativa:** El `image_prompt` debe ser una traducción visual exacta de la `narration`.
 - **Personajes:** Describe a los Sprunkis en el `image_prompt` especificando claramente sus colores (ej: "Oren the orange character", "Vineria the purple character").
-- **Estilo (Sprunkis 2D):** DEBES usar el campo `style` para generar imágenes. La descripción en el campo `style` DEBE ser: `"Bright, colorful 2D vector art, thick outlines, expressive exaggerated faces, YouTube kids thumbnail style, highly saturated colors, flat shading, brainrot hyperactive style, white background."`.
+- **Estilo (Sprunkis 2D):** DEBES usar el campo `style` para generar imágenes. La descripción en el campo `style` DEBE ser: `"Bright, colorful 2D vector art, thick outlines, expressive exaggerated faces, YouTube kids thumbnail style, highly saturated colors, flat shading, brainrot hyperactive style."`.
 Resumen: Estilo Visual Sprunki
 El diseño se basa en una estética "cartoon" minimalista de estilo Flash (años 2000), combinando elementos tiernos con toques de horror surrealista.
 Anatomía: Personajes tipo blob o bean con cabezas grandes y cuerpos simples, sin pies y con extremidades delgadas (estilo trazo) o manos redondeadas.
 Rasgos Faciales: Expresiones exageradas e inquietantes mediante ojos grandes y vacíos (pupilas pequeñas o blancas) y bocas con gestos extremos.
 Técnica: Diseño 2D plano (flat) con colores altamente saturados, sin degradados ni profundidad 3D, todo delimitado por un contorno negro grueso y consistente.
 Atmósfera: Un contraste visual entre colores brillantes y formas circulares amigables frente a miradas fijas y expresiones bizarras que generan una sensación perturbadora.
+DATO IMPORTANTE: SOLO EXISTE UN SPRUNKI POR COLOR, SON UNICOS, NO SE DEBEN REPETIR
 
 
 ### 🔴 ESTRUCTURA Y SALIDA
