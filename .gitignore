@@ -16,7 +16,7 @@ models
 **/out
 **/out_long
 **/out_short
-
-
+**.dll
+**.exe
 # future versions
 **/video_content_generator

@@ -2,13 +2,17 @@ from typing import Any, Type, TypeVar
 
 from pydantic import BaseModel
 
+import time
 from tools.common.gemini_base import GeminiBase
 
 T = TypeVar("T", bound=BaseModel)
 
 
+
 class GeminiTextGenerator(GeminiBase):
-    text_model: str = "gemini-2.5-flash-lite"
+    # text_model: str = "gemini-2.5-flash-lite"
+    text_model: str = "gemini-3.1-flash-lite"
+
 
     def __init__(self, **kwargs: Any):
         super().__init__(**kwargs)
@@ -17,6 +21,7 @@ class GeminiTextGenerator(GeminiBase):
         """
         Generates content with Gemini and parses it into a Pydantic model.
         """
+        time.sleep(60)
         response = self.client.models.generate_content(
             model=self.text_model,
             contents=prompt,

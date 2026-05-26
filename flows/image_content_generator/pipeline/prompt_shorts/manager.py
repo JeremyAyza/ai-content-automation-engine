@@ -21,11 +21,11 @@ class PromptManagerShorts(BasePromptManager):
     """Manager specific to Short videos (9:16), aggregating modular categories."""
 
     # Voice & audio style (We use the Sprunkis fast-paced audio prompt)
-    AUDIO_PROMPT: str = sprunkis_constants.AUDIO_PROMPT
+    AUDIO_PROMPT: str = finances_constants.AUDIO_PROMPT
 
     CATEGORIES: Sequence[Type[CategoryHandler]] = [
-        # FinancesHandler,  # Comentado para enfocarnos en Sprunkis
-        SprunkisHandler,
+        FinancesHandler,  # Comentado para enfocarnos en Sprunkis
+        # SprunkisHandler,
     ]
 
     def generate_full_story(

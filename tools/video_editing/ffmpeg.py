@@ -178,11 +178,11 @@ class FFmpegTool(BaseModelTool):
         height = self.get_video_height(img_path)
 
         # Zoom expression (per frame)
-        # Part 1: 1.0 -> 1.2 | Part 2: 1.2 | Part 3: 1.2 -> 1.0
+        # Part 1: 1.0 -> 1.05 | Part 2: 1.05 | Part 3: 1.05 -> 1.0
         z_expr = (
-            f"if(lt(on,{f1}), 1.0+0.2*(on/{f1}), "
-            f"if(lt(on,{f2}), 1.2, "
-            f"1.2-0.2*((on-{f2})/({total_frames}-{f2}))))"
+            f"if(lt(on,{f1}), 1.0+0.05*(on/{f1}), "
+            f"if(lt(on,{f2}), 1.05, "
+            f"1.05-0.05*((on-{f2})/({total_frames}-{f2}))))"
         )
         pos_filter = "x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)'"
         zoom_filter = f"zoompan=z='{z_expr}':d=1:{pos_filter}:s={width}x{height},format=yuv420p"

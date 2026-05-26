@@ -314,10 +314,13 @@ class Pipeline(BaseModelTool):
                 idea_obj.id, self.AUDIOS_DIR, chunk_filename
             )
 
-            Messenger.info(f"Synthesizing audio for Batch {batch_num}...")
-            chunk_text = "\n\n".join([s.narration for s in chunk])
-            formatted_audio = self.prompt_manager.get_audio_prompt(chunk_text)
-            self.audio_gen.text_to_speech(formatted_audio, chunk_audio_path)
+            if not chunk_audio_path.exists():
+                Messenger.info(f"Synthesizing audio for Batch {batch_num}...")
+                chunk_text = "\n\n".join([s.narration for s in chunk])
+                formatted_audio = self.prompt_manager.get_audio_prompt(chunk_text)
+                self.audio_gen.text_to_speech(formatted_audio, chunk_audio_path)
+            else:
+                Messenger.info(f"Using cached audio for Batch {batch_num}...")
 
             # 3. Transcribe chunk
             Messenger.info(f"Transcribing Batch {batch_num} for alignment...")
@@ -409,6 +412,19 @@ class Pipeline(BaseModelTool):
             video_path = self.get_idea_asset_path(
                 idea_obj.id, self.VIDEOS_DIR, self.SCENE_VIDEO_PATTERN.format(i + 1)
             )
+
+            if video_path.exists():
+                Messenger.info(f"Skipping Scene {i+1} video: already exists.")
+                scene_videos.append(video_path)
+                continue
+
+            # Validate audio is not empty/corrupt (min 1KB)
+            if not audio_path.exists() or audio_path.stat().st_size < 1024:
+                raise RuntimeError(
+                    f"Scene {i+1} audio missing or corrupt: {audio_path} "
+                    f"({audio_path.stat().st_size if audio_path.exists() else 0} bytes). "
+                    "Re-run step3 to regenerate."
+                )
 
             Messenger.info(f"Stitching Scene {i+1} with 3-part dynamic effect...")
             self.ffmpeg.create_composite_scene_video(image_path, audio_path, video_path)
