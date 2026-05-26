@@ -47,7 +47,7 @@ class GeminiImageGenerator(GeminiBase):
         sequence_reference: Optional[Path] = None
     ) -> None:
         """Generates an image with Gemini and saves it to disk."""
-        time.sleep(60)
+        time.sleep(60*2.5)
 
         output_path.parent.mkdir(parents=True, exist_ok=True)
 

@@ -11,7 +11,7 @@ T = TypeVar("T", bound=BaseModel)
 
 class GeminiTextGenerator(GeminiBase):
     # text_model: str = "gemini-2.5-flash-lite"
-    text_model: str = "gemini-3.1-flash-lite"
+    text_model: str = "gemini-3-flash-preview"
 
 
     def __init__(self, **kwargs: Any):
@@ -21,7 +21,7 @@ class GeminiTextGenerator(GeminiBase):
         """
         Generates content with Gemini and parses it into a Pydantic model.
         """
-        time.sleep(60)
+        time.sleep(80)
         response = self.client.models.generate_content(
             model=self.text_model,
             contents=prompt,
