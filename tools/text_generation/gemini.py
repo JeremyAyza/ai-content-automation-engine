@@ -3,7 +3,11 @@ from typing import Any, Type, TypeVar
 from pydantic import BaseModel
 
 import time
+from google.genai.errors import ServerError
 from tools.common.gemini_base import GeminiBase
+from tools.common.messenger import Messenger
+from tools.common.notifications import send_windows_notification
+from tools.utils.time import sleep_with_countdown, api_spinner
 
 T = TypeVar("T", bound=BaseModel)
 
@@ -17,20 +21,50 @@ class GeminiTextGenerator(GeminiBase):
     def __init__(self, **kwargs: Any):
         super().__init__(**kwargs)
 
-    def generate_text(self, prompt: str, schema: Type[T]) -> T:
+    def generate_text(self, prompt: str, schema: Type[T], *, low: bool = False) -> T:
         """
         Generates content with Gemini and parses it into a Pydantic model.
+        Use low=True for lightweight structured tasks (e.g. alignment) to avoid 503 errors.
+        On 503 UNAVAILABLE, retries after 180s and 360s (max 3 total attempts).
         """
-        time.sleep(80)
-        response = self.client.models.generate_content(
-            model=self.text_model,
-            contents=prompt,
-            config={
-                'response_mime_type': 'application/json',
-                'response_schema': schema,
-            }
-        )
-        self._extract_usage(response, self.text_model)
+        sleep_with_countdown(80, "Pausa anti-bloqueo (Texto)")
+        
+        model = "gemini-2.5-pro" if low else self.text_model
+
+        retries = [180, 360]
+        attempt = 0
+
+        while True:
+            try:
+                with api_spinner("Generando guión con Gemini"):
+                    from tools.utils.time import run_with_timeout
+                    response = run_with_timeout(
+                        self.client.models.generate_content,
+                        120, # 2 minutes max wait for text
+                        model=model,
+                        contents=prompt,
+                        config={
+                            'response_mime_type': 'application/json',
+                            'response_schema': schema,
+                        }
+                    )
+                break
+            except (ServerError, TimeoutError) as e:
+                is_503 = getattr(e, 'code', None) == 503 or isinstance(e, TimeoutError)
+                
+                if is_503 and attempt < len(retries):
+                    delay = retries[attempt]
+                    attempt += 1
+                    warn_msg = f"⚠️ Gemini Text API saturada o bloqueada (503/Timeout). Reintentando en {delay // 60} minutos (Intento {attempt}/2)..."
+                    Messenger.info(warn_msg)
+                    send_windows_notification("Gemini Text: API Saturada/Bloqueada", f"Reintento {attempt}/2 en {delay // 60} min.")
+                    time.sleep(delay)
+                else:
+                    err_code = getattr(e, 'code', 'Timeout')
+                    send_windows_notification("Gemini Text: Error de Servidor", f"Fallo definitivo con error {err_code}.")
+                    raise e
+
+        self._extract_usage(response, model)
 
         if not response.text:
             raise RuntimeError("❌ No hay respuesta de Gemini")

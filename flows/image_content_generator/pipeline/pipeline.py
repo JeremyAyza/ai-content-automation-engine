@@ -209,6 +209,11 @@ class Pipeline(BaseModelTool):
         3. Saves idea.json and script.json.
         4. Updates state to SCRIPT_GENERATED.
         """
+        incomplete = self.store.get_incomplete_idea()
+        if incomplete:
+            Messenger.info(f"\n--- Retomando idea incompleta {incomplete.id} (Estado actual: {incomplete.state.value}) ---")
+            return
+
         Messenger.info("\n--- Generating cinematic concept and script ---")
 
         # 1. Generates full story (Concept + Script)
@@ -319,6 +324,12 @@ class Pipeline(BaseModelTool):
                 chunk_text = "\n\n".join([s.narration for s in chunk])
                 formatted_audio = self.prompt_manager.get_audio_prompt(chunk_text)
                 self.audio_gen.text_to_speech(formatted_audio, chunk_audio_path)
+
+                # Apply 1.10x speedup natively to the generated batch audio
+                Messenger.info(f"Applying 1.10x speedup to Batch {batch_num}...")
+                temp_audio = chunk_audio_path.with_suffix(".temp.wav")
+                self.ffmpeg.speed_up_audio(chunk_audio_path, temp_audio, factor=1.1)
+                temp_audio.replace(chunk_audio_path)
             else:
                 Messenger.info(f"Using cached audio for Batch {batch_num}...")
 
@@ -330,7 +341,7 @@ class Pipeline(BaseModelTool):
             Messenger.info(f"Aligning Batch {batch_num} via Gemini...")
             chunk_script_texts = [s.narration for s in chunk]
             prompt = self.prompt_manager.get_alignment_prompt(segments, chunk_script_texts)
-            alignment = self.text_gen.generate_text(prompt, AudioAlignment)
+            alignment = self.text_gen.generate_text(prompt, AudioAlignment, low=True)
 
             # 5. Validate alignment count
             if len(alignment.alignments) != len(chunk):

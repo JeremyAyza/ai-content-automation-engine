@@ -120,4 +120,4 @@ class WhisperTool(BaseModelTool):
         with open(output_srt, 'w', encoding='utf-8') as f:
             for i, block in enumerate(blocks):
                 f.write(f"{i+1}\n{fmt(block[0].start)} --> {fmt(block[-1].end)}\n")
-                f.write(" ".join(w.text for w in block) + "\n\n")
+                f.write(" ".join(w.text.upper() for w in block) + "\n\n")

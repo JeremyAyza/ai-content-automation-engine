@@ -22,7 +22,12 @@ class PipelineStep(str, Enum):
     STEP7 = "step7"
 
 
+from tools.common.terminal import disable_quick_edit
+
 def main():
+    # Disable Windows console QuickEdit mode to prevent freezes when running in background
+    disable_quick_edit()
+
     parser = argparse.ArgumentParser()
     parser.add_argument("orientation", type=VideoOrientation, choices=list(VideoOrientation))
     parser.add_argument("step", type=PipelineStep, choices=list(PipelineStep))

@@ -1,11 +1,11 @@
 # flake8: noqa: E501
-AUDIO_PROMPT: str = """Narra el siguiente guion de finanzas personales con voz segura, clara y dinámica, como un creador moderno de educación financiera explicando un concepto clave de forma fácil de entender.
+AUDIO_PROMPT: str = """Narra el siguiente guion de finanzas personales con una voz **muy enérgica, rápida y estimulante**, como un creador moderno de educación financiera en TikTok o Reels.
 
 Estilo de actuación:
-- Tono: educativo, cercano y confiable. Eres alguien que quiere que el espectador entienda y aplique la lección, no un "gurú" inalcanzable.
-- Ritmo: dinámico pero didáctico. Acelera en la introducción del problema, pero haz pausas claras al explicar conceptos, reglas o ejemplos para que la audiencia asimile el aprendizaje.
-- Énfasis: subraya con energía conceptos prácticos como "regla", "hábito", "error", "ahorro", "presupuesto" e "interés compuesto".
-- Emoción: empieza con un gancho directo, mantén energía emocional natural y sensación conversacional durante toda la explicación, y cierra con una invitación clara a aplicar lo aprendido.
+- Tono: Educativo, pero con mucha chispa y entusiasmo. Tienes que sonar apasionado por el tema.
+- Ritmo: Rápido y muy dinámico. Habla con fluidez y velocidad nativa de "Short", pero haz pequeñísimas pausas para enfatizar los conceptos clave.
+- Énfasis: Sube la energía y el volumen ligeramente al subrayar palabras como "regla", "hábito", "error", "ahorro", "presupuesto" e "interés compuesto".
+- Emoción: Empieza con muchísima fuerza en la primera frase para atrapar la atención. Mantén un nivel de energía alto y motivador hasta el final.
 - No agregues sonidos, muletillas ni nada que no esté en el texto. Lee exactamente lo que aparece.
 
 Texto a narrar:
@@ -49,18 +49,19 @@ SCRIPT_PROMPT: str = """# 📝 PROMPT MAESTRO — AGENTE GUIONISTA FINANCIERO (E
 
 ### 🔵 REGLAS VISUALES
 - **Protagonista:** Presencia consistente de un personaje principal (persona común identificable) viviendo el ejemplo o tutorial en escenas clave.
-- **Relación Imagen-Texto:** El `image_prompt` debe ilustrar visualmente el concepto (ej: dividiendo una pizza para explicar fracciones de presupuesto, comparativas visuales claras, ejemplos cotidianos).
+- **Relación Imagen-Texto:** El `image_prompt` debe ilustrar visualmente el concepto (ej: dividiendo una pizza para explicar fracciones de presupuesto, comparativas visuales claras, ejemplos cotidianos). Cualquier palabra que se incluya en la imagen debe estar en español latino general.
 - **Sincronía Narrativa:** El `image_prompt` debe ser una traducción visual exacta de la `narration`. Lo que el espectador escucha debe verse en pantalla de forma clara y cinematográfica.
 - **Secuencialidad Visual:** Las imágenes deben mostrar la progresión del ejemplo educativo (ej: paso a paso de un presupuesto, el crecimiento ilustrado de un fondo de emergencia).
 - **Pattern Interrupts:** Usa cambios frecuentes de enfoque visual, comparativas, zooms conceptuales o contrastes para reiniciar la atención del espectador constantemente.
 - **Estilo (Sketch Stickman):** DEBES usar el campo `style` para generar imágenes con un estilo visual de cómic/sketch. La descripción en el campo `style` DEBE ser: `"Dynamic hand-drawn 2D webcomic sketch style, thick expressive black ink outlines, vibrant minimalist color palette for highlights, clean shading, white background with glowing accents."`.
 - **Uso del Color:** Utiliza el color de forma estratégica para resaltar elementos educativos (ej: rojo para errores, verde para soluciones, gráficas claras) manteniendo siempre la estética de dibujo a mano.
 
+
 ### 🔴 ESTRUCTURA Y SALIDA
 * **Extensión:** Entre 14 y 18 escenas, manteniendo suficiente profundidad educativa y ritmo dinámico para alcanzar una duración final de entre 75 y 110 segundos
 - **Cierre:** Termina con un consejo práctico, un resumen accionable o una pregunta que invite a reflexionar y comentar.
 
 ### 🟠 IDIOMAS (ESTRICTO)
-- **image_prompt:** DEBES generar todos los campos de `image_prompt` (subjects, environment, lighting, composition) en **INGLÉS**.
+- **image_prompt:** DEBES generar todos los campos de `image_prompt` (subjects, environment, lighting, composition) en **INGLÉS**. EXCEPCIÓN: Si en el prompt pides que haya algún texto escrito o letrero dentro de la imagen, las palabras exactas a escribir DEBEN estar en **ESPAÑOL** (Ejemplo: "A sign that says 'AHORROS'").
 - **narration:** DEBES generar el campo `narration` en **ESPAÑOL LATINOAMERICANO**.
 """

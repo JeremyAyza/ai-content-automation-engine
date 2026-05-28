@@ -3,11 +3,14 @@ from pathlib import Path
 from typing import Any, List, Optional, cast
 
 from google.genai import types
+from google.genai.errors import ServerError
 from PIL import Image
 from pydantic import BaseModel
 
 from tools.common.gemini_base import GeminiBase
 from tools.common.messenger import Messenger
+from tools.common.notifications import send_windows_notification
+from tools.utils.time import sleep_with_countdown, api_spinner
 
 
 class ImageTask(BaseModel):
@@ -47,7 +50,7 @@ class GeminiImageGenerator(GeminiBase):
         sequence_reference: Optional[Path] = None
     ) -> None:
         """Generates an image with Gemini and saves it to disk."""
-        time.sleep(60*2.5)
+        sleep_with_countdown(5, "Preparando Gemini API")
 
         output_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -57,11 +60,42 @@ class GeminiImageGenerator(GeminiBase):
             image_config=types.ImageConfig(aspect_ratio=self.aspect_ratio, image_size="1K")
         )
 
-        response = self.client.models.generate_content(
-            model=self.image_model,
-            contents=contents,
-            config=config
-        )
+        start_time = time.time()
+        retries = [180, 360]
+        attempt = 0
+        while True:
+            # Límite de tiempo total de 20 minutos (1200 segundos)
+            if time.time() - start_time > 1200:
+                msg = "❌ La generación de la imagen tardó más de 20 minutos (incluyendo reintentos) y fue abortada."
+                send_windows_notification("Gemini: ERROR CRÍTICO", "Generación abortada por superar los 20 minutos.")
+                raise RuntimeError(msg)
+
+            try:
+                with api_spinner("Generando imagen (Imagen 3)"):
+                    from tools.utils.time import run_with_timeout
+                    response = run_with_timeout(
+                        self.client.models.generate_content,
+                        180, # 3 minutes max wait for an image
+                        model=self.image_model,
+                        contents=contents,
+                        config=config
+                    )
+                break
+            except (ServerError, TimeoutError) as e:
+                # Tratar TimeoutError como un 503 (saturación/bloqueo)
+                is_503 = getattr(e, 'code', None) == 503 or isinstance(e, TimeoutError)
+                
+                if is_503 and attempt < len(retries):
+                    delay = retries[attempt]
+                    attempt += 1
+                    warn_msg = f"⚠️ API saturada o bloqueada (503/Timeout). Reintentando en {delay // 60} minutos (Intento {attempt}/2)..."
+                    Messenger.info(warn_msg)
+                    send_windows_notification("Gemini: API Saturada/Bloqueada", f"Reintento {attempt}/2 en {delay // 60} min.")
+                    time.sleep(delay)
+                else:
+                    err_code = getattr(e, 'code', 'Timeout')
+                    send_windows_notification("Gemini: Error de Servidor", f"Fallo definitivo con error {err_code}.")
+                    raise e
 
         if not response or not response.parts:
             raise RuntimeError("❌ Gemini Image no devolvió partes")

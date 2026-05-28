@@ -39,6 +39,17 @@ class FFmpegTool(BaseModelTool):
         )
         self._run(cmd)
 
+    def speed_up_audio(self, audio_in: Path, audio_out: Path, factor: float = 1.1) -> None:
+        """
+        Speeds up an audio file by the given factor without changing pitch.
+        """
+        cmd = (
+            f"ffmpeg -y -i {shlex.quote(str(audio_in))} "
+            f"-filter:a atempo={factor} "
+            f"{shlex.quote(str(audio_out))} -v error"
+        )
+        self._run(cmd)
+
     def make_transition_video(
         self,
         img_a: Path,
@@ -228,15 +239,14 @@ class FFmpegTool(BaseModelTool):
 
         Messenger.info(f"Subtitling: {width}x{height}, MarginV={margin_v}px")
 
-        # Trendy style: Yellow text, black outline, Impact font
+        # Trendy TikTok style: White text, thick black outline, vibrant blue drop shadow, Impact font
         safe_srt = str(srt_path).replace("\\", "/").replace(":", "\\:")
 
-        # We specify PlayResX/Y so that MarginV and FontSize are in pixels relative
-        # to the video's actual resolution, avoiding the 'middle of the screen' bug.
         style = (
             f"PlayResX={width},PlayResY={height},"
-            f"FontName=Impact,FontSize={font_size},PrimaryColour=&H00FFFF,"
-            f"OutlineColour=&H000000,BorderStyle=1,Outline=2,"
+            f"FontName=Impact,FontSize={font_size},PrimaryColour=&H00FFFFFF,"
+            f"OutlineColour=&H00000000,BackColour=&H00F05000,"
+            f"BorderStyle=1,Outline=3,Shadow=2,"
             f"Alignment=2,MarginV={margin_v}"
         )
         sub_filter = f"subtitles={safe_srt}:force_style='{style}'"

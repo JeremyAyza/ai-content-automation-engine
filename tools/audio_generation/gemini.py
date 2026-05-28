@@ -6,6 +6,9 @@ from google.genai import types
 
 from tools.common.gemini_base import GeminiBase
 from tools.common.messenger import Messenger
+from tools.utils.time import sleep_with_countdown, api_spinner
+from tools.utils.time import run_with_timeout
+
 
 
 class GeminiAudioGenerator(GeminiBase):
@@ -20,24 +23,27 @@ class GeminiAudioGenerator(GeminiBase):
         """
         Generates audio using Gemini TTS and saves it to disk.
         """
-        time.sleep(60)
+        sleep_with_countdown(60, "Pausa anti-bloqueo (Audio)")
 
         audio_path.parent.mkdir(parents=True, exist_ok=True)
 
-        response = self.client.models.generate_content(
-            model=self.tts_model,
-            contents=text,
-            config=types.GenerateContentConfig(
-                response_modalities=["AUDIO"],
-                speech_config=types.SpeechConfig(
-                    voice_config=types.VoiceConfig(
-                        prebuilt_voice_config=types.PrebuiltVoiceConfig(
-                            voice_name=self.voice_name,
+        with api_spinner("Generando audio con Gemini TTS"):
+            response = run_with_timeout(
+                self.client.models.generate_content,
+                120, # 2 minutes max wait for audio
+                model=self.tts_model,
+                contents=text,
+                config=types.GenerateContentConfig(
+                    response_modalities=["AUDIO"],
+                    speech_config=types.SpeechConfig(
+                        voice_config=types.VoiceConfig(
+                            prebuilt_voice_config=types.PrebuiltVoiceConfig(
+                                voice_name=self.voice_name,
+                            )
                         )
-                    )
+                    ),
                 ),
-            ),
-        )
+            )
         self._extract_usage(response, self.tts_model)
 
         pcm_chunks: list[bytes] = []
