@@ -59,7 +59,7 @@ class Pipeline(BaseModelTool):
     FINAL_VIDEO: ClassVar[str] = "final_video.mp4"
 
     # Standard Scene Patterns
-    SCENE_IMAGE_PATTERN: ClassVar[str] = "scene_{}.png"
+    SCENE_IMAGE_PATTERN: ClassVar[str] = "scene_{}.jpg"
     SCENE_AUDIO_PATTERN: ClassVar[str] = "scene_{}.wav"
     SCENE_VIDEO_PATTERN: ClassVar[str] = "scene_{}.mp4"
     BATCH_AUDIO_PATTERN: ClassVar[str] = "batch_{}.wav"
@@ -201,7 +201,7 @@ class Pipeline(BaseModelTool):
         title_slug = slugify(title)
         return self.get_idea_path(idea_id) / f"{title_slug}.mp4"
 
-    def step1_generate_story(self):
+    def step1_generate_story(self, force_new: bool = False):
         """
         Generate Concept & Script: Creates a cinematic idea and expands it into a storyboard.
         1. Generates concept and script using PromptManager.
@@ -209,16 +209,18 @@ class Pipeline(BaseModelTool):
         3. Saves idea.json and script.json.
         4. Updates state to SCRIPT_GENERATED.
         """
-        incomplete = self.store.get_incomplete_idea()
-        if incomplete:
-            Messenger.info(f"\n--- Retomando idea incompleta {incomplete.id} (Estado actual: {incomplete.state.value}) ---")
-            return
+        if not force_new:
+            incomplete = self.store.get_incomplete_idea()
+            if incomplete:
+                Messenger.info(f"\n--- Retomando idea incompleta {incomplete.id} (Estado actual: {incomplete.state.value}) ---")
+                return
 
         Messenger.info("\n--- Generating cinematic concept and script ---")
 
         # 1. Generates full story (Concept + Script)
+        bank_path = self.resource_base / "bank_ideas_base.json"
         idea_data, script, category = self.prompt_manager.generate_full_story(
-            self.text_gen
+            self.text_gen, ideas_bank_path=bank_path
         )
 
         # 2. Registers the new idea in tracking CSV.

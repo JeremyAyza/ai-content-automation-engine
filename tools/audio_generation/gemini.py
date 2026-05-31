@@ -23,7 +23,7 @@ class GeminiAudioGenerator(GeminiBase):
         """
         Generates audio using Gemini TTS and saves it to disk.
         """
-        sleep_with_countdown(60, "Pausa anti-bloqueo (Audio)")
+        sleep_with_countdown(20, "Pausa anti-bloqueo (Audio)")
 
         audio_path.parent.mkdir(parents=True, exist_ok=True)
 

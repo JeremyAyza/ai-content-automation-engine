@@ -34,7 +34,9 @@ class GeminiImageGenerator(GeminiBase):
     ) -> None:
         style_refs = []
         if reference_dir and reference_dir.exists():
-            style_refs = sorted(reference_dir.glob("*.png"))
+            for ext in ["*.png", "*.jpg", "*.jpeg", "*.webp"]:
+                style_refs.extend(reference_dir.glob(ext))
+            style_refs = sorted(style_refs)
 
         super().__init__(
             aspect_ratio=aspect_ratio,
@@ -102,6 +104,11 @@ class GeminiImageGenerator(GeminiBase):
 
         self._extract_usage(response, self.image_model)
         image = self._extract_image(response)
+        
+        # JPEG no soporta transparencia (RGBA), así que lo convertimos a RGB puro si es necesario
+        if output_path.suffix.lower() in ['.jpg', '.jpeg'] and image.mode == 'RGBA':
+            image = image.convert('RGB')
+            
         image.save(output_path)
 
         is_ref = style_references or sequence_reference

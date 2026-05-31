@@ -27,8 +27,8 @@ class GeminiTextGenerator(GeminiBase):
         Use low=True for lightweight structured tasks (e.g. alignment) to avoid 503 errors.
         On 503 UNAVAILABLE, retries after 180s and 360s (max 3 total attempts).
         """
-        sleep_with_countdown(80, "Pausa anti-bloqueo (Texto)")
-        
+        sleep_with_countdown(20, "Pausa anti-bloqueo (Texto)")
+
         model = "gemini-2.5-pro" if low else self.text_model
 
         retries = [180, 360]
@@ -51,7 +51,7 @@ class GeminiTextGenerator(GeminiBase):
                 break
             except (ServerError, TimeoutError) as e:
                 is_503 = getattr(e, 'code', None) == 503 or isinstance(e, TimeoutError)
-                
+
                 if is_503 and attempt < len(retries):
                     delay = retries[attempt]
                     attempt += 1

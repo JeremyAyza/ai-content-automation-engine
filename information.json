@@ -1,0 +1,85 @@
+{
+  "channel_names_suggestions": [
+    "Dinero Dibujado",
+    "Finanzas en Sketch",
+    "Bolsillo Ágil",
+    "Capital Corto",
+    "Mente Rica"
+  ],
+  "bio": "Educación financiera rápida, dibujada y al grano. Aprende a dominar tu dinero, salir de deudas e invertir en menos de 2 minutos. 💸🧠",
+  "target_audience": "Jóvenes adultos (18-35) buscando mejorar sus finanzas personales, salir de deudas y aprender a invertir sin terminología aburrida o compleja.",
+  "niche": "finanzas personales",
+  "language": "es-LA",
+  "content_format": "short-form vertical video (9:16)",
+  "posting_frequency_suggestion": "1 video por día",
+
+  "visual_identity": {
+    "style": "Dynamic hand-drawn 2D webcomic sketch style, minimalist, expressive black ink on white background with vibrant accents (green/gold).",
+    "primary_color": "#22C55E",
+    "accent_color": "#EAB308",
+    "background": "#FFFFFF",
+    "font_style": "bold, geometric sans-serif"
+  },
+
+  "logo_prompt": "A minimalist, hand-drawn 2D sketch style logo for a personal finance channel. A stylized brain with a glowing coin inside, drawn with thick expressive black ink outlines on a clean white background. Subtle vibrant green highlights. Clean shading, modern webcomic aesthetic, highly recognizable as a profile picture.",
+
+  "banner_prompt": "A dynamic, hand-drawn 2D webcomic sketch style banner for a YouTube channel about personal finance. Thick expressive black ink outlines on a clean white background. The scene shows a visual progression from left to right: starting with a broken piggy bank, moving to a growing money tree in the center, and ending with a rising financial chart on the right. Vibrant minimalist color palette with green and gold highlights. Clean shading, glowing accents, wide horizontal panoramic layout.",
+
+  "outro_prompt": {
+    "tool_suggestion": "Veo 3 / Imagen 4 (Google Flow)",
+    "duration_seconds": 3,
+    "description": "Animated logo outro for a personal finance YouTube/TikTok channel, hand-drawn 2D webcomic sketch style. The scene starts black. A coin drops from the top center with a satisfying 'clink' motion, bouncing once. As it settles, thick expressive black ink lines rapidly sketch the channel logo (a brain with a coin inside) around the coin, as if being drawn live. The logo pulses once with a vibrant green glow. The channel name 'CHANNEL_NAME' materializes below in bold geometric font, letter by letter, in gold. A subtle paper texture background fades in. The outro ends with the logo centered, glowing softly. Clean, energetic, 3-second loop-friendly. Black background. No voiceover."
+  },
+
+  "tags": {
+    "youtube_shorts": [
+      "#FinanzasPersonales",
+      "#DineroInteligente",
+      "#AhorroDinero",
+      "#InteresCompuesto",
+      "#InversionParaPrincipiantes",
+      "#LibertadFinanciera",
+      "#HabitosMillonarios",
+      "#EducacionFinanciera",
+      "#TarjetaDeCredito",
+      "#PresupuestoPersonal",
+      "#Shorts",
+      "#ShortFinanzas"
+    ],
+    "tiktok": [
+      "#finanzaspersonales",
+      "#dinerointeligente",
+      "#ahorros",
+      "#inversiones",
+      "#educacionfinanciera",
+      "#libertadfinanciera",
+      "#habitos",
+      "#tipsdinero",
+      "#fyp",
+      "#parati",
+      "#aprendeentiktok"
+    ],
+    "instagram_reels": [
+      "#FinanzasPersonales",
+      "#DineroInteligente",
+      "#Inversiones",
+      "#AhorroInteligente",
+      "#EducacionFinanciera",
+      "#TipsFinancieros",
+      "#LibertadFinanciera",
+      "#Reels",
+      "#MenteMilenial",
+      "#CreceConTuDinero"
+    ]
+  },
+
+  "call_to_action_suggestions": [
+    "Sígueme para más tips de finanzas cada día 💸",
+    "¿Te sirvió? Compártelo con alguien que lo necesite 🙌",
+    "Comenta: ¿Cuál de estos errores has cometido? 👇",
+    "Guarda este video para no olvidarlo 📌",
+    "Activa la 🔔 para no perderte ningún tip"
+  ],
+
+  "pinned_comment_template": "💰 Sígueme para educación financiera práctica todos los días. Si este video te ayudó, compártelo con alguien que lo necesite. ¡Tu futuro financiero empieza hoy! 🧠💸"
+}

@@ -1,5 +1,5 @@
 # flake8: noqa: E501
-AUDIO_PROMPT: str = """Narra el siguiente guion de finanzas personales con una voz **muy enérgica, rápida y estimulante**, como un creador moderno de educación financiera en TikTok o Reels.
+AUDIO_PROMPT: str = """Narra el siguiente guion sobre mentalidad de riqueza y life hacks con una voz **muy enérgica, rápida y estimulante**, como un creador moderno de educación en TikTok o Reels.
 
 Estilo de actuación:
 - Tono: Educativo, pero con mucha chispa y entusiasmo. Tienes que sonar apasionado por el tema.
@@ -12,29 +12,29 @@ Texto a narrar:
 {audio_text}"""
 
 IDEA_PROMPT_MINDSET: str = """# 🧠 PROMPT MAESTRO — AGENTE DE IDEAS FINANCIERAS (ESTILO MENTALIDAD EDUCATIVA)
-**Objetivo:** Generar una idea creativa para un video CORTO que transforme la mentalidad mediante una lección financiera concreta y aplicable.
+**Objetivo:** Generar una idea creativa para un video CORTO que transforme la mentalidad mediante un cambio de paradigma o 'life hack' de riqueza.
 
 **Instrucciones:**
 1. **hook (Gancho de Interrupción):** Una frase de 10-15 palabras que exponga un error común o una mala costumbre cotidiana (ej: "Por esto tu quincena desaparece en 5 días", "El error que cometes al usar tu tarjeta de crédito").
-2. **Protagonista:** Una persona común enfrentando un problema cotidiano real (gastos hormiga, mal manejo de presupuesto, miedo a abrir una cuenta de inversión).
-3. La historia debe mostrar cómo resolver este problema aprendiendo un hábito financiero práctico, evitando frases abstractas y priorizando soluciones del día a día.
+2. **Protagonista:** Una persona común enfrentando un problema de la Matrix (atrapado en la carrera de la rata, trabajando duro sin ver resultados, mentalidad de escasez).
+3. La historia debe mostrar cómo resolver este problema aprendiendo un hábito o hack práctico, evitando frases abstractas y priorizando soluciones del día a día.
 """
 
 IDEA_PROMPT_ESTRATEGIA: str = """# 🧠 PROMPT MAESTRO — AGENTE DE IDEAS FINANCIERAS (ESTILO ESTRATEGIA EDUCATIVA)
-**Objetivo:** Generar una idea para un video CORTO estilo micro-storytelling educativo que enseñe una estrategia financiera accionable en menos de 2 minutos.
+**Objetivo:** Generar una idea para un video CORTO estilo micro-storytelling educativo que enseñe una estrategia de apalancamiento, trabajo inteligente o un atajo (hack) de vida en menos de 2 minutos.
 
 **Instrucciones:**
-1. **hook (Gancho de Interrupción):** Una afirmación o pregunta de 10-15 palabras enfocada en aprender algo rápido (ej: "Aprende la regla del 50/30/20 en un minuto", "Cómo crear un fondo de emergencia sin ganar más").
-2. **Concepto central:** Una regla, hábito o táctica concreta y fácil de explicar: interés compuesto simple, cómo leer tu estado de cuenta, presupuestos básicos, o cómo evitar deudas malas.
-3. Presenta el concepto con un ejemplo real o analogía cotidiana (ej: comparar una inversión con plantar un árbol), demostrando el "cómo hacerlo" paso a paso.
+1. **hook (Gancho de Interrupción):** Una afirmación o pregunta de 10-15 palabras enfocada en aprender un hack rápido (ej: "Aprende la regla de las 2 horas", "Cómo automatizar tus ingresos sin ganar más").
+2. **Concepto central:** Una regla, hábito o táctica concreta y fácil de explicar: Ley de Pareto 80/20, evitar la trampa de cambiar tiempo por dinero, o cómo auditar tu círculo social.
+3. Presenta el concepto con un ejemplo real o analogía cotidiana, demostrando el "cómo hacerlo" paso a paso.
 """
 
 SCRIPT_PROMPT: str = """# 📝 PROMPT MAESTRO — AGENTE GUIONISTA FINANCIERO (EDUCACIÓN MODERNA Y VIRAL - SHORTS)
-**Objetivo:** Crear un guion dinámico de 15 a 20 micro-escenas enfocado en educación financiera práctica y accionable (micro-storytelling educativo), asegurando una duración final de entre 1.5 y 2 minutos de alto valor y retención.
+**Objetivo:** Crear un guion dinámico de 15 a 20 micro-escenas enfocado en hackear el sistema tradicional (mentalidad, atajos y dinero) mediante micro-storytelling, asegurando una duración final de entre 1.5 y 2 minutos de alto valor y retención.
 
 **Estructura del Guion (MANDATORIO):**
-1. **Acto 1: El Hook/Conflicto [Escenas 1-4]:** DEBES usar el campo "hook" para la Escena 1. Presenta un problema financiero cotidiano, error común o mito.
-2. **Acto 2: El micro-storytelling educativo [Escenas 5-15]:** Explica de forma fácil y didáctica un concepto, regla o estrategia. Usa ejemplos cotidianos y comparativas visuales sencillas. El storytelling está subordinado al aprendizaje.
+1. **Acto 1: El Hook/Conflicto [Escenas 1-4]:** DEBES usar el campo "hook" para la Escena 1. Presenta un problema del sistema tradicional (la carrera de la rata, trabajar duro sin sentido, o trampas de la sociedad).
+2. **Acto 2: El micro-storytelling educativo [Escenas 5-15]:** Explica de forma fácil y didáctica el hack, regla o estrategia. Usa ejemplos cotidianos y comparativas visuales sencillas. El storytelling está subordinado al aprendizaje.
 3. **Acto 3: El Educational Payoff [Escenas 16-final]:** Muestra el resultado de aplicar lo aprendido en el día a día. Termina con un consejo rápido y accionable para aplicar hoy mismo.
 
 ## 📜 REGLAS OBLIGATORIAS

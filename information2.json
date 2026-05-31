@@ -1,0 +1,84 @@
+{
+  "channel_names_suggestions": [
+    "Hackea tu Riqueza",
+    "Mente de Rico",
+    "Código Riqueza",
+    "Ingenio Millonario",
+    "Libertad y Acción"
+  ],
+  "bio": "Hackea tu vida y tu bolsillo. Aprende a pensar como rico, trabajar inteligentemente y alcanzar tu libertad financiera en menos de 2 minutos. 🧠🚀",
+  "target_audience": "Personas ambiciosas (18-35) buscando escapar de la 'carrera de la rata', cambiar su mentalidad, aprender life hacks útiles y construir verdadera riqueza trabajando de forma inteligente.",
+  "niche": "desarrollo personal, mentalidad de riqueza y life hacks financieros",
+  "language": "es-LA",
+  "content_format": "short-form vertical video (9:16)",
+  "posting_frequency_suggestion": "1 video por día",
+
+  "visual_identity": {
+    "style": "Dynamic hand-drawn 2D webcomic sketch style, minimalist, expressive black ink on white background with vibrant accents (green/gold).",
+    "primary_color": "#22C55E",
+    "accent_color": "#EAB308",
+    "background": "#FFFFFF",
+    "font_style": "bold, geometric sans-serif"
+  },
+
+  "logo_prompt": "A minimalist, hand-drawn 2D sketch style logo for a channel named 'Hackea tu Riqueza'. A stylized glowing lightbulb with a lightning bolt filament inside and small dynamic wings. Drawn with thick expressive black ink outlines on a clean white background. Subtle vibrant green and gold highlights. Clean shading, modern webcomic aesthetic, highly recognizable as a profile picture.",
+
+  "banner_prompt": "A dynamic, hand-drawn 2D webcomic sketch style banner for a YouTube channel about financial freedom and smart work. Thick expressive black ink outlines on a clean white background. The scene shows a visual progression from left to right: starting with a stressed stickman working at a cubicle desk, moving to the center where the stickman is reading a book and having a 'lightbulb' idea moment, and ending on the right with the stickman relaxed on a hammock checking a rising stock chart on a laptop. Vibrant minimalist color palette with green and gold highlights. Clean shading, glowing accents, wide horizontal panoramic layout.",
+
+  "outro_prompt": {
+    "tool_suggestion": "Veo 3 / Imagen 4 (Google Flow)",
+    "duration_seconds": 3,
+    "description": "Animated logo outro for a wealth mindset YouTube/TikTok channel, hand-drawn 2D webcomic sketch style. The scene starts black. A glowing green lightning bolt strikes the center of the screen. As the flash fades, thick expressive black ink lines rapidly sketch the channel logo (a winged lightbulb) around the lightning bolt, as if being drawn live. The wings flap once dynamically. The channel name 'Hackea tu Riqueza' materializes below in bold geometric font, letter by letter, in gold. A subtle paper texture background fades in. The outro ends with the logo centered, glowing softly. Clean, energetic, 3-second loop-friendly. Black background. No voiceover."
+  },
+
+  "tags": {
+    "youtube_shorts": [
+      "#MenteDeRico",
+      "#LibertadFinanciera",
+      "#DesarrolloPersonal",
+      "#Emprendimiento",
+      "#TrabajaInteligente",
+      "#LifeHacks",
+      "#EducacionFinanciera",
+      "#CrecimientoPersonal",
+      "#IngresosPasivos",
+      "#Shorts",
+      "#Exito"
+    ],
+    "tiktok": [
+      "#mentederico",
+      "#libertadfinanciera",
+      "#lifehacks",
+      "#mentalidad",
+      "#emprendimiento",
+      "#trabajainteligente",
+      "#habitos",
+      "#exito",
+      "#fyp",
+      "#parati",
+      "#aprendeentiktok"
+    ],
+    "instagram_reels": [
+      "#MenteDeRico",
+      "#LibertadFinanciera",
+      "#DesarrolloPersonal",
+      "#Emprendedor",
+      "#MentalidadMillonaria",
+      "#HabitosDeExito",
+      "#LifeHacks",
+      "#Reels",
+      "#TrabajoInteligente",
+      "#MotivacionDiaria"
+    ]
+  },
+
+  "call_to_action_suggestions": [
+    "Sígueme para hackear tu mente y tu bolsillo todos los días 🚀",
+    "¿Estás de acuerdo? Déjame tu opinión en los comentarios 👇",
+    "Comparte este video con alguien que necesite escuchar esto 🙌",
+    "Guarda este hack para aplicarlo hoy mismo 📌",
+    "Activa la 🔔 para aprender a trabajar inteligentemente, no duro"
+  ],
+
+  "pinned_comment_template": "🚀 Sígueme para cambiar tu mentalidad y alcanzar la libertad financiera. Si este video te hizo pensar diferente, compártelo. ¡Deja de trabajar duro y empieza a trabajar inteligente! 🧠💸"
+}

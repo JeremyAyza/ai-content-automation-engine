@@ -60,11 +60,17 @@ def main():
         Messenger.info("--- Starting Infinite Generation Loop ---")
         while True:
             for step in steps:
-                step_methods[step]()
+                if step == PipelineStep.STEP1:
+                    step_methods[step](force_new=False)
+                else:
+                    step_methods[step]()
             Messenger.success("Cycle completed. Starting next cycle...")
     else:
         # Run specific step
-        step_methods[args.step]()
+        if args.step == PipelineStep.STEP1:
+            step_methods[args.step](force_new=True)
+        else:
+            step_methods[args.step]()
 
 
 if __name__ == "__main__":
