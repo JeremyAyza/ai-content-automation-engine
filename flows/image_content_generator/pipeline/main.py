@@ -20,6 +20,7 @@ class PipelineStep(str, Enum):
     STEP5 = "step5"
     STEP6 = "step6"
     STEP7 = "step7"
+    FIXED = "fixed"
 
 
 from tools.common.terminal import disable_quick_edit
@@ -53,8 +54,8 @@ def main():
         PipelineStep.STEP7: pipeline.step7_rename_final_video,
     }
 
-    # Define steps to execute (excluding 'all' itself)
-    steps = [s for s in PipelineStep if s != PipelineStep.ALL]
+    # Define steps to execute (excluding 'all' and 'fixed')
+    steps = [s for s in PipelineStep if s not in (PipelineStep.ALL, PipelineStep.FIXED)]
 
     if args.step == PipelineStep.ALL:
         Messenger.info("--- Starting Infinite Generation Loop ---")
@@ -65,6 +66,20 @@ def main():
                 else:
                     step_methods[step]()
             Messenger.success("Cycle completed. Starting next cycle...")
+    elif args.step == PipelineStep.FIXED:
+        Messenger.info("--- Starting Fixed Generation Loop (Finishing existing only) ---")
+        while True:
+            incomplete = pipeline.store.get_incomplete_idea()
+            if not incomplete:
+                Messenger.success("All ideas are finished! Exiting fixed loop.")
+                break
+                
+            for step in steps:
+                if step == PipelineStep.STEP1:
+                    step_methods[step](force_new=False)
+                else:
+                    step_methods[step]()
+            Messenger.success("Cycle completed. Checking for more incomplete ideas...")
     else:
         # Run specific step
         if args.step == PipelineStep.STEP1:

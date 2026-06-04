@@ -58,12 +58,14 @@ class FFmpegTool(BaseModelTool):
         seconds: int = 4
     ) -> None:
         offset = max(0, seconds - 1)
-        xfade_filter = f"[0:v][1:v]xfade=transition=fade:duration=1:offset={offset},format=yuv420p"
+        pre = "scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920"
+        xfade_filter = f"[0:v]{pre}[v0];[1:v]{pre}[v1];[v0][v1]xfade=transition=fade:duration=1:offset={offset},format=yuv420p"
         cmd = f"""
         ffmpeg -y \
           -loop 1 -t {seconds} -i {shlex.quote(str(img_a))} \
           -loop 1 -t {seconds} -i {shlex.quote(str(img_b))} \
           -filter_complex "{xfade_filter}" \
+          -c:v libx264 -b:v 10M -maxrate 10M -bufsize 20M -r 30 \
           -t {seconds} {shlex.quote(str(out_path))}
         """
         self._run(cmd)
@@ -137,7 +139,7 @@ class FFmpegTool(BaseModelTool):
             f"-i {shlex.quote(str(audio_in))} "
             f'-filter_complex "[0:v]setpts={scale:.6f}*PTS[v]" '
             f'-map "[v]" -map 1:a '
-            f"-c:v libx264 -c:a aac -pix_fmt yuv420p "
+            f"-c:v libx264 -b:v 10M -maxrate 10M -bufsize 20M -r 30 -c:a aac -pix_fmt yuv420p "
             f"{shlex.quote(str(video_out))} -v error"
         )
         self._run(cmd)
@@ -179,14 +181,13 @@ class FFmpegTool(BaseModelTool):
         3. Zoom Out (30%) - from 1.2 to 1.0
         """
         duration = self.get_audio_duration(audio_path)
-        fps = 25
+        fps = 30
         total_frames = int(duration * fps)
         f1 = total_frames * 0.3
         f2 = total_frames * 0.7
 
-        # Infer dimensions from the source image
-        width = self.get_video_width(img_path)
-        height = self.get_video_height(img_path)
+        width = 1080
+        height = 1920
 
         # Zoom expression (per frame)
         # Part 1: 1.0 -> 1.05 | Part 2: 1.05 | Part 3: 1.05 -> 1.0
@@ -196,17 +197,19 @@ class FFmpegTool(BaseModelTool):
             f"1.05-0.05*((on-{f2})/({total_frames}-{f2}))))"
         )
         pos_filter = "x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)'"
-        zoom_filter = f"zoompan=z='{z_expr}':d=1:{pos_filter}:s={width}x{height},format=yuv420p"
+        zoom_filter = f"zoompan=z='{z_expr}':d=1:{pos_filter}:s={width}x{height}:fps={fps},format=yuv420p"
 
         # Rotation filter: constant soft swing
         rotate_filter = "rotate='1*PI/180*sin(2*PI*t/3)'"
 
+        pre_filter = "scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920"
+
         cmd = f"""
         ffmpeg -y -loop 1 -i {shlex.quote(str(img_path))} \
           -i {shlex.quote(str(audio_path))} \
-          -vf "{zoom_filter},{rotate_filter}" \
+          -vf "{pre_filter},{zoom_filter},{rotate_filter}" \
           -shortest \
-          -c:v libx264 -c:a aac -pix_fmt yuv420p {shlex.quote(str(out_path))}
+          -c:v libx264 -b:v 10M -maxrate 10M -bufsize 20M -r 30 -c:a aac -pix_fmt yuv420p {shlex.quote(str(out_path))}
         """
         self._run(cmd)
 
@@ -227,7 +230,7 @@ class FFmpegTool(BaseModelTool):
         video_in: Path,
         srt_path: Path,
         video_out: Path,
-        font_size: int = 64
+        font_size: int = 80
     ) -> None:
         """
         Adds subtitles to a video.
@@ -254,6 +257,7 @@ class FFmpegTool(BaseModelTool):
         cmd = f"""
         ffmpeg -y -i {shlex.quote(str(video_in))} \
           -vf "{sub_filter}" \
+          -c:v libx264 -b:v 10M -maxrate 10M -bufsize 20M -r 30 \
           -c:a copy {shlex.quote(str(video_out))}
         """
         self._run(cmd)

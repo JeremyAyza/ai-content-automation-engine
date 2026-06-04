@@ -14,21 +14,20 @@
   "posting_frequency_suggestion": "1 video por día",
 
   "visual_identity": {
-    "style": "Dynamic hand-drawn 2D webcomic sketch style, minimalist, expressive black ink on white background with vibrant accents (green/gold).",
+    "style": "Dynamic hand-drawn 2D webcomic sketch style, minimalist, expressive black ink on white background with vibrant accents (green).",
     "primary_color": "#22C55E",
     "accent_color": "#EAB308",
     "background": "#FFFFFF",
     "font_style": "bold, geometric sans-serif"
   },
 
-  "logo_prompt": "A minimalist, hand-drawn 2D sketch style logo for a channel named 'Hackea tu Riqueza'. A stylized glowing lightbulb with a lightning bolt filament inside and small dynamic wings. Drawn with thick expressive black ink outlines on a clean white background. Subtle vibrant green and gold highlights. Clean shading, modern webcomic aesthetic, highly recognizable as a profile picture.",
+  "logo_prompt": "A minimalist, hand-drawn 2D sketch style logo for a channel named 'Hackea tu Riqueza'. A stylized glowing lightbulb with a green lightning bolt filament inside and dynamic wings on the sides. The text 'HACKEA TU RIQUEZA' is written below in bold, sketchy geometric font. Drawn with thick expressive black ink outlines on a clean white background. Vibrant green highlights. Clean shading, modern webcomic aesthetic.",
 
-  "banner_prompt": "A dynamic, hand-drawn 2D webcomic sketch style banner for a YouTube channel about financial freedom and smart work. Thick expressive black ink outlines on a clean white background. The scene shows a visual progression from left to right: starting with a stressed stickman working at a cubicle desk, moving to the center where the stickman is reading a book and having a 'lightbulb' idea moment, and ending on the right with the stickman relaxed on a hammock checking a rising stock chart on a laptop. Vibrant minimalist color palette with green and gold highlights. Clean shading, glowing accents, wide horizontal panoramic layout.",
 
   "outro_prompt": {
     "tool_suggestion": "Veo 3 / Imagen 4 (Google Flow)",
     "duration_seconds": 3,
-    "description": "Animated logo outro for a wealth mindset YouTube/TikTok channel, hand-drawn 2D webcomic sketch style. The scene starts black. A glowing green lightning bolt strikes the center of the screen. As the flash fades, thick expressive black ink lines rapidly sketch the channel logo (a winged lightbulb) around the lightning bolt, as if being drawn live. The wings flap once dynamically. The channel name 'Hackea tu Riqueza' materializes below in bold geometric font, letter by letter, in gold. A subtle paper texture background fades in. The outro ends with the logo centered, glowing softly. Clean, energetic, 3-second loop-friendly. Black background. No voiceover."
+    "description": "Animated logo outro for the channel 'Hackea tu Riqueza', hand-drawn 2D webcomic sketch style. The scene starts with a clean white background. A striking green lightning bolt flashes down from the top center. Instantly, thick expressive black ink lines rapidly sketch the channel logo (a lightbulb with wings) around the lightning bolt. The lightbulb pulses with a vibrant green glow, and the wings do a quick, energetic flap. The channel name 'HACKEA TU RIQUEZA' materializes below in bold, sketchy green and black font. The outro ends with the winged lightbulb centered, glowing softly. Clean, energetic, 3-second loop-friendly. No voiceover."
   },
 
   "tags": {

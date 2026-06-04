@@ -21,3 +21,9 @@ icg-s-step7:
 
 icg-s-all:
 	poetry run python -m flows.image_content_generator.pipeline.main short all
+
+
+# poetry run python -m flows.image_content_generator.pipeline.main short fixed
+
+
+# for i in {1..10}; do poetry run python -m flows.image_content_generator.pipeline.main short step1; done
