@@ -27,3 +27,6 @@ icg-s-all:
 
 
 # for i in {1..10}; do poetry run python -m flows.image_content_generator.pipeline.main short step1; done
+
+icg-import-images:
+	poetry run python import_images.py
