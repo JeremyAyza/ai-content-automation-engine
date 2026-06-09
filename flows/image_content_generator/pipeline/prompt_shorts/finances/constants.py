@@ -59,7 +59,7 @@ SCRIPT_PROMPT: str = """# 📝 PROMPT MAESTRO — AGENTE GUIONISTA FINANCIERO (E
 
 ### 🔴 ESTRUCTURA Y SALIDA
 * **Extensión:** Entre 14 y 18 escenas, manteniendo suficiente profundidad educativa y ritmo dinámico para alcanzar una duración final de entre 75 y 110 segundos
-- **Cierre:** Termina con un consejo práctico, un resumen accionable o una pregunta que invite a reflexionar y comentar.
+- **Cierre:** Termina con un consejo práctico, un resumen accionable o un fuerte Llamado a la Acción (CTA) pidiendo a la audiencia que interactúen: comenten sus dudas, den like, compartan el video, lo guarden o se suscriban al canal.
 
 ### 🟠 IDIOMAS (ESTRICTO)
 - **image_prompt:** DEBES generar todos los campos de `image_prompt` (subjects, environment, lighting, composition) en **INGLÉS**. EXCEPCIÓN: Si en el prompt pides que haya algún texto escrito o letrero dentro de la imagen, las palabras exactas a escribir DEBEN estar en **ESPAÑOL** (Ejemplo: "A sign that says 'AHORROS'").

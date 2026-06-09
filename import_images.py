@@ -33,12 +33,28 @@ def update_csv_state(idea_id: int, new_state: str):
             writer = csv.writer(f)
             writer.writerows(rows)
 
+def get_script_generated_ids() -> set[int]:
+    """Returns a set of idea IDs that are currently in SCRIPT_GENERATED state."""
+    valid_ids = set()
+    if not TRACKING_CSV.exists():
+        return valid_ids
+    with open(TRACKING_CSV, 'r', encoding='utf-8') as f:
+        reader = csv.reader(f)
+        next(reader, None)  # Skip header
+        for row in reader:
+            if row and row[2] == "SCRIPT_GENERATED":
+                valid_ids.add(int(row[0]))
+    return valid_ids
+
 def main():
     if not DOWNLOADS_DIR.exists():
         print(f"Directory not found: {DOWNLOADS_DIR}")
         return
 
     report_data = []
+    
+    valid_ids = get_script_generated_ids()
+    print(f"Found {len(valid_ids)} ideas in SCRIPT_GENERATED state.")
     
     print("Starting image import process...")
     for source_folder in DOWNLOADS_DIR.iterdir():
@@ -51,6 +67,11 @@ def main():
             continue
             
         idea_id = int(parts[0])
+        
+        # Filtrar desde el inicio: si no está en la lista de válidos, lo ignoramos por completo
+        if idea_id not in valid_ids:
+            continue
+            
         idea_path = IDEAS_DIR / f"idea_{idea_id:06d}"
         
         if not idea_path.exists():

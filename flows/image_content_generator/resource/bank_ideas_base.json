@@ -201,22 +201,246 @@
   },
   {
     "idea_base": "Minimalismo financiero: Cómo vivir mejor gastando menos",
-    "used": false
-  },
-  {
-    "idea_base": "Cómo calcular tu 'Número de Libertad Financiera' exacto",
-    "used": false
-  },
-  {
-    "idea_base": "Por qué la disciplina vence a la motivación en los negocios",
-    "used": false
+    "used": true
   },
   {
     "idea_base": "El truco de los supermercados para vaciar tu cartera y cómo hackearlos",
-    "used": false
+    "used": true
+  },
+  {
+    "idea_base": "Cómo calcular tu 'Número de Libertad Financiera' exacto",
+    "used": true
+  },
+  {
+    "idea_base": "Por qué la disciplina vence a la motivación en los negocios",
+    "used": true
   },
   {
     "idea_base": "El engaño del 'compre ahora, pague después' que arruina a los jóvenes",
+    "used": true
+  },
+  {
+    "idea_base": "La paradoja de la clase media: Por qué ganar más dinero a menudo te hace sentir más atrapado",
+    "used": true
+  },
+  {
+    "idea_base": "El 'Efecto Veblen': La trampa psicológica de comprar cosas caras solo porque son caras",
+    "used": true
+  },
+  {
+    "idea_base": "La regla de las 72 horas: Cómo purgar tus deseos antes de darles tu tarjeta de crédito",
+    "used": true
+  },
+  {
+    "idea_base": "Arbitraje de habilidades: Cómo ganar en un mercado internacional vendiendo lo que en tu país es básico",
+    "used": true
+  },
+  {
+    "idea_base": "La trampa de los 'Ingresos de Vanidad': Por qué facturar un millón no sirve de nada si tu margen es del 1%",
+    "used": true
+  },
+  {
+    "idea_base": "El hack del 'Menú Fijo': El secreto de los multimillonarios para eliminar la fatiga de decisión diaria",
+    "used": true
+  },
+  {
+    "idea_base": "Cómo negociar tu aumento",
+    "used": true
+  },
+  {
+    "idea_base": "Top 5 formas de invertir de forma pasiva",
+    "used": true
+  },
+  {
+    "idea_base": "Habilidades con IA mejor pagadas",
+    "used": true
+  },
+  {
+    "idea_base": "Por qué tu casa propia NO es una inversión (y lo que los bancos no quieren que calcules)",
+    "used": true
+  },
+  {
+    "idea_base": "El método 'Feynman' para aprender finanzas: Si no puedes explicárselo a un niño, estás perdiendo dinero",
+    "used": true
+  },
+  {
+    "idea_base": "La regla del 50/30/20 modificada: El ajuste secreto para retirarte en menos de 10 años",
+    "used": true
+  },
+  {
+    "idea_base": "La trampa del estilo de vida 'inflado': Cómo el aumento de sueldo sabotea silenciosamente tu libertad",
+    "used": true
+  },
+  {
+    "idea_base": "El poder de los 'Activos Invisibles': Por qué tu reputación y tu red de contactos valen más que tu cuenta de ahorros",
+    "used": true
+  },
+  {
+    "idea_base": "El truco del 'Presupuesto Base Cero': Cómo asignar un trabajo a cada centavo antes de gastarlo",
+    "used": true
+  },
+  {
+    "idea_base": "La ilusión de la diversificación: Por qué tener 50 acciones diferentes podría estar matando tus retornos",
+    "used": true
+  },
+  {
+    "idea_base": "Por qué los ricos no compran marcas: El sutil arte del lujo silencioso y la calidad sin logos",
+    "used": true
+  },
+  {
+    "idea_base": "El concepto de 'F*ck-You Money': La cantidad exacta que necesitas para poder renunciar a cualquier empleo mañana",
+    "used": true
+  },
+  {
+    "idea_base": "El 'Efecto Giffen': Productos extraños que la gente compra más cuando suben de precio y cómo evitarlos",
+    "used": true
+  },
+  {
+    "idea_base": "La trampa de las tarjetas de débito: Por qué usar efectivo o crédito inteligente protege mejor tus finanzas",
+    "used": true
+  },
+  {
+    "idea_base": "Por qué tener un solo cliente en tu negocio de freelance es exactamente igual que ser un empleado sin derechos",
+    "used": true
+  },
+  {
+    "idea_base": "El coste del 'Sí': Cómo cada compromiso social innecesario drena tu energía y tu billetera",
+    "used": true
+  },
+  {
+    "idea_base": "La regla de los 5 minutos para vencer la procrastinación en tus proyectos secundarios",
+    "used": true
+  },
+  {
+    "idea_base": "El hack de los 'Impuestos Legales': Cómo los ricos usan las estructuras corporativas para pagar menos legalmente",
+    "used": true
+  },
+  {
+    "idea_base": "Por qué el 'ahorro hormiga' no es suficiente: La necesidad de enfocarse en aumentar ingresos, no solo recortar gastos",
+    "used": true
+  },
+  {
+    "idea_base": "La teoría del 'Océano Azul' para tu carrera: Cómo posicionarse donde no tengas competencia",
+    "used": true
+  },
+  {
+    "idea_base": "El peligro de las inversiones 'de moda': Cómo evitar perder tus ahorros en la última criptomoneda o meme stock",
+    "used": true
+  },
+  {
+    "idea_base": "La regla de la 'Hora Dorada': Dedicar la primera hora del día a tu proyecto más rentable antes de responder correos",
+    "used": true
+  },
+  {
+    "idea_base": "La falacia del costo hundido: Por qué seguir en ese negocio o empleo que odias te cuesta el doble cada día",
+    "used": true
+  },
+  {
+    "idea_base": "El truco de la 'Falsa Recompensa': Cómo reprogramar tu cerebro para celebrar el ahorro en lugar del gasto",
+    "used": true
+  },
+  {
+    "idea_base": "Por qué deberías contratar a tu primer asistente virtual incluso si crees que no puedes permitírtelo",
+    "used": true
+  },
+  {
+    "idea_base": "El método del 'Hábito Atómico' financiero: Cómo automatizar micro-inversiones diarias de 5 dólares",
+    "used": true
+  },
+  {
+    "idea_base": "La paradoja del ahorro: Cómo ahorrar demasiado en las cosas equivocadas frena tu crecimiento profesional",
+    "used": true
+  },
+  {
+    "idea_base": "El arte del 'Micro-SaaS': Cómo crear un pequeño software que resuelva un problema y genere ingresos recurrentes",
+    "used": true
+  },
+  {
+    "idea_base": "Por qué el minimalismo digital es el mejor hack de productividad y ahorro que existe",
+    "used": true
+  },
+  {
+    "idea_base": "La trampa de la comodidad: Por qué la estabilidad de un salario mensual es el mayor anestésico para tu potencial",
+    "used": true
+  },
+  {
+    "idea_base": "La regla de los 3 filtros para evaluar cualquier oportunidad de negocio en menos de un minuto",
+    "used": true
+  },
+  {
+    "idea_base": "Cómo negociar tu alquiler: El guion exacto de 4 frases para bajar tu renta mensual",
+    "used": true
+  },
+  {
+    "idea_base": "La regla del 'Doble o Nada' en compras de ocio: Si no puedes comprarlo dos veces en efectivo, no puedes permitírtelo",
+    "used": true
+  },
+  {
+    "idea_base": "El poder del apalancamiento digital: Cómo crear un producto digital una vez y venderlo infinitas veces mientras duermes",
+    "used": true
+  },
+  {
+    "idea_base": "La paradoja de la riqueza: Por qué los que más presumen de dinero suelen ser los que más deudas tienen",
+    "used": true
+  },
+  {
+    "idea_base": "El hack del 'Día sin Gastos': Cómo introducir un día de gasto cero a la semana acelera tus metas de ahorro",
+    "used": true
+  },
+  {
+    "idea_base": "Por qué los seguros de vida con ahorro son a menudo un mal negocio (y qué deberías contratar en su lugar)",
+    "used": true
+  },
+  {
+    "idea_base": "El concepto de 'Lifestyle Inflation' (Inflación del estilo de vida): El asesino silencioso de la riqueza joven",
+    "used": true
+  },
+  {
+    "idea_base": "La trampa de los cursos online: Por qué acumular certificados sin ejecutar proyectos reales te mantiene estancado",
+    "used": false
+  },
+  {
+    "idea_base": "Cómo usar la regla 10/10/10 para tomar decisiones financieras difíciles sin arrepentimientos",
+    "used": false
+  },
+  {
+    "idea_base": "Por qué delegar tareas domésticas no es un lujo, sino una de las mejores inversiones financieras",
+    "used": false
+  },
+  {
+    "idea_base": "El mito del 'ingreso pasivo' 100% real: La verdad sobre el mantenimiento y el esfuerzo inicial que nadie te cuenta",
+    "used": false
+  },
+  {
+    "idea_base": "La trampa de los descuentos: Por qué comprar algo a mitad de precio que no necesitabas sigue siendo perder dinero",
+    "used": false
+  },
+  {
+    "idea_base": "El método de la 'Bola de Nieve' vs 'Avalancha' para pagar tus deudas de la forma más rápida",
+    "used": false
+  },
+  {
+    "idea_base": "Por qué la gratificación retrasada es el predictor número uno del éxito financiero a largo plazo",
+    "used": false
+  },
+  {
+    "idea_base": "La regla del 'Costo por Uso': Cómo calcular el valor real de lo que compras antes de pagar",
+    "used": false
+  },
+  {
+    "idea_base": "El hack de los 'Contratos de Automatización': Cómo programar que tus aumentos de sueldo vayan 100% a inversión",
+    "used": false
+  },
+  {
+    "idea_base": "Por qué buscar consejos financieros de personas que no están donde tú quieres estar es un grave error",
+    "used": false
+  },
+  {
+    "idea_base": "La regla de la 'Incomodidad Voluntaria': Cómo practicar la austeridad temporal entrena tu mente contra el consumismo",
+    "used": false
+  },
+  {
+    "idea_base": "La trampa del 'Perfeccionismo': Por qué lanzar un producto imperfecto te hace ganar más que esperar al momento ideal",
     "used": false
   }
 ]

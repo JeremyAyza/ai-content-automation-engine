@@ -20,3 +20,7 @@ models
 **.exe
 # future versions
 **/video_content_generator
+
+**/desktop.ini
+import_report.csv
+extracted_scripts.json

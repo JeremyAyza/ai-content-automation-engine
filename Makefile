@@ -30,3 +30,6 @@ icg-s-all:
 
 icg-import-images:
 	poetry run python import_images.py
+
+icg-extract-scripts:
+	poetry run python extract_scripts.py

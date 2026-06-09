@@ -68,18 +68,37 @@ def main():
             Messenger.success("Cycle completed. Starting next cycle...")
     elif args.step == PipelineStep.FIXED:
         Messenger.info("--- Starting Fixed Generation Loop (Finishing existing only) ---")
+        from flows.image_content_generator.pipeline.schemas import State
+        
+        state_to_step = {
+            State.SCRIPT_GENERATED: PipelineStep.STEP2,
+            State.IMAGES_GENERATED: PipelineStep.STEP3,
+            State.AUDIO_GENERATED: PipelineStep.STEP4,
+            State.VIDEO_GENERATED: PipelineStep.STEP5,
+            State.VIDEO_SUBTITLED: PipelineStep.STEP6,
+            State.VIDEO_MUSIC_GENERATED: PipelineStep.STEP7,
+            State.NEW: PipelineStep.STEP1
+        }
+        
         while True:
             incomplete = pipeline.store.get_incomplete_idea()
             if not incomplete:
                 Messenger.success("All ideas are finished! Exiting fixed loop.")
                 break
                 
-            for step in steps:
-                if step == PipelineStep.STEP1:
-                    step_methods[step](force_new=False)
-                else:
-                    step_methods[step]()
-            Messenger.success("Cycle completed. Checking for more incomplete ideas...")
+            Messenger.info(f"\n--- Procesando idea {incomplete.id} (Estado: {incomplete.state.value}) ---")
+            
+            step_to_run = state_to_step.get(incomplete.state)
+            if not step_to_run:
+                Messenger.error(f"Estado desconocido: {incomplete.state}")
+                break
+                
+            if step_to_run == PipelineStep.STEP1:
+                step_methods[step_to_run](force_new=False)
+            else:
+                step_methods[step_to_run]()
+                
+            Messenger.success(f"Paso {step_to_run.value} completado para idea {incomplete.id}. Verificando siguiente paso...")
     else:
         # Run specific step
         if args.step == PipelineStep.STEP1:

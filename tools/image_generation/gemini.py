@@ -156,13 +156,22 @@ class GeminiImageGenerator(GeminiBase):
 
     def _extract_image(self, response: Any) -> Image.Image:
         """Extracts the image from the Gemini response."""
+        import io
         image: Optional[Image.Image] = None
         for part in response.parts:
             if part.text:
                 Messenger.info(f"Gemini thoughts: {part.text}")
-            elif part.inline_data:
-                image = cast(Image.Image, part.as_image())
+            elif getattr(part, 'inline_data', None) and getattr(part.inline_data, 'data', None):
+                image = Image.open(io.BytesIO(part.inline_data.data))
                 break
+            elif getattr(part, 'image', None) and getattr(part.image, 'image_bytes', None):
+                image = Image.open(io.BytesIO(part.image.image_bytes))
+                break
+            elif hasattr(part, 'as_image'):
+                obj = part.as_image()
+                if hasattr(obj, 'image_bytes'):
+                    image = Image.open(io.BytesIO(obj.image_bytes))
+                    break
 
         if image is None:
             raise RuntimeError("❌ No se encontró imagen en la respuesta de Gemini")
