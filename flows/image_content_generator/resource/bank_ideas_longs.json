@@ -1,6 +1,26 @@
 [
-{
-  "idea_base": "10 habilidades financieras que te harán rico sin importar tu sueldo",
-  "used": false
-}
+  {
+    "idea_base": "10 habilidades financieras que te harán rico sin importar tu sueldo",
+    "used": true
+  },
+  {
+    "idea_base": "10 habitos que harán productivo y exitoso",
+    "used": false
+  },
+  {
+    "idea_base": "Guia de 10 pasos para tu libertad financiera",
+    "used": false
+  },
+  {
+    "idea_base": "10 eneseñansas de Padre rico padre pobre",
+    "used": false
+  },
+  {
+    "idea_base": "Por qué tu cerebro te mantiene pobre y cómo 'hackearlo' para pensar como millonario",
+    "used": false
+  },
+  {
+    "idea_base": "La crisis de los 30 años: Por qué es más difícil hacerse rico después de los 30 (y cómo evitarlo)",
+    "used": false
+  }
 ]
