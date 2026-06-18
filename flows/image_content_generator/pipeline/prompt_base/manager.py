@@ -1,3 +1,5 @@
+import json
+from pathlib import Path
 import random
 from typing import Sequence, Type
 
@@ -8,6 +10,7 @@ from flows.image_content_generator.pipeline.prompt_base.models import (
     CategoryHandler,
     SelectedConfig,
 )
+from tools.common.messenger import Messenger
 from tools.video_editing.whisper_schemas import WhisperTranscriptionSegment
 
 
@@ -61,3 +64,27 @@ class BasePromptManager(BaseModel):
             scenes_data=scenes_data,
             expected_count=len(script_scenes)
         )
+
+    def _get_idea_from_bank(self, bank_path: Path) -> str:
+        """Reads the ideas bank, finds an unused idea, marks it as used, and returns it."""
+        if not bank_path.exists():
+            return ""
+
+        try:
+            with open(bank_path, 'r', encoding='utf-8') as f:
+                ideas = json.load(f)
+
+            for idea in ideas:
+                if not idea.get("used", True):
+                    idea["used"] = True
+                    # Save back to file
+                    with open(bank_path, 'w', encoding='utf-8') as f:
+                        json.dump(ideas, f, indent=2, ensure_ascii=False)
+                    Messenger.info(f"💡 Banco de Ideas: Usando idea base '{idea['idea_base']}'")
+                    return idea.get("idea_base", "")
+
+            Messenger.warning("💡 Banco de Ideas: Todas las ideas han sido usadas. Se generará una idea aleatoria.")
+            return ""
+        except Exception as e:
+            Messenger.error(f"Error reading ideas bank: {e}")
+            return ""

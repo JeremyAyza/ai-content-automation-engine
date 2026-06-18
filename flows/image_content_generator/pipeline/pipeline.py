@@ -65,6 +65,16 @@ class Pipeline(BaseModelTool):
     MIN_AUDIO_SIZE_BYTES: ClassVar[int] = 1024
     BG_MUSIC_VOLUME: ClassVar[float] = 0.18
 
+    # Video Dimension Configurations
+    SHORT_WIDTH: ClassVar[int] = 1080
+    SHORT_HEIGHT: ClassVar[int] = 1920
+    LONG_WIDTH: ClassVar[int] = 1920
+    LONG_HEIGHT: ClassVar[int] = 1080
+
+    # Subtitle Font Sizes
+    SHORT_FONT_SIZE: ClassVar[int] = 80
+    LONG_FONT_SIZE: ClassVar[int] = 55
+
     # Standard Scene Patterns
     SCENE_IMAGE_PATTERN: ClassVar[str] = "scene_{}.jpg"
     SCENE_AUDIO_PATTERN: ClassVar[str] = "scene_{}.wav"
@@ -457,7 +467,15 @@ class Pipeline(BaseModelTool):
                 )
 
             Messenger.info(f"Stitching Scene {i+1} with 3-part dynamic effect...")
-            self.ffmpeg.create_composite_scene_video(image_path, audio_path, video_path)
+            width = self.SHORT_WIDTH if self.orientation == VideoOrientation.SHORT else self.LONG_WIDTH
+            height = self.SHORT_HEIGHT if self.orientation == VideoOrientation.SHORT else self.LONG_HEIGHT
+            self.ffmpeg.create_composite_scene_video(
+                img_path=image_path,
+                audio_path=audio_path,
+                out_path=video_path,
+                width=width,
+                height=height
+            )
             scene_videos.append(video_path)
 
         # 4. Final video concatenation.
@@ -511,7 +529,8 @@ class Pipeline(BaseModelTool):
 
         # 5. Add Subtitles
         Messenger.info("Adding subtitles to final video...")
-        self.ffmpeg.add_subtitles_to_video(raw_video, subs_srt, subtitled_video)
+        font_size = self.SHORT_FONT_SIZE if self.orientation == VideoOrientation.SHORT else self.LONG_FONT_SIZE
+        self.ffmpeg.add_subtitles_to_video(raw_video, subs_srt, subtitled_video, font_size=font_size)
 
         # 6. Updates state.
         idea_obj.state = State.VIDEO_SUBTITLED

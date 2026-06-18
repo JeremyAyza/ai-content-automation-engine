@@ -17,9 +17,6 @@ from tools.text_generation.gemini import GeminiTextGenerator
 
 from flows.image_content_generator.pipeline.prompt_shorts.sprunkis import constants as sprunkis_constants
 
-from pathlib import Path
-import json
-
 class PromptManagerShorts(BasePromptManager):
     """Manager specific to Short videos (9:16), aggregating modular categories."""
 
@@ -30,30 +27,6 @@ class PromptManagerShorts(BasePromptManager):
         FinancesHandler,  # Comentado para enfocarnos en Sprunkis
         # SprunkisHandler,
     ]
-
-    def _get_idea_from_bank(self, bank_path: Path) -> str:
-        """Reads the ideas bank, finds an unused idea, marks it as used, and returns it."""
-        if not bank_path.exists():
-            return ""
-
-        try:
-            with open(bank_path, 'r', encoding='utf-8') as f:
-                ideas = json.load(f)
-
-            for idea in ideas:
-                if not idea.get("used", True):
-                    idea["used"] = True
-                    # Save back to file
-                    with open(bank_path, 'w', encoding='utf-8') as f:
-                        json.dump(ideas, f, indent=2, ensure_ascii=False)
-                    Messenger.info(f"💡 Banco de Ideas: Usando idea base '{idea['idea_base']}'")
-                    return idea.get("idea_base", "")
-
-            Messenger.warning("💡 Banco de Ideas: Todas las ideas han sido usadas. Se generará una idea aleatoria.")
-            return ""
-        except Exception as e:
-            Messenger.error(f"Error reading ideas bank: {e}")
-            return ""
 
     def generate_full_story(
         self, content_gen: GeminiTextGenerator, ideas_bank_path: Path = None

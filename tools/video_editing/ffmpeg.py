@@ -172,7 +172,9 @@ class FFmpegTool(BaseModelTool):
         self,
         img_path: Path,
         audio_path: Path,
-        out_path: Path
+        out_path: Path,
+        width: int = 1080,
+        height: int = 1920
     ) -> None:
         """
         Creates a video with a 3-part dynamic sequence:
@@ -185,9 +187,6 @@ class FFmpegTool(BaseModelTool):
         total_frames = int(duration * fps)
         f1 = total_frames * 0.3
         f2 = total_frames * 0.7
-
-        width = 1080
-        height = 1920
 
         # Zoom expression (per frame)
         # Part 1: 1.0 -> 1.05 | Part 2: 1.05 | Part 3: 1.05 -> 1.0
@@ -202,7 +201,7 @@ class FFmpegTool(BaseModelTool):
         # Rotation filter: constant soft swing
         rotate_filter = "rotate='1*PI/180*sin(2*PI*t/3)'"
 
-        pre_filter = "scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920"
+        pre_filter = f"scale={width}:{height}:force_original_aspect_ratio=increase,crop={width}:{height}"
 
         cmd = f"""
         ffmpeg -y -loop 1 -i {shlex.quote(str(img_path))} \
