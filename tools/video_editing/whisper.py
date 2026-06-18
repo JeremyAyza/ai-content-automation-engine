@@ -42,15 +42,15 @@ class WhisperTool(BaseModelTool):
             ]
             self._run(cmd_args)
 
-        with open(json_path, 'r', encoding='utf-8') as f:
-            try:
-                return WhisperTranscription.model_validate(json.load(f))
-            except json.JSONDecodeError:
-                # If JSON is corrupted, delete it to ensure next run regenerates
-                json_path.unlink(missing_ok=True)
-                raise RuntimeError(
-                    f"JSON corrupted: {json_path}. Deleted to allow retry."
-                )
+        try:
+            with open(json_path, 'r', encoding='utf-8', errors='replace') as f:
+                content = f.read()
+            return WhisperTranscription.model_validate(json.loads(content))
+        except json.JSONDecodeError as e:
+            raise RuntimeError(
+                f"Este paso falló porque el archivo de transcripción está corrupto (JSONDecodeError).\n"
+                f"Sugerencia: Borrar este archivo corrupto '{json_path}' y reiniciar el paso IMAGES_GENERATED en el CSV."
+            )
 
     def get_transcription_segments(
         self,

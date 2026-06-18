@@ -3,8 +3,9 @@ from enum import Enum
 from pathlib import Path
 
 from flows.image_content_generator.pipeline.pipeline import Pipeline
-from flows.image_content_generator.pipeline.schemas import VideoOrientation
+from flows.image_content_generator.pipeline.schemas import VideoOrientation, State
 from tools.common.messenger import Messenger
+from tools.common.terminal import disable_quick_edit
 
 RESOURCE_BASE = Path("flows/image_content_generator/resource")
 LONG_OUT_BASE = Path("flows/image_content_generator/out_long")
@@ -22,8 +23,6 @@ class PipelineStep(str, Enum):
     STEP7 = "step7"
     FIXED = "fixed"
 
-
-from tools.common.terminal import disable_quick_edit
 
 def main():
     # Disable Windows console QuickEdit mode to prevent freezes when running in background
@@ -68,7 +67,6 @@ def main():
             Messenger.success("Cycle completed. Starting next cycle...")
     elif args.step == PipelineStep.FIXED:
         Messenger.info("--- Starting Fixed Generation Loop (Finishing existing only) ---")
-        from flows.image_content_generator.pipeline.schemas import State
         
         state_to_step = {
             State.SCRIPT_GENERATED: PipelineStep.STEP2,

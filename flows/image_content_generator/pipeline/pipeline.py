@@ -58,6 +58,13 @@ class Pipeline(BaseModelTool):
     FINAL_SUBS: ClassVar[str] = "final_subs.srt"
     FINAL_VIDEO: ClassVar[str] = "final_video.mp4"
 
+    # Configuration
+    AUDIO_SPEEDUP_FACTOR: ClassVar[float] = 1.07
+    AUDIO_BATCH_SIZE: ClassVar[int] = 15
+    MIN_AUDIO_DURATION: ClassVar[float] = 0.5
+    MIN_AUDIO_SIZE_BYTES: ClassVar[int] = 1024
+    BG_MUSIC_VOLUME: ClassVar[float] = 0.18
+
     # Standard Scene Patterns
     SCENE_IMAGE_PATTERN: ClassVar[str] = "scene_{}.jpg"
     SCENE_AUDIO_PATTERN: ClassVar[str] = "scene_{}.wav"
@@ -276,6 +283,78 @@ class Pipeline(BaseModelTool):
         self.store.save(idea_obj)
         Messenger.success(f"Step 2 ready: {State.IMAGES_GENERATED} finalized.\n")
 
+    def _synthesize_batch_audio(self, chunk: List[Any], batch_num: int, idea_obj: Any) -> Path:
+        chunk_filename = self.BATCH_AUDIO_PATTERN.format(batch_num)
+        chunk_audio_path = self.get_idea_asset_path(
+            idea_obj.id, self.AUDIOS_DIR, chunk_filename
+        )
+
+        if not chunk_audio_path.exists():
+            Messenger.info(f"Synthesizing audio for Batch {batch_num}...")
+            chunk_text = "\n\n".join([s.narration for s in chunk])
+            formatted_audio = self.prompt_manager.get_audio_prompt(chunk_text)
+            self.audio_gen.text_to_speech(formatted_audio, chunk_audio_path)
+
+            # Apply speedup natively to the generated batch audio
+            Messenger.info(f"Applying {self.AUDIO_SPEEDUP_FACTOR}x speedup to Batch {batch_num}...")
+            temp_audio = chunk_audio_path.with_suffix(".temp.wav")
+            self.ffmpeg.speed_up_audio(chunk_audio_path, temp_audio, factor=self.AUDIO_SPEEDUP_FACTOR)
+            temp_audio.replace(chunk_audio_path)
+        else:
+            Messenger.info(f"Using cached audio for Batch {batch_num}...")
+            
+        return chunk_audio_path
+
+    def _align_batch_audio(self, chunk: List[Any], chunk_audio_path: Path, batch_num: int) -> AudioAlignment:
+        Messenger.info(f"Transcribing Batch {batch_num} for alignment...")
+        segments = self.whisper.get_transcription_segments(chunk_audio_path)
+
+        Messenger.info(f"Aligning Batch {batch_num} via Gemini...")
+        chunk_script_texts = [s.narration for s in chunk]
+        prompt = self.prompt_manager.get_alignment_prompt(segments, chunk_script_texts)
+        return self.text_gen.generate_text(prompt, AudioAlignment, low=True)
+
+    def _split_batch_audio(
+        self, alignment: AudioAlignment, chunk: List[Any], chunk_audio_path: Path,
+        start_idx: int, idea_obj: Any, batch_num: int
+    ):
+        if len(alignment.alignments) != len(chunk):
+            chunk_audio_path.unlink(missing_ok=True)
+            chunk_audio_path.with_name(chunk_audio_path.name + ".json").unlink(missing_ok=True)
+            error_msg = (
+                f"Alignment mismatch in Batch {batch_num}: "
+                f"Expected {len(chunk)}, got {len(alignment.alignments)}"
+            )
+            raise RuntimeError(error_msg)
+
+        Messenger.info(f"Splitting Batch {batch_num} into {len(chunk)} scene audios...")
+        for al in alignment.alignments:
+            # al.scene_number is 1-indexed relative to the chunk (1 to 10)
+            absolute_scene_num = start_idx + al.scene_number
+            out_path = self.get_idea_asset_path(
+                idea_obj.id,
+                self.AUDIOS_DIR,
+                self.SCENE_AUDIO_PATTERN.format(absolute_scene_num)
+            )
+
+            duration = al.end_time - al.start_time
+            if duration < self.MIN_AUDIO_DURATION:
+                chunk_audio_path.unlink(missing_ok=True)
+                chunk_audio_path.with_name(
+                    chunk_audio_path.name + ".json"
+                ).unlink(missing_ok=True)
+                raise RuntimeError(
+                    f"Invalid duration (Scene {absolute_scene_num}): "
+                    f"{duration:.3f}s. Forcing retry."
+                )
+
+            self.ffmpeg.split_audio(
+                audio_in=chunk_audio_path,
+                audio_out=out_path,
+                start_time=al.start_time,
+                duration=duration
+            )
+
     @retry(max_attempts=3)
     def step3_generate_audios(self):
         """
@@ -291,12 +370,11 @@ class Pipeline(BaseModelTool):
         script_data = self.load_json(idea_obj.id, self.SCRIPT_JSON, VideoScript)
 
         total_scenes = len(script_data.scenes)
-        batch_size = 15
 
-        for start_idx in range(0, total_scenes, batch_size):
-            end_idx = min(start_idx + batch_size, total_scenes)
+        for start_idx in range(0, total_scenes, self.AUDIO_BATCH_SIZE):
+            end_idx = min(start_idx + self.AUDIO_BATCH_SIZE, total_scenes)
             chunk = script_data.scenes[start_idx:end_idx]
-            batch_num = (start_idx // batch_size) + 1
+            batch_num = (start_idx // self.AUDIO_BATCH_SIZE) + 1
 
             Messenger.info(f"Processing Batch {batch_num}: Scenes {start_idx + 1} to {end_idx}")
 
@@ -316,74 +394,13 @@ class Pipeline(BaseModelTool):
                 continue
 
             # 2. Synthesize chunk audio
-            chunk_filename = self.BATCH_AUDIO_PATTERN.format(batch_num)
-            chunk_audio_path = self.get_idea_asset_path(
-                idea_obj.id, self.AUDIOS_DIR, chunk_filename
-            )
+            chunk_audio_path = self._synthesize_batch_audio(chunk, batch_num, idea_obj)
 
-            if not chunk_audio_path.exists():
-                Messenger.info(f"Synthesizing audio for Batch {batch_num}...")
-                chunk_text = "\n\n".join([s.narration for s in chunk])
-                formatted_audio = self.prompt_manager.get_audio_prompt(chunk_text)
-                self.audio_gen.text_to_speech(formatted_audio, chunk_audio_path)
+            # 3 & 4. Transcribe and Align chunk
+            alignment = self._align_batch_audio(chunk, chunk_audio_path, batch_num)
 
-                # Apply 1.10x speedup natively to the generated batch audio
-                Messenger.info(f"Applying 1.10x speedup to Batch {batch_num}...")
-                temp_audio = chunk_audio_path.with_suffix(".temp.wav")
-                self.ffmpeg.speed_up_audio(chunk_audio_path, temp_audio, factor=1.1)
-                temp_audio.replace(chunk_audio_path)
-            else:
-                Messenger.info(f"Using cached audio for Batch {batch_num}...")
-
-            # 3. Transcribe chunk
-            Messenger.info(f"Transcribing Batch {batch_num} for alignment...")
-            segments = self.whisper.get_transcription_segments(chunk_audio_path)
-
-            # 4. Align chunk
-            Messenger.info(f"Aligning Batch {batch_num} via Gemini...")
-            chunk_script_texts = [s.narration for s in chunk]
-            prompt = self.prompt_manager.get_alignment_prompt(segments, chunk_script_texts)
-            alignment = self.text_gen.generate_text(prompt, AudioAlignment, low=True)
-
-            # 5. Validate alignment count
-            if len(alignment.alignments) != len(chunk):
-                # Delete corrupted chunk to force retry
-                chunk_audio_path.unlink(missing_ok=True)
-                chunk_audio_path.with_name(chunk_audio_path.name + ".json").unlink(missing_ok=True)
-                error_msg = (
-                    f"Alignment mismatch in Batch {batch_num}: "
-                    f"Expected {len(chunk)}, got {len(alignment.alignments)}"
-                )
-                raise RuntimeError(error_msg)
-
-            # 6. Split and Save
-            Messenger.info(f"Splitting Batch {batch_num} into {len(chunk)} scene audios...")
-            for al in alignment.alignments:
-                # al.scene_number is 1-indexed relative to the chunk (1 to 10)
-                absolute_scene_num = start_idx + al.scene_number
-                out_path = self.get_idea_asset_path(
-                    idea_obj.id,
-                    self.AUDIOS_DIR,
-                    self.SCENE_AUDIO_PATTERN.format(absolute_scene_num)
-                )
-
-                duration = al.end_time - al.start_time
-                if duration < 0.5:
-                    chunk_audio_path.unlink(missing_ok=True)
-                    chunk_audio_path.with_name(
-                        chunk_audio_path.name + ".json"
-                    ).unlink(missing_ok=True)
-                    raise RuntimeError(
-                        f"Invalid duration (Scene {absolute_scene_num}): "
-                        f"{duration:.3f}s. Forcing retry."
-                    )
-
-                self.ffmpeg.split_audio(
-                    audio_in=chunk_audio_path,
-                    audio_out=out_path,
-                    start_time=al.start_time,
-                    duration=duration
-                )
+            # 5 & 6. Validate and Split
+            self._split_batch_audio(alignment, chunk, chunk_audio_path, start_idx, idea_obj, batch_num)
 
             # 7. Cleanup chunk audio
             chunk_audio_path.unlink(missing_ok=True)
@@ -431,8 +448,8 @@ class Pipeline(BaseModelTool):
                 scene_videos.append(video_path)
                 continue
 
-            # Validate audio is not empty/corrupt (min 1KB)
-            if not audio_path.exists() or audio_path.stat().st_size < 1024:
+            # Validate audio is not empty/corrupt
+            if not audio_path.exists() or audio_path.stat().st_size < self.MIN_AUDIO_SIZE_BYTES:
                 raise RuntimeError(
                     f"Scene {i+1} audio missing or corrupt: {audio_path} "
                     f"({audio_path.stat().st_size if audio_path.exists() else 0} bytes). "
@@ -536,7 +553,7 @@ class Pipeline(BaseModelTool):
             subtitled_video,
             selected_music,
             final_with_music,
-            bg_volume=0.18  # Subtle atmosphere
+            bg_volume=self.BG_MUSIC_VOLUME
         )
 
         # 5. Updates state.
