@@ -87,6 +87,8 @@ class Pipeline(BaseModelTool):
 
     # Standard Tracking Files
     IDEAS_TRACKING_CSV: ClassVar[str] = "ideas_tracking.csv"
+    SHORTS_IDEAS_BANK: ClassVar[str] = "bank_ideas_shorts.json"
+    LONGS_IDEAS_BANK: ClassVar[str] = "bank_ideas_longs.json"
 
     def __init__(self, **kwargs: Any):
         super().__init__(**kwargs)
@@ -235,7 +237,8 @@ class Pipeline(BaseModelTool):
         Messenger.info("\n--- Generating cinematic concept and script ---")
 
         # 1. Generates full story (Concept + Script)
-        bank_path = self.resource_base / "bank_ideas_base.json"
+        bank_filename = self.SHORTS_IDEAS_BANK if self.orientation == VideoOrientation.SHORT else self.LONGS_IDEAS_BANK
+        bank_path = self.resource_base / bank_filename
         idea_data, script, category = self.prompt_manager.generate_full_story(
             self.text_gen, ideas_bank_path=bank_path
         )
