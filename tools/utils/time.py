@@ -66,7 +66,10 @@ def sleep_with_countdown(seconds: int, message: str = "Esperando") -> None:
         mins, secs = divmod(remaining, 60)
         time_format = f"{mins:02d}:{secs:02d}"
         # Print with carriage return (\r) to overwrite the same line
-        sys.stdout.write(f"\r⏳ {message}: {time_format} restantes...")
+        try:
+            sys.stdout.write(f"\r\u23f3 {message}: {time_format} restantes...")
+        except UnicodeEncodeError:
+            sys.stdout.write(f"\r[Wait] {message}: {time_format} restantes...")
         sys.stdout.flush()
         time.sleep(1)
     

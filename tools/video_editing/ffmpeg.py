@@ -5,7 +5,7 @@ shlex.quote = _win_quote
 import subprocess
 import tempfile
 from pathlib import Path
-from typing import List
+from typing import ClassVar, List
 
 from tools.common.base_model import BaseModelTool
 from tools.common.messenger import Messenger
@@ -15,6 +15,7 @@ class FFmpegTool(BaseModelTool):
     """
     Tool for basic video editing operations using FFmpeg.
     """
+    DEFAULT_SPEEDUP_FACTOR: ClassVar[float] = 1.07
 
     def _run(self, cmd: str) -> None:
         cmd_clean = cmd.replace('\n', ' ').strip()
@@ -39,7 +40,7 @@ class FFmpegTool(BaseModelTool):
         )
         self._run(cmd)
 
-    def speed_up_audio(self, audio_in: Path, audio_out: Path, factor: float = 1.1) -> None:
+    def speed_up_audio(self, audio_in: Path, audio_out: Path, factor: float = DEFAULT_SPEEDUP_FACTOR) -> None:
         """
         Speeds up an audio file by the given factor without changing pitch.
         """
@@ -174,39 +175,60 @@ class FFmpegTool(BaseModelTool):
         audio_path: Path,
         out_path: Path,
         width: int = 1080,
-        height: int = 1920
+        height: int = 1920,
+        zoom_max: float = 1.05,
+        rotate_angle: float = 1.0,
+        zoom_blur_transition: bool = False
     ) -> None:
         """
         Creates a video with a 3-part dynamic sequence:
-        1. Zoom In (30%) - from 1.0 to 1.2
-        2. Soft Swing Loop (40%) - at 1.2
-        3. Zoom Out (30%) - from 1.2 to 1.0
+        1. Zoom In (30%)
+        2. Soft Swing Loop (40%)
+        3. Zoom Out (30%) (or Zoom Blur Transition Out for long videos)
         """
         duration = self.get_audio_duration(audio_path)
         fps = 30
         total_frames = int(duration * fps)
-        f1 = total_frames * 0.3
-        f2 = total_frames * 0.7
 
-        # Zoom expression (per frame)
-        # Part 1: 1.0 -> 1.05 | Part 2: 1.05 | Part 3: 1.05 -> 1.0
-        z_expr = (
-            f"if(lt(on,{f1}), 1.0+0.05*(on/{f1}), "
-            f"if(lt(on,{f2}), 1.05, "
-            f"1.05-0.05*((on-{f2})/({total_frames}-{f2}))))"
-        )
+        # Transition parameters
+        transition_frames = 9  # ~0.3 seconds transition at 30 fps
+        ft = max(0, total_frames - transition_frames)
+        t_start = ft / fps
+
+        # Zoom expression (per frame) using zoom_max
+        zoom_diff = zoom_max - 1.0
+        if zoom_blur_transition and total_frames > transition_frames:
+            # Zoom: from 1.0 to zoom_max until ft, then zoom in fast to zoom_max + 0.15 during transition
+            z_expr = (
+                f"if(lt(on,{ft}), 1.0+{zoom_diff:.3f}*(on/{ft}), "
+                f"{zoom_max:.3f}+0.150*((on-{ft})/{transition_frames}))"
+            )
+        else:
+            f1 = total_frames * 0.3
+            f2 = total_frames * 0.7
+            z_expr = (
+                f"if(lt(on,{f1}), 1.0+{zoom_diff:.3f}*(on/{f1}), "
+                f"if(lt(on,{f2}), {zoom_max:.3f}, "
+                f"{zoom_max:.3f}-{zoom_diff:.3f}*((on-{f2})/({total_frames}-{f2}))))"
+            )
+
         pos_filter = "x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)'"
         zoom_filter = f"zoompan=z='{z_expr}':d=1:{pos_filter}:s={width}x{height}:fps={fps},format=yuv420p"
 
-        # Rotation filter: constant soft swing
-        rotate_filter = "rotate='1*PI/180*sin(2*PI*t/3)'"
+        # Rotation filter: constant soft swing using rotate_angle
+        rotate_filter = f"rotate='{rotate_angle:.3f}*PI/180*sin(2*PI*t/3)'"
 
         pre_filter = f"scale={width}:{height}:force_original_aspect_ratio=increase,crop={width}:{height}"
+
+        # Combine video filters
+        vf_chain = f"{pre_filter},{zoom_filter},{rotate_filter}"
+        if zoom_blur_transition and total_frames > transition_frames:
+            vf_chain += f",boxblur=luma_radius=15:enable='gt(t,{t_start:.3f})'"
 
         cmd = f"""
         ffmpeg -y -loop 1 -i {shlex.quote(str(img_path))} \
           -i {shlex.quote(str(audio_path))} \
-          -vf "{pre_filter},{zoom_filter},{rotate_filter}" \
+          -vf "{vf_chain}" \
           -shortest \
           -c:v libx264 -b:v 10M -maxrate 10M -bufsize 20M -r 30 -c:a aac -pix_fmt yuv420p {shlex.quote(str(out_path))}
         """

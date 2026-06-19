@@ -13,32 +13,39 @@ class Messenger(BaseModel):
     """
 
     @staticmethod
+    def _safe_print(message: str) -> None:
+        try:
+            print(message)
+        except UnicodeEncodeError:
+            print(message.encode('ascii', 'replace').decode('ascii'))
+
+    @staticmethod
     def info(message: str) -> None:
-        print(message)
+        Messenger._safe_print(message)
 
     @staticmethod
     def success(message: str) -> None:
-        print(f"🚀 {message}")
+        Messenger._safe_print(f"🚀 {message}")
 
     @staticmethod
     def step_success(message: str) -> None:
-        print(f"✅ {message}")
+        Messenger._safe_print(f"✅ {message}")
 
     @staticmethod
     def warning(message: str) -> None:
-        print(f"⚠️ {message}")
+        Messenger._safe_print(f"⚠️ {message}")
 
     @staticmethod
     def error(message: str) -> None:
-        print(f"❌ {message}")
+        Messenger._safe_print(f"❌ {message}")
 
     @staticmethod
     def image(message: str) -> None:
-        print(f"🖼️ {message}")
+        Messenger._safe_print(f"🖼️ {message}")
 
     @staticmethod
     def audio(message: str) -> None:
-        print(f"🔊 {message}")
+        Messenger._safe_print(f"🔊 {message}")
 
     @staticmethod
     def usage(model: str, prompt: int, thoughts: int, output: int, total: int) -> None:

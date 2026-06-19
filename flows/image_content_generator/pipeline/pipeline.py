@@ -75,6 +75,12 @@ class Pipeline(BaseModelTool):
     SHORT_FONT_SIZE: ClassVar[int] = 80
     LONG_FONT_SIZE: ClassVar[int] = 55
 
+    # Zoom and Rotation (Swing) Configurations
+    SHORT_ZOOM_MAX: ClassVar[float] = 1.05
+    SHORT_ROTATE_ANGLE: ClassVar[float] = 1.0
+    LONG_ZOOM_MAX: ClassVar[float] = 1.02
+    LONG_ROTATE_ANGLE: ClassVar[float] = 0.3
+
     # Standard Scene Patterns
     SCENE_IMAGE_PATTERN: ClassVar[str] = "scene_{}.jpg"
     SCENE_AUDIO_PATTERN: ClassVar[str] = "scene_{}.wav"
@@ -456,7 +462,7 @@ class Pipeline(BaseModelTool):
                 idea_obj.id, self.VIDEOS_DIR, self.SCENE_VIDEO_PATTERN.format(i + 1)
             )
 
-            if video_path.exists():
+            if video_path.exists() and video_path.stat().st_size > 0:
                 Messenger.info(f"Skipping Scene {i+1} video: already exists.")
                 scene_videos.append(video_path)
                 continue
@@ -472,12 +478,19 @@ class Pipeline(BaseModelTool):
             Messenger.info(f"Stitching Scene {i+1} with 3-part dynamic effect...")
             width = self.SHORT_WIDTH if self.orientation == VideoOrientation.SHORT else self.LONG_WIDTH
             height = self.SHORT_HEIGHT if self.orientation == VideoOrientation.SHORT else self.LONG_HEIGHT
+            zoom_max = self.SHORT_ZOOM_MAX if self.orientation == VideoOrientation.SHORT else self.LONG_ZOOM_MAX
+            rotate_angle = self.SHORT_ROTATE_ANGLE if self.orientation == VideoOrientation.SHORT else self.LONG_ROTATE_ANGLE
+            zoom_blur_transition = (self.orientation == VideoOrientation.LONG)
+
             self.ffmpeg.create_composite_scene_video(
                 img_path=image_path,
                 audio_path=audio_path,
                 out_path=video_path,
                 width=width,
-                height=height
+                height=height,
+                zoom_max=zoom_max,
+                rotate_angle=rotate_angle,
+                zoom_blur_transition=zoom_blur_transition
             )
             scene_videos.append(video_path)
 
@@ -610,7 +623,7 @@ class Pipeline(BaseModelTool):
         # 3. Renames the final video.
         video_title = idea_obj.title if idea_obj.title else f"video_{idea_obj.id}"
         named_final = self.get_named_video_path(idea_obj.id, video_title)
-        final_video.rename(named_final)
+        final_video.replace(named_final)
 
         # 4. Updates state.
         idea_obj.state = State.COMPLETED
