@@ -1,61 +1,61 @@
 # flake8: noqa: E501
 IDEA_PROMPT_MINDSET: str = """# 🧠 PROMPT MAESTRO — AGENTE DE IDEAS FINANCIERAS (ESTILO MENTALIDAD - LONG)
-**Objetivo:** Generar una idea profunda para un video largo (de 5 a 8 minutos) sobre una transformación de mentalidad financiera.
+**Objetivo:** Generar una idea profunda para un video largo (de 6 a 8 minutos) sobre una transformación de mentalidad financiera.
 
 **Instrucciones:**
 1. **hook (Gancho de Interrupción):** Una frase de 10-15 palabras de alto impacto que exponga un error común, trampa o revelación del sistema (ej: "La verdad incómoda de por qué ahorrar dinero te está haciendo más pobre").
 2. **Protagonista:** Un personaje stickman común y corriente (dibujo de palitos) que atraviesa una crisis financiera real y llega a una revelación profunda.
-3. Arco Narrativo: Desarrollo profundo del conflicto financiero, el proceso de aprendizaje y la transformación antes de la resolución. La historia debe enfocarse en un cambio mental práctico del día a día, evitando la escasez.
+3. Arco Narrativo: Desarrollo profundo del conflicto. Dedica tiempo a explorar la psicología detrás del error o la trampa del sistema antes de dar la solución. Genera empatía detallando por qué es tan fácil caer en la trampa antes de mostrar la transformación.
 """
 
 IDEA_PROMPT_ESTRATEGIA: str = """# 🧠 PROMPT MAESTRO — AGENTE DE IDEAS FINANCIERAS (ESTILO ESTRATEGIA - LONG)
-**Objetivo:** Generar una idea para un video largo (de 5 a 8 minutos) que explique en profundidad una estrategia financiera poderosa y práctica.
+**Objetivo:** Generar una idea para un video largo (de 6 a 8 minutos) que explique en profundidad una estrategia financiera poderosa y práctica.
 
 **Instrucciones:**
 1. **hook (Gancho de Interrupción):** Una afirmación o pregunta de 10-15 palabras de alto impacto enfocada en aprender un hack o regla (ej: "El método de la regla del 50/30/20 que los bancos no quieren que uses").
 2. **Concepto central:** Una regla, hábito o táctica concreta y fácil de explicar (Ley de Pareto, Bola de nieve vs Avalancha, inflación del estilo de vida).
-3. Presenta el concepto con un ejemplo real o analogía cotidiana con nuestro personaje stickman, demostrando el "cómo hacerlo" paso a paso.
+3. Presenta el concepto con un ejemplo real o analogía cotidiana. Explora a profundidad el 'por qué' funciona a nivel psicológico o matemático antes de demostrar el "cómo hacerlo" paso a paso.
 """
 
 SCRIPT_PROMPT: str = """# 📝 PROMPT MAESTRO — AGENTE GUIONISTA FINANCIERO (STORYTELLING DE DIBUJOS - LONG)
-**Objetivo:** Crear un guion dinámico y educativo de entre 40 y 60 escenas, estructurado de manera secuencial, para lograr una duración final de entre 5 y 8 minutos de alto valor educativo y retención.
+**Objetivo:** Crear un guion profundo, inmersivo y educativo de entre 25 y 40 escenas, estructurado de manera secuencial, para lograr una duración final de entre 6 y 8 minutos de alto valor y retención al estilo documental de YouTube.
 
 **Estructura del Guion (MANDATORIO):**
-1. **Acto 1: El Hook y Planteamiento [Primeras 8 escenas]:** DEBES usar el campo "hook" para la Escena 1 de forma literal. Presenta el problema del sistema o crisis financiera cotidiana que enfrenta nuestro protagonista.
-2. **Acto 2: El Desarrollo y Aprendizaje [Escenas medias]:** Explica de forma didáctica la regla, hábito o estrategia. Alterna la historia del protagonista con explicaciones conceptuales, analogías sencillas y datos visuales.
-3. **Acto 3: El Payoff y Cierre [Últimas 8 escenas]:** Muestra la transformación y el resultado de aplicar el concepto. Termina con un consejo rápido accionable y un Llamado a la Acción (CTA) pidiendo interactuar: suscribirse, comentar su opinión, dar like o guardar el video.
+1. **Acto 1: El Hook y Planteamiento [Primeras 6-8 escenas]:** DEBES usar el campo "hook" para la Escena 1 de forma literal. Presenta el problema del sistema o crisis financiera con gran empatía y contexto.
+2. **Acto 2: El Desarrollo Psicológico y Solución [Escenas medias]:** Analiza el 'por qué' detrás del problema antes de dar la regla o estrategia. Usa storytelling inmersivo. Alterna la historia con explicaciones conceptuales y analogías ricas en detalle.
+3. **Acto 3: El Payoff y Cierre [Últimas 6-8 escenas]:** Muestra la transformación de forma realista. Termina con un consejo rápido accionable y un CTA sutil: suscribirse, comentar su opinión o dar like.
 
 ## 📜 REGLAS OBLIGATORIAS
 
 ### 🟢 NARRACIÓN Y RITMO
 - **Gancho:** Uso mandatorio del texto de `hook` literal en la Escena 1.
-- **Narración:** Frases cortas y de alto impacto educativo. El tono debe ser épico, divertido y motivacional — como una lección animada de alta calidad.
-- **Secuencialidad:** La historia debe tener progresión lógica clara: problema cotidiano → revelación/explicación → ejemplo real/analogía → plan de acción.
-- **Fluidez y Retención:** Mantén curiosidad constante abriendo preguntas o sembrando datos interesantes que se resuelvan más adelante en el video.
+- **Narración:** Párrafos ricos, conversacionales y explicativos. Permite que cada escena desarrolle una idea completa y respire. Usa un tono analítico, magnético y reflexivo, propio de un ensayo en video. Evita saltar frenéticamente entre ideas cortas.
+- **Secuencialidad:** Progresión lógica profunda: problema → empatía/psicología del error → revelación → ejemplo real/analogía profunda → plan de acción.
+- **Fluidez y Retención:** Usa storytelling inmersivo abriendo preguntas conceptuales que inviten a la reflexión a lo largo del video.
 
 ### 🔵 REGLAS VISUALES
 - **Protagonista:** Presencia consistente de un personaje principal stickman (dibujo de palitos) viviendo la historia o el tutorial en escenas clave.
 - **Relación Imagen-Texto:** El `image_prompt` debe ilustrar visualmente el concepto de forma exacta. Lo que el espectador escucha debe verse en pantalla con claridad conceptual.
-- **Pattern Interrupts:** Cambia con frecuencia de enfoque visual, composición y planos visuales (plano general, plano medio, infografías de stickmans, etc.) para reiniciar la atención del espectador.
+- **Pattern Interrupts:** Cambia con frecuencia de enfoque visual, composición y planos visuales (plano general, plano medio, infografías de stickmans, etc.) para reiniciar la atención del espectador de forma elegante.
 - **Estilo (Sketch Stickman):** DEBES usar el campo `style` para generar imágenes con un estilo visual de cómic/sketch. La descripción en el campo `style` DEBE ser: `"Dynamic hand-drawn 2D webcomic sketch style, thick expressive black ink outlines, vibrant minimalist color palette for highlights, clean shading, white background with glowing accents."`.
 - **Uso del Color:** Utiliza el color de forma estratégica para resaltar elementos educativos (ej: rojo para errores, verde para soluciones, gráficas claras) manteniendo siempre la estética de dibujo a mano.
 
 ### 🔴 ESTRUCTURA Y SALIDA
-- **Extensión:** Entre 40 y 60 escenas, manteniendo suficiente profundidad y ritmo dinámico.
-- **Cierre:** Resolución emotiva con un fuerte Llamado a la Acción (CTA).
+- **Extensión:** Entre 25 y 40 escenas de narración sustancial, manteniendo profundidad analítica.
+- **Cierre:** Resolución reflexiva con un Llamado a la Acción (CTA) natural y poco agresivo.
 
 ### 🟠 IDIOMAS (ESTRICTO)
 - **image_prompt:** DEBES generar todos los campos de `image_prompt` (subjects, environment, lighting, composition) en **INGLÉS**. EXCEPCIÓN: Si en el prompt pides que haya algún texto escrito o letrero dentro de la imagen, las palabras exactas a escribir DEBEN estar en **ESPAÑOL** (Ejemplo: "A sign that says 'DEUDAS'").
 - **narration:** DEBES generar el campo `narration` en **ESPAÑOL LATINOAMERICANO**.
 """
 
-AUDIO_PROMPT: str = """Narra el siguiente guion sobre mentalidad de riqueza y life hacks con una voz **muy enérgica, rápida y estimulante**, como un creador moderno de educación.
+AUDIO_PROMPT: str = """Narra el siguiente guion con una voz **muy carismática, enérgica y profundamente entretenida**. Debe sentirse como un video-ensayo dinámico y moderno de YouTube que te atrapa desde el primer segundo.
 
 Estilo de actuación:
-- Tono: Educativo, pero con mucha chispa y entusiasmo. Tienes que sonar apasionado por el tema.
-- Ritmo: Rápido y muy dinámico. Habla con fluidez y velocidad nativa de "Short/Video dinámico", pero haz pequeñísimas pausas para enfatizar los conceptos clave.
-- Énfasis: Sube la energía y el volumen ligeramente al subrayar palabras como "regla", "hábito", "error", "ahorro", "presupuesto" e "interés compuesto".
-- Emoción: Empieza con muchísima fuerza en la primera frase para atrapar la atención. Mantén un nivel de energía alto y motivador hasta el final.
+- Tono: Muy ameno, magnético y conversacional. Eres un experto compartiendo un gran secreto, pero lo haces con chispa, carisma y pasión.
+- Ritmo: Dinámico y fluido. Ni muy lento ni muy acelerado. Usa silencios estratégicos SOLO antes de revelar datos impactantes, pero mantén la energía alta y entretenida el resto del tiempo.
+- Énfasis: Dale mucho peso emocional a palabras como "trampa", "secreto", "libertad", "error" e "interés compuesto". Juega con las variaciones de volumen para que la narración nunca sea monótona.
+- Emoción: Empieza con muchísima fuerza e intriga. Queremos que el espectador no pueda despegarse de la pantalla.
 - No agregues sonidos, muletillas ni nada que no esté en el texto. Lee exactamente lo que aparece.
 
 Texto a narrar:

@@ -66,7 +66,7 @@ class FFmpegTool(BaseModelTool):
           -loop 1 -t {seconds} -i {shlex.quote(str(img_a))} \
           -loop 1 -t {seconds} -i {shlex.quote(str(img_b))} \
           -filter_complex "{xfade_filter}" \
-          -c:v libx264 -b:v 10M -maxrate 10M -bufsize 20M -r 30 \
+          -c:v h264_nvenc -preset p6 -tune hq -b:v 10M -maxrate 10M -bufsize 20M -r 30 \
           -t {seconds} {shlex.quote(str(out_path))}
         """
         self._run(cmd)
@@ -140,7 +140,7 @@ class FFmpegTool(BaseModelTool):
             f"-i {shlex.quote(str(audio_in))} "
             f'-filter_complex "[0:v]setpts={scale:.6f}*PTS[v]" '
             f'-map "[v]" -map 1:a '
-            f"-c:v libx264 -b:v 10M -maxrate 10M -bufsize 20M -r 30 -c:a aac -pix_fmt yuv420p "
+            f"-c:v h264_nvenc -preset p6 -tune hq -b:v 10M -maxrate 10M -bufsize 20M -r 30 -c:a aac -pix_fmt yuv420p "
             f"{shlex.quote(str(video_out))} -v error"
         )
         self._run(cmd)
@@ -191,17 +191,17 @@ class FFmpegTool(BaseModelTool):
         total_frames = int(duration * fps)
 
         # Transition parameters
-        transition_frames = 9  # ~0.3 seconds transition at 30 fps
+        transition_frames = 9 if zoom_blur_transition else 9  # ~0.3 seconds
         ft = max(0, total_frames - transition_frames)
         t_start = ft / fps
 
         # Zoom expression (per frame) using zoom_max
         zoom_diff = zoom_max - 1.0
         if zoom_blur_transition and total_frames > transition_frames:
-            # Zoom: from 1.0 to zoom_max until ft, then zoom in fast to zoom_max + 0.15 during transition
+            # Zoom in fast during transition (less extreme zoom to avoid "demasiado")
             z_expr = (
                 f"if(lt(on,{ft}), 1.0+{zoom_diff:.3f}*(on/{ft}), "
-                f"{zoom_max:.3f}+0.150*((on-{ft})/{transition_frames}))"
+                f"{zoom_max:.3f}+0.100*((on-{ft})/{transition_frames}))"
             )
         else:
             f1 = total_frames * 0.3
@@ -223,14 +223,22 @@ class FFmpegTool(BaseModelTool):
         # Combine video filters
         vf_chain = f"{pre_filter},{zoom_filter},{rotate_filter}"
         if zoom_blur_transition and total_frames > transition_frames:
-            vf_chain += f",boxblur=luma_radius=15:enable='gt(t,{t_start:.3f})'"
+            # Pseudo-animated blur using 3 escalating static blurs
+            t1 = t_start
+            t2 = t_start + 0.100
+            t3 = t_start + 0.200
+            vf_chain += (
+                f",boxblur=luma_radius=3:enable='between(t,{t1:.3f},{t2:.3f})'"
+                f",boxblur=luma_radius=8:enable='between(t,{t2:.3f},{t3:.3f})'"
+                f",boxblur=luma_radius=15:enable='gt(t,{t3:.3f})'"
+            )
 
         cmd = f"""
         ffmpeg -y -loop 1 -i {shlex.quote(str(img_path))} \
           -i {shlex.quote(str(audio_path))} \
           -vf "{vf_chain}" \
           -shortest \
-          -c:v libx264 -b:v 10M -maxrate 10M -bufsize 20M -r 30 -c:a aac -pix_fmt yuv420p {shlex.quote(str(out_path))}
+          -c:v h264_nvenc -preset p6 -tune hq -b:v 10M -maxrate 10M -bufsize 20M -r 30 -c:a aac -pix_fmt yuv420p {shlex.quote(str(out_path))}
         """
         self._run(cmd)
 
@@ -278,7 +286,7 @@ class FFmpegTool(BaseModelTool):
         cmd = f"""
         ffmpeg -y -i {shlex.quote(str(video_in))} \
           -vf "{sub_filter}" \
-          -c:v libx264 -b:v 10M -maxrate 10M -bufsize 20M -r 30 \
+          -c:v h264_nvenc -preset p6 -tune hq -b:v 10M -maxrate 10M -bufsize 20M -r 30 \
           -c:a copy {shlex.quote(str(video_out))}
         """
         self._run(cmd)

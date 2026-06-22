@@ -59,7 +59,8 @@ class Pipeline(BaseModelTool):
     FINAL_VIDEO: ClassVar[str] = "final_video.mp4"
 
     # Configuration
-    AUDIO_SPEEDUP_FACTOR: ClassVar[float] = 1.07
+    SHORT_AUDIO_SPEEDUP: ClassVar[float] = 1.07
+    LONG_AUDIO_SPEEDUP: ClassVar[float] = 1.05
     AUDIO_BATCH_SIZE: ClassVar[int] = 15
     MIN_AUDIO_DURATION: ClassVar[float] = 0.5
     MIN_AUDIO_SIZE_BYTES: ClassVar[int] = 1024
@@ -315,9 +316,10 @@ class Pipeline(BaseModelTool):
             self.audio_gen.text_to_speech(formatted_audio, chunk_audio_path)
 
             # Apply speedup natively to the generated batch audio
-            Messenger.info(f"Applying {self.AUDIO_SPEEDUP_FACTOR}x speedup to Batch {batch_num}...")
-            temp_audio = chunk_audio_path.with_suffix(".temp.wav")
-            self.ffmpeg.speed_up_audio(chunk_audio_path, temp_audio, factor=self.AUDIO_SPEEDUP_FACTOR)
+            speedup_factor = self.SHORT_AUDIO_SPEEDUP if self.orientation == VideoOrientation.SHORT else self.LONG_AUDIO_SPEEDUP
+            Messenger.info(f"Applying {speedup_factor}x speedup to Batch {batch_num}...")
+            temp_audio = chunk_audio_path.with_name(f"temp_{chunk_audio_path.name}")
+            self.ffmpeg.speed_up_audio(chunk_audio_path, temp_audio, factor=speedup_factor)
             temp_audio.replace(chunk_audio_path)
         else:
             Messenger.info(f"Using cached audio for Batch {batch_num}...")

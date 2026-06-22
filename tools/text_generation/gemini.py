@@ -31,7 +31,7 @@ class GeminiTextGenerator(GeminiBase):
 
         model = "gemini-2.5-pro" if low else self.text_model
 
-        retries = [180, 360]
+        retries = [360, 360, 360, 360]
         attempt = 0
 
         while True:
@@ -40,7 +40,7 @@ class GeminiTextGenerator(GeminiBase):
                     from tools.utils.time import run_with_timeout
                     response = run_with_timeout(
                         self.client.models.generate_content,
-                        120, # 2 minutes max wait for text
+                        600, # 10 minutes max wait for massive long video scripts
                         model=model,
                         contents=prompt,
                         config={

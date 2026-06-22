@@ -49,8 +49,8 @@ class Messenger(BaseModel):
 
     @staticmethod
     def usage(model: str, prompt: int, thoughts: int, output: int, total: int) -> None:
-        print(f"\n📊 [Usage Report: {model}]")
-        print(f"   ├─ Prompt: {prompt}")
-        print(f"   ├─ Thoughts: {thoughts}")
-        print(f"   ├─ Output: {output}")
-        print(f"   └─ Total Tokens: {total}\n")
+        Messenger._safe_print(f"\n📊 [Usage Report: {model}]")
+        Messenger._safe_print(f"   ├─ Prompt: {prompt}")
+        Messenger._safe_print(f"   ├─ Thoughts: {thoughts}")
+        Messenger._safe_print(f"   ├─ Output: {output}")
+        Messenger._safe_print(f"   └─ Total Tokens: {total}\n")

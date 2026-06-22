@@ -93,7 +93,10 @@ def api_spinner(message: str = "Consultando API"):
         while not stop_event.is_set():
             elapsed = int(time.time() - start_time)
             mins, secs = divmod(elapsed, 60)
-            sys.stdout.write(f"\r⏳ {message} [{mins:02d}:{secs:02d}]...")
+            try:
+                sys.stdout.write(f"\r⏳ {message} [{mins:02d}:{secs:02d}]...")
+            except UnicodeEncodeError:
+                sys.stdout.write(f"\r[Wait] {message} [{mins:02d}:{secs:02d}]...")
             sys.stdout.flush()
             stop_event.wait(1)
             
