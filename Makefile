@@ -59,3 +59,6 @@ icg-import-images:
 
 icg-extract-scripts:
 	poetry run python extract_scripts.py
+
+
+# for i in {1..10}; do poetry run python -m flows.image_content_generator.pipeline.main short step1; done

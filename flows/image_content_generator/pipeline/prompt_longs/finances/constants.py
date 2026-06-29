@@ -1,6 +1,6 @@
 # flake8: noqa: E501
 IDEA_PROMPT_MINDSET: str = """# 🧠 PROMPT MAESTRO — AGENTE DE IDEAS FINANCIERAS (ESTILO MENTALIDAD - LONG)
-**Objetivo:** Generar una idea profunda para un video largo (de 6 a 8 minutos) sobre una transformación de mentalidad financiera.
+**Objetivo:** Generar una idea profunda para un video largo (de 12 a 15 minutos) sobre una transformación de mentalidad financiera.
 
 **Instrucciones:**
 1. **hook (Gancho de Interrupción):** Una frase de 10-15 palabras de alto impacto que exponga un error común, trampa o revelación del sistema (ej: "La verdad incómoda de por qué ahorrar dinero te está haciendo más pobre").
@@ -9,7 +9,7 @@ IDEA_PROMPT_MINDSET: str = """# 🧠 PROMPT MAESTRO — AGENTE DE IDEAS FINANCIE
 """
 
 IDEA_PROMPT_ESTRATEGIA: str = """# 🧠 PROMPT MAESTRO — AGENTE DE IDEAS FINANCIERAS (ESTILO ESTRATEGIA - LONG)
-**Objetivo:** Generar una idea para un video largo (de 6 a 8 minutos) que explique en profundidad una estrategia financiera poderosa y práctica.
+**Objetivo:** Generar una idea para un video largo (de 12 a 15 minutos) que explique en profundidad una estrategia financiera poderosa y práctica.
 
 **Instrucciones:**
 1. **hook (Gancho de Interrupción):** Una afirmación o pregunta de 10-15 palabras de alto impacto enfocada en aprender un hack o regla (ej: "El método de la regla del 50/30/20 que los bancos no quieren que uses").
@@ -18,12 +18,12 @@ IDEA_PROMPT_ESTRATEGIA: str = """# 🧠 PROMPT MAESTRO — AGENTE DE IDEAS FINAN
 """
 
 SCRIPT_PROMPT: str = """# 📝 PROMPT MAESTRO — AGENTE GUIONISTA FINANCIERO (STORYTELLING DE DIBUJOS - LONG)
-**Objetivo:** Crear un guion profundo, inmersivo y educativo de entre 25 y 40 escenas, estructurado de manera secuencial, para lograr una duración final de entre 6 y 8 minutos de alto valor y retención al estilo documental de YouTube.
+**Objetivo:** Crear un guion profundo, inmersivo y educativo de entre 50 y 70 escenas, estructurado de manera secuencial, para lograr una duración final de entre 12 y 15 minutos de alto valor y retención al estilo documental de YouTube.
 
 **Estructura del Guion (MANDATORIO):**
-1. **Acto 1: El Hook y Planteamiento [Primeras 6-8 escenas]:** DEBES usar el campo "hook" para la Escena 1 de forma literal. Presenta el problema del sistema o crisis financiera con gran empatía y contexto.
+1. **Acto 1: El Hook y Planteamiento [Primeras 12-15 escenas]:** DEBES usar el campo "hook" para la Escena 1 de forma literal. Presenta el problema del sistema o crisis financiera con gran empatía y contexto.
 2. **Acto 2: El Desarrollo Psicológico y Solución [Escenas medias]:** Analiza el 'por qué' detrás del problema antes de dar la regla o estrategia. Usa storytelling inmersivo. Alterna la historia con explicaciones conceptuales y analogías ricas en detalle.
-3. **Acto 3: El Payoff y Cierre [Últimas 6-8 escenas]:** Muestra la transformación de forma realista. Termina con un consejo rápido accionable y un CTA sutil: suscribirse, comentar su opinión o dar like.
+3. **Acto 3: El Payoff y Cierre [Últimas 12-15 escenas]:** Muestra la transformación de forma realista. Termina con un consejo rápido accionable y un CTA sutil: suscribirse, comentar su opinión o dar like.
 
 ## 📜 REGLAS OBLIGATORIAS
 
@@ -34,6 +34,11 @@ SCRIPT_PROMPT: str = """# 📝 PROMPT MAESTRO — AGENTE GUIONISTA FINANCIERO (S
 - **Fluidez y Retención:** Usa storytelling inmersivo abriendo preguntas conceptuales que inviten a la reflexión a lo largo del video.
 
 ### 🔵 REGLAS VISUALES
+- **Miniatura (Thumbnail - YT Finanzas 2026):** DEBES generar un `thumbnail_prompt` diseñado para un CTR masivo imitando a los canales top de finanzas.
+  1) **Sujeto:** El personaje debe mostrar expresiones muy exageradas (shock, confusión, seguridad) mirando al frente o interactuando.
+  2) **Utilería (Props):** Usa símbolos financieros gigantes (bolsas de dinero $, monedas de oro enormes, alcancías, flechas de gráficas exageradas).
+  3) **Entorno/Fondo:** Fondos limpios pero descriptivos con buena profundidad de campo para que el personaje resalte.
+  4) **Estilo Visual:** El campo `style` de la miniatura DEBE ser: `"Premium high-quality 3D render mascot style, highly expressive character, vibrant cinematic lighting, oversized financial props, clean detailed background with depth of field, 8k resolution, YouTube thumbnail aesthetic."`
 - **Protagonista:** Presencia consistente de un personaje principal stickman (dibujo de palitos) viviendo la historia o el tutorial en escenas clave.
 - **Relación Imagen-Texto:** El `image_prompt` debe ilustrar visualmente el concepto de forma exacta. Lo que el espectador escucha debe verse en pantalla con claridad conceptual.
 - **Pattern Interrupts:** Cambia con frecuencia de enfoque visual, composición y planos visuales (plano general, plano medio, infografías de stickmans, etc.) para reiniciar la atención del espectador de forma elegante.
@@ -41,11 +46,12 @@ SCRIPT_PROMPT: str = """# 📝 PROMPT MAESTRO — AGENTE GUIONISTA FINANCIERO (S
 - **Uso del Color:** Utiliza el color de forma estratégica para resaltar elementos educativos (ej: rojo para errores, verde para soluciones, gráficas claras) manteniendo siempre la estética de dibujo a mano.
 
 ### 🔴 ESTRUCTURA Y SALIDA
-- **Extensión:** Entre 25 y 40 escenas de narración sustancial, manteniendo profundidad analítica.
+- **Extensión:** Entre 50 y 70 escenas de narración sustancial, manteniendo profundidad analítica.
 - **Cierre:** Resolución reflexiva con un Llamado a la Acción (CTA) natural y poco agresivo.
 
 ### 🟠 IDIOMAS (ESTRICTO)
 - **image_prompt:** DEBES generar todos los campos de `image_prompt` (subjects, environment, lighting, composition) en **INGLÉS**. EXCEPCIÓN: Si en el prompt pides que haya algún texto escrito o letrero dentro de la imagen, las palabras exactas a escribir DEBEN estar en **ESPAÑOL** (Ejemplo: "A sign that says 'DEUDAS'").
+- **video_prompt:** DEBES generar todos los campos de `video_prompt` (motion, camera_movement, transition, duration_hint) en **INGLÉS**.
 - **narration:** DEBES generar el campo `narration` en **ESPAÑOL LATINOAMERICANO**.
 """
 

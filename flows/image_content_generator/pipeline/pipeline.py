@@ -283,6 +283,17 @@ class Pipeline(BaseModelTool):
 
         # 3. Identifies missing scenes and builds tasks
         all_tasks: List[ImageTask] = []
+        
+        # Thumbnail processing
+        if hasattr(script_data, 'thumbnail_prompt') and script_data.thumbnail_prompt:
+            thumbnail_out = self.get_idea_asset_path(idea_obj.id, self.IMAGES_DIR, "thumbnail.jpg")
+            if not thumbnail_out.exists():
+                all_tasks.append(
+                    ImageTask(prompt=script_data.thumbnail_prompt.formatted_prompt, output_path=thumbnail_out)
+                )
+            else:
+                Messenger.info("Skipping Thumbnail image: File already exists.")
+
         for i, scene in enumerate(script_data.scenes):
             out_path = self.get_idea_asset_path(
                 idea_obj.id, self.IMAGES_DIR, self.SCENE_IMAGE_PATTERN.format(i + 1)

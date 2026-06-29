@@ -40,7 +40,7 @@ class GeminiTextGenerator(GeminiBase):
                     from tools.utils.time import run_with_timeout
                     response = run_with_timeout(
                         self.client.models.generate_content,
-                        600, # 10 minutes max wait for massive long video scripts
+                        1200, # 10 minutes max wait for massive long video scripts
                         model=model,
                         contents=prompt,
                         config={

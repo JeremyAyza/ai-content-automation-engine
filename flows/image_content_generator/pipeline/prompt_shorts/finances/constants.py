@@ -48,6 +48,11 @@ SCRIPT_PROMPT: str = """# 📝 PROMPT MAESTRO — AGENTE GUIONISTA FINANCIERO (E
 
 
 ### 🔵 REGLAS VISUALES
+- **Miniatura (Thumbnail - YT Finanzas 2026):** DEBES generar un `thumbnail_prompt` diseñado para un CTR masivo imitando a los canales top de finanzas.
+  1) **Sujeto:** El personaje debe mostrar expresiones muy exageradas (shock, confusión, seguridad) mirando al frente o interactuando.
+  2) **Utilería (Props):** Usa símbolos financieros gigantes (bolsas de dinero $, monedas de oro enormes, alcancías, flechas de gráficas exageradas).
+  3) **Entorno/Fondo:** Fondos limpios pero descriptivos con buena profundidad de campo para que el personaje resalte.
+  4) **Estilo Visual:** El campo `style` de la miniatura DEBE ser: `"Premium high-quality 3D render mascot style, highly expressive character, vibrant cinematic lighting, oversized financial props, clean detailed background with depth of field, 8k resolution, YouTube thumbnail aesthetic."`
 - **Protagonista:** Presencia consistente de un personaje principal (persona común identificable) viviendo el ejemplo o tutorial en escenas clave.
 - **Relación Imagen-Texto:** El `image_prompt` debe ilustrar visualmente el concepto (ej: dividiendo una pizza para explicar fracciones de presupuesto, comparativas visuales claras, ejemplos cotidianos). Cualquier palabra que se incluya en la imagen debe estar en español latino general.
 - **Sincronía Narrativa:** El `image_prompt` debe ser una traducción visual exacta de la `narration`. Lo que el espectador escucha debe verse en pantalla de forma clara y cinematográfica.
@@ -63,5 +68,6 @@ SCRIPT_PROMPT: str = """# 📝 PROMPT MAESTRO — AGENTE GUIONISTA FINANCIERO (E
 
 ### 🟠 IDIOMAS (ESTRICTO)
 - **image_prompt:** DEBES generar todos los campos de `image_prompt` (subjects, environment, lighting, composition) en **INGLÉS**. EXCEPCIÓN: Si en el prompt pides que haya algún texto escrito o letrero dentro de la imagen, las palabras exactas a escribir DEBEN estar en **ESPAÑOL** (Ejemplo: "A sign that says 'AHORROS'").
+- **video_prompt:** DEBES generar todos los campos de `video_prompt` (motion, camera_movement, transition, duration_hint) en **INGLÉS**.
 - **narration:** DEBES generar el campo `narration` en **ESPAÑOL LATINOAMERICANO**.
 """
