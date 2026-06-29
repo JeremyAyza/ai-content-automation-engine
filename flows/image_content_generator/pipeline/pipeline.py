@@ -1,4 +1,5 @@
 
+import shutil
 from pathlib import Path
 from typing import Any, ClassVar, List, Optional, Type, TypeVar, Union
 
@@ -638,7 +639,17 @@ class Pipeline(BaseModelTool):
         named_final = self.get_named_video_path(idea_obj.id, video_title)
         final_video.replace(named_final)
 
-        # 4. Updates state.
+        # 4. Clean up intermediate, heavy, cost-free regeneration files
+        Messenger.info("Cleaning up intermediate video files to save space...")
+        videos_dir = self.out_base / idea_obj.id / self.VIDEOS_DIR
+        if videos_dir.exists():
+            shutil.rmtree(videos_dir, ignore_errors=True)
+            
+        editions_dir = self.out_base / idea_obj.id / self.EDITIONS_DIR
+        for temp_file in [self.RAW_VIDEO, self.SUBTITLED_VIDEO, self.FINAL_AUDIO]:
+            (editions_dir / temp_file).unlink(missing_ok=True)
+
+        # 5. Updates state.
         idea_obj.state = State.COMPLETED
         self.store.save(idea_obj)
         Messenger.success(f"Step 7 ready: {State.COMPLETED} finalized.\n")

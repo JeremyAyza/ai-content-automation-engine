@@ -35,10 +35,11 @@ SCRIPT_PROMPT: str = """# 📝 PROMPT MAESTRO — AGENTE GUIONISTA FINANCIERO (S
 
 ### 🔵 REGLAS VISUALES
 - **Miniatura (Thumbnail - YT Finanzas 2026):** DEBES generar un `thumbnail_prompt` diseñado para un CTR masivo imitando a los canales top de finanzas.
-  1) **Sujeto:** El personaje debe mostrar expresiones muy exageradas (shock, confusión, seguridad) mirando al frente o interactuando.
-  2) **Utilería (Props):** Usa símbolos financieros gigantes (bolsas de dinero $, monedas de oro enormes, alcancías, flechas de gráficas exageradas).
-  3) **Entorno/Fondo:** Fondos limpios pero descriptivos con buena profundidad de campo para que el personaje resalte.
-  4) **Estilo Visual:** El campo `style` de la miniatura DEBE ser: `"Premium high-quality 3D render mascot style, highly expressive character, vibrant cinematic lighting, oversized financial props, clean detailed background with depth of field, 8k resolution, YouTube thumbnail aesthetic."`
+  1) **Sujeto:** El personaje debe tener expresiones exageradas, apuntando o interactuando visualmente (ej. comparando al "pobre" con el "rico", o mirándose a un espejo).
+  2) **Texto Gigante (Obligatorio):** Incluye SIEMPRE una instrucción para dibujar un título impactante de 3 a 7 palabras en la imagen usando la regla de EXCEPCIÓN de idioma (Ej: "Giant bold text at the top that says 'VIVE MEJOR CON MENOS'").
+  3) **Utilería y Flechas:** Usa utilería visual clara (alcancías, billetes, autos) e incluye flechas dibujadas a mano (thick hand-drawn arrows) apuntando a los objetos clave para dirigir la mirada del espectador.
+  4) **Entorno/Fondo:** Fondos extremadamente limpios (generalmente blancos o neutros) para maximizar el contraste del texto y las flechas.
+  5) **Estilo Visual:** El campo `style` DEBE ser: `"Premium high-quality 2D vector art style, clean flat background, giant bold typography, thick expressive character outlines, hand-drawn indicator arrows, high contrast YouTube thumbnail aesthetic."`
 - **Protagonista:** Presencia consistente de un personaje principal stickman (dibujo de palitos) viviendo la historia o el tutorial en escenas clave.
 - **Relación Imagen-Texto:** El `image_prompt` debe ilustrar visualmente el concepto de forma exacta. Lo que el espectador escucha debe verse en pantalla con claridad conceptual.
 - **Pattern Interrupts:** Cambia con frecuencia de enfoque visual, composición y planos visuales (plano general, plano medio, infografías de stickmans, etc.) para reiniciar la atención del espectador de forma elegante.
