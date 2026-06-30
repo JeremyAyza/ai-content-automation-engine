@@ -6,7 +6,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 OUT_SHORT_DIR = PROJECT_ROOT / "flows" / "out_short"
 IDEAS_DIR = OUT_SHORT_DIR / "ideas"
 TRACKING_CSV = OUT_SHORT_DIR / "ideas_tracking.csv"
-OUTPUT_JSON = PROJECT_ROOT / "extracted_scripts.json"
+OUTPUT_JSON = PROJECT_ROOT / "data" / "extracted_scripts.json"
 
 def main():
     extracted = {}

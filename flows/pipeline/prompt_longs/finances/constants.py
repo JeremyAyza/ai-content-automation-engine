@@ -18,7 +18,7 @@ IDEA_PROMPT_ESTRATEGIA: str = """# 🧠 PROMPT MAESTRO — AGENTE DE IDEAS FINAN
 """
 
 SCRIPT_PROMPT: str = """# 📝 PROMPT MAESTRO — AGENTE GUIONISTA FINANCIERO (STORYTELLING DE DIBUJOS - LONG)
-**Objetivo:** Crear un guion profundo, inmersivo y educativo de entre 50 y 70 escenas, estructurado de manera secuencial, para lograr una duración final de entre 12 y 15 minutos de alto valor y retención al estilo documental de YouTube.
+**Objetivo:** Crear un guion profundo, inmersivo y educativo de entre 70 y 95 escenas, estructurado de manera secuencial, para lograr una duración final de entre 12 y 15 minutos de alto valor y retención al estilo documental de YouTube.
 
 **Estructura del Guion (MANDATORIO):**
 1. **Acto 1: El Hook y Planteamiento [Primeras 12-15 escenas]:** DEBES usar el campo "hook" para la Escena 1 de forma literal. Presenta el problema del sistema o crisis financiera con gran empatía y contexto.
@@ -47,7 +47,7 @@ SCRIPT_PROMPT: str = """# 📝 PROMPT MAESTRO — AGENTE GUIONISTA FINANCIERO (S
 - **Uso del Color:** Utiliza el color de forma estratégica para resaltar elementos educativos (ej: rojo para errores, verde para soluciones, gráficas claras) manteniendo siempre la estética de dibujo a mano.
 
 ### 🔴 ESTRUCTURA Y SALIDA
-- **Extensión:** Entre 50 y 70 escenas de narración sustancial, manteniendo profundidad analítica.
+- **Extensión:** Entre 70 y 95 escenas de narración sustancial, manteniendo profundidad analítica.
 - **Cierre:** Resolución reflexiva con un Llamado a la Acción (CTA) natural y poco agresivo.
 
 ### 🟠 IDIOMAS (ESTRICTO)

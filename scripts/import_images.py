@@ -9,7 +9,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 OUT_SHORT_DIR = PROJECT_ROOT / "flows" / "out_short"
 IDEAS_DIR = OUT_SHORT_DIR / "ideas"
 TRACKING_CSV = OUT_SHORT_DIR / "ideas_tracking.csv"
-REPORT_CSV = PROJECT_ROOT / "import_report.csv"
+REPORT_CSV = PROJECT_ROOT / "data" / "import_report.csv"
 
 def update_csv_state(idea_id: int, new_state: str):
     """Updates the state of an idea in the ideas_tracking.csv file."""
@@ -87,6 +87,8 @@ def main():
             with open(script_path, 'r', encoding='utf-8') as f:
                 script_data = json.load(f)
             expected_count = len(script_data.get("scenes", []))
+            if script_data.get("thumbnail_prompt"):
+                expected_count += 1
         except Exception as e:
             report_data.append([folder_name, idea_id, "FAILED", f"Error reading script.json: {str(e)}"])
             continue
