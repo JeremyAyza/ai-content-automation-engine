@@ -1,5 +1,5 @@
-from flows.image_content_generator.pipeline.prompt_base.models import BaseIdea, CategoryHandler
-from flows.image_content_generator.pipeline.prompt_shorts.sprunkis import (
+from flows.pipeline.prompt_base.models import BaseIdea, CategoryHandler
+from flows.pipeline.prompt_shorts.sprunkis import (
     constants as sprunkis_constants,
 )
 

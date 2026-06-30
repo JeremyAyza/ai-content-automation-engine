@@ -4,7 +4,7 @@ from typing import Any, ClassVar, Dict, List, Sequence, Type
 
 from pydantic import BaseModel, Field
 
-from flows.image_content_generator.pipeline.prompt_base import constants
+from flows.pipeline.prompt_base import constants
 
 
 class BaseIdea(BaseModel):

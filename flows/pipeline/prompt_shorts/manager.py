@@ -1,21 +1,21 @@
 from typing import Sequence, Tuple, Type
 
-from flows.image_content_generator.pipeline.prompt_base.manager import BasePromptManager
-from flows.image_content_generator.pipeline.prompt_base.models import (
+from flows.pipeline.prompt_base.manager import BasePromptManager
+from flows.pipeline.prompt_base.models import (
     BaseIdea,
     CategoryHandler,
     VideoScript,
 )
-from flows.image_content_generator.pipeline.prompt_shorts.finances import (
+from flows.pipeline.prompt_shorts.finances import (
     constants as finances_constants,
 )
-from flows.image_content_generator.pipeline.prompt_shorts.finances.models import FinancesHandler
-from flows.image_content_generator.pipeline.prompt_shorts.sprunkis.models import SprunkisHandler
+from flows.pipeline.prompt_shorts.finances.models import FinancesHandler
+from flows.pipeline.prompt_shorts.sprunkis.models import SprunkisHandler
 from tools.common.messenger import Messenger
 from tools.text_generation.gemini import GeminiTextGenerator
 
 
-from flows.image_content_generator.pipeline.prompt_shorts.sprunkis import constants as sprunkis_constants
+from flows.pipeline.prompt_shorts.sprunkis import constants as sprunkis_constants
 
 class PromptManagerShorts(BasePromptManager):
     """Manager specific to Short videos (9:16), aggregating modular categories."""

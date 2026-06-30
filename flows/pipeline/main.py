@@ -2,14 +2,14 @@ import argparse
 from enum import Enum
 from pathlib import Path
 
-from flows.image_content_generator.pipeline.pipeline import Pipeline
-from flows.image_content_generator.pipeline.schemas import VideoOrientation, State
+from flows.pipeline.pipeline import Pipeline
+from flows.pipeline.schemas import VideoOrientation, State
 from tools.common.messenger import Messenger
 from tools.common.terminal import disable_quick_edit
 
-RESOURCE_BASE = Path("flows/image_content_generator/resource")
-LONG_OUT_BASE = Path("flows/image_content_generator/out_long")
-SHORT_OUT_BASE = Path("flows/image_content_generator/out_short")
+RESOURCE_BASE = Path("flows/resource")
+LONG_OUT_BASE = Path("flows/out_long")
+SHORT_OUT_BASE = Path("flows/out_short")
 
 
 class PipelineStep(str, Enum):
@@ -67,7 +67,7 @@ def main():
             Messenger.success("Cycle completed. Starting next cycle...")
     elif args.step == PipelineStep.FIXED:
         Messenger.info("--- Starting Fixed Generation Loop (Finishing existing only) ---")
-        
+
         state_to_step = {
             State.SCRIPT_GENERATED: PipelineStep.STEP2,
             State.IMAGES_GENERATED: PipelineStep.STEP3,
@@ -77,25 +77,25 @@ def main():
             State.VIDEO_MUSIC_GENERATED: PipelineStep.STEP7,
             State.NEW: PipelineStep.STEP1
         }
-        
+
         while True:
             incomplete = pipeline.store.get_incomplete_idea()
             if not incomplete:
                 Messenger.success("All ideas are finished! Exiting fixed loop.")
                 break
-                
+
             Messenger.info(f"\n--- Procesando idea {incomplete.id} (Estado: {incomplete.state.value}) ---")
-            
+
             step_to_run = state_to_step.get(incomplete.state)
             if not step_to_run:
                 Messenger.error(f"Estado desconocido: {incomplete.state}")
                 break
-                
+
             if step_to_run == PipelineStep.STEP1:
                 step_methods[step_to_run](force_new=False)
             else:
                 step_methods[step_to_run]()
-                
+
             Messenger.success(f"Paso {step_to_run.value} completado para idea {incomplete.id}. Verificando siguiente paso...")
     else:
         # Run specific step

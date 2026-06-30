@@ -5,8 +5,8 @@ from pathlib import Path
 
 # Paths
 DOWNLOADS_DIR = Path(r"C:\Users\Jeremy\Downloads\Flow_Generations")
-PROJECT_ROOT = Path(r"C:\Users\Jeremy\Documents\LAB\AI-Content-Automation-Engine-main")
-OUT_SHORT_DIR = PROJECT_ROOT / "flows" / "image_content_generator" / "out_short"
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+OUT_SHORT_DIR = PROJECT_ROOT / "flows" / "out_short"
 IDEAS_DIR = OUT_SHORT_DIR / "ideas"
 TRACKING_CSV = OUT_SHORT_DIR / "ideas_tracking.csv"
 REPORT_CSV = PROJECT_ROOT / "import_report.csv"

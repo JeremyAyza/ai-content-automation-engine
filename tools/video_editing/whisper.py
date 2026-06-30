@@ -32,9 +32,11 @@ class WhisperTool(BaseModelTool):
         """
         json_path = audio_path.with_name(audio_path.name + ".json")
         if not json_path.exists():
+            # Construir ruta absoluta al binario
+            whisper_bin = Path("bin/whisper/whisper-cli.exe").absolute()
             # -ojf: output json full (tokens with timestamps)
             cmd_args = [
-                "whisper-cli",
+                str(whisper_bin),
                 "-m", self.DEFAULT_MODEL,
                 "-l", "es",
                 "-ojf",

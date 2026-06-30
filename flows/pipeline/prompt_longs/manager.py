@@ -2,17 +2,17 @@ import random
 from pathlib import Path
 from typing import List, Sequence, Tuple, Type
 
-from flows.image_content_generator.pipeline.prompt_base.manager import BasePromptManager
-from flows.image_content_generator.pipeline.prompt_base.models import (
+from flows.pipeline.prompt_base.manager import BasePromptManager
+from flows.pipeline.prompt_base.models import (
     BaseIdea,
     CategoryHandler,
     Scene,
     VideoScript,
 )
-from flows.image_content_generator.pipeline.prompt_longs.finances import (
+from flows.pipeline.prompt_longs.finances import (
     constants as finances_long_constants,
 )
-from flows.image_content_generator.pipeline.prompt_longs.finances.models import FinancesHandlerLong
+from flows.pipeline.prompt_longs.finances.models import FinancesHandlerLong
 from tools.common.messenger import Messenger
 from tools.text_generation.gemini import GeminiTextGenerator
 

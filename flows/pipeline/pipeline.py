@@ -5,11 +5,11 @@ from typing import Any, ClassVar, List, Optional, Type, TypeVar, Union
 
 from pydantic import BaseModel, PrivateAttr
 
-from flows.image_content_generator.pipeline.prompt_base.models import VideoScript
-from flows.image_content_generator.pipeline.prompt_longs.manager import PromptManagerLongs
-from flows.image_content_generator.pipeline.prompt_shorts.manager import PromptManagerShorts
-from flows.image_content_generator.pipeline.schemas import AudioAlignment, State, VideoOrientation
-from flows.image_content_generator.pipeline.storage_csv import CsvStore
+from flows.pipeline.prompt_base.models import VideoScript
+from flows.pipeline.prompt_longs.manager import PromptManagerLongs
+from flows.pipeline.prompt_shorts.manager import PromptManagerShorts
+from flows.pipeline.schemas import AudioAlignment, State, VideoOrientation
+from flows.pipeline.storage_csv import CsvStore
 from tools.audio_generation.audio_tool import AudioTool
 from tools.audio_generation.gemini import GeminiAudioGenerator
 from tools.common.base_model import BaseModelTool
@@ -630,22 +630,27 @@ class Pipeline(BaseModelTool):
         final_video = self.get_idea_asset_path(
             idea_obj.id, self.EDITIONS_DIR, self.FINAL_VIDEO
         )
-        if not final_video.exists():
-            Messenger.error(f"Final video with music not found: {final_video}")
-            return
-
-        # 3. Renames the final video.
+        
         video_title = idea_obj.title if idea_obj.title else f"video_{idea_obj.id}"
         named_final = self.get_named_video_path(idea_obj.id, video_title)
-        final_video.replace(named_final)
+
+        if not final_video.exists():
+            if named_final.exists():
+                Messenger.info(f"Video already renamed: {named_final}")
+            else:
+                Messenger.error(f"Final video with music not found: {final_video}")
+                return
+        else:
+            # 3. Renames the final video.
+            final_video.replace(named_final)
 
         # 4. Clean up intermediate, heavy, cost-free regeneration files
         Messenger.info("Cleaning up intermediate video files to save space...")
-        videos_dir = self.out_base / idea_obj.id / self.VIDEOS_DIR
+        videos_dir = self.get_idea_subdir(idea_obj.id, self.VIDEOS_DIR)
         if videos_dir.exists():
             shutil.rmtree(videos_dir, ignore_errors=True)
             
-        editions_dir = self.out_base / idea_obj.id / self.EDITIONS_DIR
+        editions_dir = self.get_idea_subdir(idea_obj.id, self.EDITIONS_DIR)
         for temp_file in [self.RAW_VIDEO, self.SUBTITLED_VIDEO, self.FINAL_AUDIO]:
             (editions_dir / temp_file).unlink(missing_ok=True)
 
