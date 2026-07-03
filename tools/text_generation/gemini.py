@@ -15,7 +15,7 @@ T = TypeVar("T", bound=BaseModel)
 
 class GeminiTextGenerator(GeminiBase):
     # text_model: str = "gemini-2.5-flash-lite"
-    text_model: str = "gemini-3-flash-preview"
+    text_model: str = "gemini-3.1-pro-preview"
 
 
     def __init__(self, **kwargs: Any):
@@ -40,7 +40,7 @@ class GeminiTextGenerator(GeminiBase):
                     from tools.utils.time import run_with_timeout
                     response = run_with_timeout(
                         self.client.models.generate_content,
-                        1200, # 10 minutes max wait for massive long video scripts
+                        600, # 10 minutes max wait for massive long video scripts
                         model=model,
                         contents=prompt,
                         config={

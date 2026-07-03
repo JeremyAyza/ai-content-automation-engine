@@ -191,7 +191,7 @@ class FFmpegTool(BaseModelTool):
         total_frames = int(duration * fps)
 
         # Transition parameters
-        transition_frames = 9 if zoom_blur_transition else 9  # ~0.3 seconds
+        transition_frames = 5 if zoom_blur_transition else 9  # ~0.15 seconds for long videos
         ft = max(0, total_frames - transition_frames)
         t_start = ft / fps
 
@@ -225,8 +225,8 @@ class FFmpegTool(BaseModelTool):
         if zoom_blur_transition and total_frames > transition_frames:
             # Pseudo-animated blur using 3 escalating static blurs
             t1 = t_start
-            t2 = t_start + 0.100
-            t3 = t_start + 0.200
+            t2 = t_start + 0.050
+            t3 = t_start + 0.100
             vf_chain += (
                 f",boxblur=luma_radius=3:enable='between(t,{t1:.3f},{t2:.3f})'"
                 f",boxblur=luma_radius=8:enable='between(t,{t2:.3f},{t3:.3f})'"

@@ -61,7 +61,7 @@ class Pipeline(BaseModelTool):
 
     # Configuration
     SHORT_AUDIO_SPEEDUP: ClassVar[float] = 1.07
-    LONG_AUDIO_SPEEDUP: ClassVar[float] = 1.05
+    LONG_AUDIO_SPEEDUP: ClassVar[float] = 1.065
     AUDIO_BATCH_SIZE: ClassVar[int] = 15
     MIN_AUDIO_DURATION: ClassVar[float] = 0.5
     MIN_AUDIO_SIZE_BYTES: ClassVar[int] = 1024
@@ -284,7 +284,7 @@ class Pipeline(BaseModelTool):
 
         # 3. Identifies missing scenes and builds tasks
         all_tasks: List[ImageTask] = []
-        
+
         # Thumbnail processing
         if hasattr(script_data, 'thumbnail_prompt') and script_data.thumbnail_prompt:
             thumbnail_out = self.get_idea_asset_path(idea_obj.id, self.IMAGES_DIR, "thumbnail.jpg")
@@ -335,7 +335,7 @@ class Pipeline(BaseModelTool):
             temp_audio.replace(chunk_audio_path)
         else:
             Messenger.info(f"Using cached audio for Batch {batch_num}...")
-            
+
         return chunk_audio_path
 
     def _align_batch_audio(self, chunk: List[Any], chunk_audio_path: Path, batch_num: int) -> AudioAlignment:
@@ -630,7 +630,7 @@ class Pipeline(BaseModelTool):
         final_video = self.get_idea_asset_path(
             idea_obj.id, self.EDITIONS_DIR, self.FINAL_VIDEO
         )
-        
+
         video_title = idea_obj.title if idea_obj.title else f"video_{idea_obj.id}"
         named_final = self.get_named_video_path(idea_obj.id, video_title)
 
@@ -649,7 +649,7 @@ class Pipeline(BaseModelTool):
         videos_dir = self.get_idea_subdir(idea_obj.id, self.VIDEOS_DIR)
         if videos_dir.exists():
             shutil.rmtree(videos_dir, ignore_errors=True)
-            
+
         editions_dir = self.get_idea_subdir(idea_obj.id, self.EDITIONS_DIR)
         for temp_file in [self.RAW_VIDEO, self.SUBTITLED_VIDEO, self.FINAL_AUDIO]:
             (editions_dir / temp_file).unlink(missing_ok=True)

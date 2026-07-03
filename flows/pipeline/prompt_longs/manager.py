@@ -12,6 +12,7 @@ from flows.pipeline.prompt_base.models import (
 from flows.pipeline.prompt_longs.finances import (
     constants as finances_long_constants,
 )
+
 from flows.pipeline.prompt_longs.finances.models import FinancesHandlerLong
 from tools.common.messenger import Messenger
 from tools.text_generation.gemini import GeminiTextGenerator
@@ -46,6 +47,7 @@ class PromptManagerLongs(BasePromptManager):
                 idea_prompt += f"\n\n**INSPIRACIÓN REFERENCIAL:** Basa tu idea estrictamente en el siguiente concepto central: '{idea_base}'.\n"
 
         idea_data = text_gen.generate_text(idea_prompt, config.idea_model)
+
 
         # 3. Script Generation
         Messenger.info(f"\n--- Generating script for: {idea_data.title} ---")
