@@ -1,0 +1,59 @@
+{
+  "channel_name": "Código Capital",
+  "bio": "Descifra las reglas del dinero, mentalidad de riqueza y toma decisiones inteligentes de la mano del Tío Warren y su joven aprendiz. Estrategias reales para escapar de la carrera de la rata. 🧠💼",
+  "target_audience": "Personas ambiciosas (18-35) buscando escapar de la 'carrera de la rata', cambiar su mentalidad financiera y construir un patrimonio sólido a largo plazo.",
+  "niche": "educación financiera, mentalidad de riqueza, análisis de inversiones y finanzas personales",
+  "language": "es-LA",
+  "content_format": "long-form landscape video (16:9) & short-form vertical video (9:16)",
+  "posting_frequency_suggestion": "3 videos largos por semana, shorts diarios",
+
+  "visual_identity": {
+    "style": "Premium flat 2D vector art style, minimalist professional backgrounds, clean and modern corporate aesthetic, vibrant green accents, sharp outlines.",
+    "primary_color": "#22C55E",
+    "accent_color": "#1E3A8A",
+    "background": "#F8FAFC",
+    "font_style": "Outfit Bold, geometric sans-serif",
+    "characters": {
+      "mentor": {
+        "name": "Tío Warren",
+        "description": "A wise, distinguished 60-year-old financial mentor with short white hair, elegant glasses, wearing a sharp dark blue suit and a tie, looking calm and authoritative."
+      },
+      "apprentice": {
+        "name": "El Aprendiz",
+        "description": "A 22-year-old young man with messy brown hair, wearing a green casual hoodie, looking confused or eager to learn."
+      }
+    }
+  },
+
+  "logo_prompt": "A premium, minimalist 2D flat vector logo for a channel named 'Código Capital'. A stylized geometric shield icon combined with an ascending green stock chart line. Inside the shield, a subtle emblem of a wise owl. Below, the text 'CÓDIGO CAPITAL' is written in bold, clean geometric typography. Clean color palette of navy blue, white, and vibrant green accents. Modern finance brand aesthetic.",
+
+  "outro_prompt": {
+    "duration_seconds": 3,
+    "description": "Animated corporate logo outro for the channel 'Código Capital', premium flat 2D vector style. A clean light grey background fading in. A sharp green chart line spikes upwards, sketching out a sleek navy blue shield logo. The wings of the shield expand slightly. The channel name 'CÓDIGO CAPITAL' fades in below in bold, clean geometric black and green font. The outro loops softly with a professional, minimalist financial aesthetic. 3 seconds, no voiceover."
+  },
+
+  "tags": {
+    "youtube": [
+      "#CodigoCapital",
+      "#LibertadFinanciera",
+      "#EducacionFinanciera",
+      "#Inversiones",
+      "#DesarrolloPersonal",
+      "#TrabajaInteligente",
+      "#MentalidadMillonaria",
+      "#TioWarren",
+      "#FinanzasPersonales",
+      "#BienesRaices"
+    ]
+  },
+
+  "call_to_action_suggestions": [
+    "Suscríbete al canal para no perderte ninguna lección de Código Capital 🚀",
+    "Deja tu opinión en los comentarios: ¿qué opinas de esta regla del dinero? 👇",
+    "Comparte esta lección con un amigo que necesite ordenar sus finanzas 🙌",
+    "Guarda este video en tu lista de reproducción para volver a verlo 📌",
+    "Activa la campana 🔔 para aprender a construir verdadera riqueza de forma inteligente"
+  ],
+
+  "pinned_comment_template": "🚀 Únete a la mentoría de Código Capital y empieza a tomar decisiones inteligentes con tu dinero. Si esta lección te aportó valor, compártela y suscríbete para descifrar el juego financiero. ¡Deja de trabajar duro y empieza a trabajar inteligente! 🧠💼"
+}

@@ -14,6 +14,7 @@ from flows.pipeline.prompt_longs.finances import (
 )
 
 from flows.pipeline.prompt_longs.finances.models import FinancesHandlerLong
+from flows.pipeline.prompt_longs.tio_warren.models import TioWarrenHandlerLong
 from tools.common.messenger import Messenger
 from tools.text_generation.gemini import GeminiTextGenerator
 
@@ -25,6 +26,7 @@ class PromptManagerLongs(BasePromptManager):
 
     CATEGORIES: Sequence[Type[CategoryHandler]] = [
         FinancesHandlerLong,
+        TioWarrenHandlerLong,
     ]
 
     def generate_full_story(

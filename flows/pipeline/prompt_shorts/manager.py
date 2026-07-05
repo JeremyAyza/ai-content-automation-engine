@@ -10,6 +10,7 @@ from flows.pipeline.prompt_shorts.finances import (
     constants as finances_constants,
 )
 from flows.pipeline.prompt_shorts.finances.models import FinancesHandler
+from flows.pipeline.prompt_shorts.tio_warren.models import TioWarrenHandlerShort
 from flows.pipeline.prompt_shorts.sprunkis.models import SprunkisHandler
 from tools.common.messenger import Messenger
 from tools.text_generation.gemini import GeminiTextGenerator
@@ -24,7 +25,8 @@ class PromptManagerShorts(BasePromptManager):
     AUDIO_PROMPT: str = finances_constants.AUDIO_PROMPT
 
     CATEGORIES: Sequence[Type[CategoryHandler]] = [
-        FinancesHandler,  # Comentado para enfocarnos en Sprunkis
+        FinancesHandler,
+        TioWarrenHandlerShort,
         # SprunkisHandler,
     ]
 
