@@ -53,9 +53,9 @@ SCRIPT_PROMPT: str = """# 📝 PROMPT MAESTRO — AGENTE GUIONISTA PREMIUM (BLOQ
   3) **Utilería y Flechas:** Usa flechas rojas o verdes dibujadas a mano apuntando a elementos clave (un saco de billetes, un gráfico colapsando, una trampa de oso).
   4) **Estilo Visual:** `"Premium high-quality 2D vector art style, clean flat background, giant bold typography, thick expressive outlines, high contrast YouTube thumbnail aesthetic."`
 - **Consistencia de Personajes (MANDATORIO en todas las escenas):**
-  - **Tío Warren:** Siempre debe ser descrito exactamente como: `"wise, distinguished 60-year-old financial mentor, short white hair, elegant glasses, wearing a sharp dark blue suit and a tie, calm and authoritative posture"`.
-  - **El Aprendiz:** Siempre debe ser descrito exactamente como: `"22-year-old young man, messy brown hair, wearing a green casual hoodie, looking confused or expressive"`.
-- **Estilo de Ilustración Global:** El campo `style` de las escenas DEBE ser estrictamente: `"Premium flat 2D vector art style, minimalist professional background, clean corporate aesthetic, vibrant green highlights, sharp outlines."`
+  - **Tío Warren:** Siempre debe ser descrito exactamente como: `"wise, distinguished 60-year-old financial mentor with a friendly smile, short white hair, elegant glasses, wearing a sharp dark blue suit and a tie, calm and authoritative posture"`.
+  - **El Aprendiz:** Siempre debe ser descrito exactamente como: `"22-year-old young man, messy brown hair, wearing a casual green hoodie with a Bitcoin logo, wearing fake gold chains, looking confused or expressive"`.
+- **Estilo de Ilustración Global:** El campo `style` de las escenas DEBE ser estrictamente: `"Clean modern digital illustration style, soft cel-shading, delicate thin colored outlines, smooth color gradients, minimalist clean light grey background, high-end YouTube financial channel art style."`
 - **Relación Imagen-Texto:** Si la narración habla de "tasas de interés de tarjetas de crédito", el prompt de la imagen debe mostrar una infografía o al Aprendiz siendo aplastado por una tarjeta de crédito gigante con números rojos.
 
 ### 🔴 IDIOMAS

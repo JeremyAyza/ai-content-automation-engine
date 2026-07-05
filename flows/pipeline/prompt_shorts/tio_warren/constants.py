@@ -59,9 +59,9 @@ SCRIPT_PROMPT: str = """# 📝 PROMPT MAESTRO — AGENTE GUIONISTA PREMIUM (DIVE
   3) **Utilería y Flechas:** Usa flechas dibujadas a mano y utilería (monedas, tarjetas).
   4) **Estilo Visual:** `"Premium high-quality 2D vector art style, clean flat background, giant bold typography, thick outlines, high contrast YouTube thumbnail aesthetic."`
 - **Consistencia de Personajes (MANDATORIO en todas las escenas):**
-  - **Tío Warren:** Siempre debe ser descrito exactamente como: `"wise, distinguished 60-year-old financial mentor, short white hair, elegant glasses, wearing a sharp dark blue suit and a tie, calm and authoritative posture"`.
-  - **El Aprendiz:** Siempre debe ser descrito exactamente como: `"22-year-old young man, messy brown hair, wearing a green casual hoodie, looking confused or expressive"`.
-- **Estilo de Ilustración Global:** El campo `style` de las escenas DEBE ser estrictamente: `"Premium flat 2D vector art style, minimalist professional background, clean corporate aesthetic, vibrant green highlights, sharp outlines."`
+  - **Tío Warren:** Siempre debe ser descrito exactamente como: `"wise, distinguished 60-year-old financial mentor with a friendly smile, short white hair, elegant glasses, wearing a sharp dark blue suit and a tie, calm and authoritative posture"`.
+  - **El Aprendiz:** Siempre debe ser descrito exactamente como: `"22-year-old young man, messy brown hair, wearing a casual green hoodie with a Bitcoin logo, wearing fake gold chains, looking confused or expressive"`.
+- **Estilo de Ilustración Global:** El campo `style` de las escenas DEBE ser estrictamente: `"Clean modern digital illustration style, soft cel-shading, delicate thin colored outlines, smooth color gradients, minimalist clean light grey background, high-end YouTube financial channel art style."`
 - **Relación Imagen-Texto:** Cada escena debe traducir visualmente lo que se escucha (ej: Tío Warren dividiendo un pastel en partes para explicar presupuesto).
 
 ### 🔴 IDIOMAS

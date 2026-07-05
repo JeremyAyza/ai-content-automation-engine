@@ -6,10 +6,9 @@ from flows.pipeline.prompt_base.models import (
     CategoryHandler,
     VideoScript,
 )
-from flows.pipeline.prompt_shorts.finances import (
-    constants as finances_constants,
+from flows.pipeline.prompt_shorts.tio_warren import (
+    constants as tio_warren_constants,
 )
-from flows.pipeline.prompt_shorts.finances.models import FinancesHandler
 from flows.pipeline.prompt_shorts.tio_warren.models import TioWarrenHandlerShort
 from flows.pipeline.prompt_shorts.sprunkis.models import SprunkisHandler
 from tools.common.messenger import Messenger
@@ -21,11 +20,10 @@ from flows.pipeline.prompt_shorts.sprunkis import constants as sprunkis_constant
 class PromptManagerShorts(BasePromptManager):
     """Manager specific to Short videos (9:16), aggregating modular categories."""
 
-    # Voice & audio style (We use the Sprunkis fast-paced audio prompt)
-    AUDIO_PROMPT: str = finances_constants.AUDIO_PROMPT
+    # Voice & audio style (We use the Tio Warren fast-paced audio prompt)
+    AUDIO_PROMPT: str = tio_warren_constants.AUDIO_PROMPT
 
     CATEGORIES: Sequence[Type[CategoryHandler]] = [
-        FinancesHandler,
         TioWarrenHandlerShort,
         # SprunkisHandler,
     ]

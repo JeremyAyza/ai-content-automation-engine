@@ -9,11 +9,10 @@ from flows.pipeline.prompt_base.models import (
     Scene,
     VideoScript,
 )
-from flows.pipeline.prompt_longs.finances import (
-    constants as finances_long_constants,
+from flows.pipeline.prompt_longs.tio_warren import (
+    constants as tio_warren_long_constants,
 )
 
-from flows.pipeline.prompt_longs.finances.models import FinancesHandlerLong
 from flows.pipeline.prompt_longs.tio_warren.models import TioWarrenHandlerLong
 from tools.common.messenger import Messenger
 from tools.text_generation.gemini import GeminiTextGenerator
@@ -22,10 +21,9 @@ from tools.text_generation.gemini import GeminiTextGenerator
 class PromptManagerLongs(BasePromptManager):
     """Manager specific to Long videos (16:9), aggregating modular categories."""
 
-    AUDIO_PROMPT: str = finances_long_constants.AUDIO_PROMPT
+    AUDIO_PROMPT: str = tio_warren_long_constants.AUDIO_PROMPT
 
     CATEGORIES: Sequence[Type[CategoryHandler]] = [
-        FinancesHandlerLong,
         TioWarrenHandlerLong,
     ]
 
@@ -48,7 +46,6 @@ class PromptManagerLongs(BasePromptManager):
             if idea_base:
                 idea_prompt += f"\n\n**INSPIRACIÓN REFERENCIAL:** Basa tu idea estrictamente en el siguiente concepto central: '{idea_base}'.\n"
 
-        idea_data = text_gen.generate_text(idea_prompt, config.idea_model)
 
 
         # 3. Script Generation
