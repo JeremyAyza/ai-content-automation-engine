@@ -8,19 +8,19 @@
   "posting_frequency_suggestion": "3 videos largos por semana, shorts diarios",
 
   "visual_identity": {
-    "style": "Premium flat 2D vector art style, minimalist professional backgrounds, clean and modern corporate aesthetic, vibrant green accents, sharp outlines.",
+    "style": "Premium 2D cartoon vector style, clean outline, vibrant colors, custom cute duck characters style, solid clean white background.",
     "primary_color": "#22C55E",
     "accent_color": "#1E3A8A",
-    "background": "#F8FAFC",
+    "background": "#FFFFFF",
     "font_style": "Outfit Bold, geometric sans-serif",
     "characters": {
       "mentor": {
         "name": "Tío Warren",
-        "description": "A wise, distinguished 60-year-old financial mentor with short white hair, elegant glasses, wearing a sharp dark blue suit and a tie, looking calm and authoritative."
+        "description": "A wise, distinguished 60-year-old white duck character with white feathers, wearing glasses on his bill, a sharp navy blue pinstripe suit, a white dress shirt, and a yellow-orange tie."
       },
       "apprentice": {
         "name": "El Aprendiz",
-        "description": "A 22-year-old young man with messy brown hair, wearing a green casual hoodie, looking confused or eager to learn."
+        "description": "A 22-year-old young green duck character with green feathers, wearing a black casual hoodie with a golden Bitcoin logo on the front, wearing a black baseball cap."
       }
     }
   },

@@ -1,62 +1,58 @@
 # flake8: noqa: E501
-IDEA_PROMPT_MINDSET: str = """# 🧠 PROMPT MAESTRO — AGENTE DE IDEAS (MENTALIDAD - CÓDIGO CAPITAL)
-**Objetivo:** Generar una propuesta estructurada para un video de 12 minutos sobre la transformación de la mentalidad financiera, utilizando a nuestros personajes de marca.
+IDEA_PROMPT_MINDSET: str = """# 🧠 PROMPT MAESTRO — AGENTE DE IDEAS (MENTALIDAD & PILARES - CÓDIGO CAPITAL)
+**Objetivo:** Generar una propuesta estructurada para un video-ensayo educativo de 12-15 minutos sobre transformación de mentalidad, orden personal o filosofía financiera, listo para ser expandido en un despiece profundo por pilares o pasos.
 
-**Personajes Obligatorios:**
-1. **Tío Warren (El Mentor):** Un anciano sabio, de traje formal impecable, cabello blanco y lentes, que representa la riqueza real, la paciencia y las leyes del dinero.
-2. **El Aprendiz:** Un joven de 22 años, vestido con una sudadera verde (hoodie), que representa a la audiencia: impulsivo, obsesionado con el dinero rápido (estilo crypto-bro/trading) y atrapado en la carrera de la rata.
-
-**Instrucciones:**
-1. **hook (Gancho de Interrupción):** Una frase de 10-15 palabras de alto impacto que exponga una verdad incómoda sobre el dinero (ej. "La razón oculta por la que ahorrar en el banco te está empobreciendo hoy").
-2. **Estructura en Bloques Analíticos:**
-   - Define un mito financiero que el Aprendiz cree fervientemente.
-   - Define el error psicológico o trampa de consumo que este mito provoca.
-   - Define la regla del Tío Warren que desmonta este mito y la analogía práctica que usará para enseñarlo.
-"""
-
-IDEA_PROMPT_ESTRATEGIA: str = """# 🧠 PROMPT MAESTRO — AGENTE DE IDEAS (ESTRATEGIA - CÓDIGO CAPITAL)
-**Objetivo:** Generar una propuesta estructurada para un video de 12 minutos que explique de forma matemática y práctica una estrategia financiera, comparando caminos inteligentes y tontos.
-
-**Personajes Obligatorios:**
-1. **Tío Warren (El Mentor):** El experto que devela la lógica detrás de los números de forma calmada y segura.
-2. **El Aprendiz:** El joven impulsivo con sudadera verde que comete los errores típicos de cálculo y busca el camino más fácil.
+**Personajes Visuales de Marca:**
+1. **Tío Warren (El Mentor Pato):** Pato sabio de plumas blancas, traje azul marino a rayas, lentes en el pico y corbata amarilla. Representa la sabiduría, el rigor financiero y el orden.
+2. **El Aprendiz (Pato Verde):** Pato joven de plumas verdes, sudadera negra con logo dorado de Bitcoin y gorra negra. Representa a la audiencia: impulsivo, con dudas o buscando atajos.
 
 **Instrucciones:**
-1. **hook (Gancho de Interrupción):** Una frase de 10-15 palabras de alto impacto sobre cómo burlar una trampa del sistema financiero (ej. "La trampa de comprar un auto financiado que las agencias ocultan").
-2. **Estructura en Bloques Analíticos:**
-   - Define el concepto central (ej. apalancamiento, interés compuesto, escudo fiscal, rentar vs comprar).
-   - Define la comparación directa: el método impulsivo del Aprendiz vs el método estratégico del Tío Warren.
-   - Define el caso práctico real con números sencillos de entender.
+1. **hook (Gancho de Interrupción):** Una frase de 10-15 palabras de alto impacto directo al espectador (ej. "El secreto que nadie te enseña para construir riqueza sin importar tu salario actual").
+2. **Estructura en Bloques Analíticos/Pilares:**
+   - Define la tesis central del tema (ej. El orden interior previo a la inversión).
+   - Define los pilares, pasos o reglas clave a desglosar en el guion.
+   - Define el caso práctico o analogía financiera con números o comparativas reales.
 """
 
-SCRIPT_PROMPT: str = """# 📝 PROMPT MAESTRO — AGENTE GUIONISTA PREMIUM (BLOQUES ANALÍTICOS - CÓDIGO CAPITAL)
-**Objetivo:** Crear un guion denso, educativo e increíblemente entretenido de entre 65 y 80 escenas, estructurado en bloques analíticos para lograr una duración final de aproximadamente 12 minutos de alta retención.
+IDEA_PROMPT_ESTRATEGIA: str = """# 🧠 PROMPT MAESTRO — AGENTE DE IDEAS (ESTRATEGIA Y NÚMEROS REALEZ - CÓDIGO CAPITAL)
+**Objetivo:** Generar una propuesta estructurada para un video-ensayo de 12-15 minutos que desglose con matemáticas reales y lógica práctica una decisión financiera (ej. Rentar vs Comprar, Ventas, Pagar de contado vs financiado).
 
-**Estructura del Guion por Bloques (MANDATORIO):**
-1. **Bloque 1: El Gancho y el Gran Mito [Escenas 1-10]:** DEBES usar el campo "hook" para la Escena 1 de forma literal. Presenta al Aprendiz presumiendo o cayendo en una trampa financiera común y cómo el Tío Warren lo interrumpe con el gancho inicial.
-2. **Bloque 2: El Error del Aprendiz [Escenas 11-30]:** Expone en detalle la tontería financiera del Aprendiz (ej: gastar de más para aparentar, hacer trading con apalancamiento, rentar sin calcular costos). Muestra su frustración al chocar con la pared.
-3. **Bloque 3: La Regla del Tío Warren [Escenas 31-50]:** El Tío Warren toma el control y enseña la regla matemática/financiera real. Usa analogías visuales ricas y explicaciones sencillas (ej: comparar el dinero con soldados en batalla o semillas sembradas).
-4. **Bloque 4: La Comparativa y el Caso Real [Escenas 51-70]:** Un cara a cara visual detallado. Muestra qué pasa con el dinero del Aprendiz en 5 años vs el dinero del Tío Warren usando la estrategia correcta. Pon números sencillos en pantalla.
-5. **Bloque 5: El Payoff y Cierre [Escenas 71-final (Max 80)]:** La transformación del Aprendiz al aplicar el consejo. Finaliza con un consejo accionable inmediato de Código Capital y un llamado a la acción sutil para suscribirse.
+**Personajes Visuales de Marca:**
+1. **Tío Warren (El Mentor Pato):** Pato sabio de plumas blancas, traje azul marino a rayas, lentes en el pico y corbata amarilla.
+2. **El Aprendiz (Pato Verde):** Pato joven de plumas verdes, sudadera negra con logo de Bitcoin y gorra negra.
 
-## 📜 REGLAS OBLIGATORIAS
+**Instrucciones:**
+1. **hook (Gancho de Interrupción):** Una frase de 10-15 palabras sobre la trampa oculta de una decisión cotidiana (ej. "Por qué pagar de contado en la agencia te cuesta más caro de lo que crees").
+2. **Estructura en Bloques Analíticos:**
+   - Define la decisión o trampa del sistema a analizar.
+   - Define la comparativa de números reales (Caso A vs Caso B a 5-10 años).
+   - Define el método estratégico para maximizar la liquidez y el patrimonio.
+"""
 
-### 🟢 NARRACIÓN Y RITMO
-- **Gancho:** Uso mandatorio del texto de `hook` literal en la Escena 1.
-- **Narración:** Tono documental, magnético y analítico. Evita frases genéricas de motivación. El Tío Warren habla con autoridad calmada; el Aprendiz con confusión, dudas o exclamaciones graciosas y dinámicas.
-- **Densidad de Valor:** En cada bloque debe haber información matemática o lógica real. No rellenes con redundancias. Si el tema es Fideicomisos, explica cómo se estructuran y sus ventajas exactas.
+SCRIPT_PROMPT: str = """# 📝 PROMPT MAESTRO — AGENTE GUIONISTA DE VIDEO-ENSAYOS PREMIUM (CÓDIGO CAPITAL)
+**Objetivo:** Crear un guion educativo denso, magnético y de altísima retención de entre **50 y 65 escenas**, estructurado como una **Masterclass / Video-Ensayo Educativo de 12 a 15 minutos**.
 
-### 🔵 REGLAS VISUALES (ESTRICTO)
+## 📜 NARRACIÓN Y TONO (ESTRICTO)
+1. **Voz en Off (Narración):** Debe hablar **directamente al espectador en segunda persona ("tú")**. Debe sentirse como un documental o clase magistral financiera extremadamente entretenida (al estilo de *Don Carlos Invierte*).
+2. **CERO Diálogos de Ficción en el Audio:** Los personajes NO deben actuar una telenovela ni hablarse entre sí en la narración. La voz en off expone los conceptos, matemáticas, hábitos, autores (ej. Marco Aurelio, Warren Buffett) y ejemplos reales de vida.
+3. **Alta Densidad de Valor:** Cada escena debe aportar datos duros, lógica clara, pasos concretos o reflexiones profundas. Sin relleno ni redundancias.
+4. **Estructura del Guion:**
+   - **Introducción y Tesis (Escenas 1-8):** Arranca con el `hook` literal en la Escena 1 y plantea el problema/mito financiero directo al espectador.
+   - **Desglose de Pilares / Pasos / Análisis Técnico (Escenas 9-45):** Desarrolla punto por punto o paso a paso el contenido con riqueza de datos, comparativas y ejemplos prácticos.
+   - **Recapitulación y Síntesis (Escenas 46-55):** Conecta todos los puntos explicados demostrando cómo construyen patrimonio a largo plazo.
+   - **Cierre y Llamado a la Acción (Escenas 56-final):** Conclusión inspiradora y CTA a suscribirse a Código Capital.
+
+## 🔵 REGLAS VISUALES (CADA ESCENA Y THUMBNAIL)
 - **Miniatura (Thumbnail - YT Código Capital):** DEBES generar un `thumbnail_prompt` optimizado para CTR masivo:
-  1) **Personajes:** Tío Warren (mentor sabio, traje azul oscuro, lentes, cabello blanco) con expresión seria y apuntando a una pizarra, al lado del Aprendiz (joven, sudadera verde, pelo marrón desordenado) con expresión de absoluta sorpresa o desesperación.
-  2) **Texto Gigante (Obligatorio):** Un título de 3 a 7 palabras impactantes dibujado en la imagen (Ej: "ASÍ TE ROBA EL BANCO" o "PIENSA COMO RICO").
-  3) **Utilería y Flechas:** Usa flechas rojas o verdes dibujadas a mano apuntando a elementos clave (un saco de billetes, un gráfico colapsando, una trampa de oso).
-  4) **Estilo Visual:** `"Premium high-quality 2D vector art style, clean flat background, giant bold typography, thick expressive outlines, high contrast YouTube thumbnail aesthetic."`
-- **Consistencia de Personajes (MANDATORIO en todas las escenas):**
-  - **Tío Warren:** Siempre debe ser descrito exactamente como: `"wise, distinguished 60-year-old financial mentor with a friendly smile, short white hair, elegant glasses, wearing a sharp dark blue suit and a tie, calm and authoritative posture"`.
-  - **El Aprendiz:** Siempre debe ser descrito exactamente como: `"22-year-old young man, messy brown hair, wearing a casual green hoodie with a Bitcoin logo, wearing fake gold chains, looking confused or expressive"`.
-- **Estilo de Ilustración Global:** El campo `style` de las escenas DEBE ser estrictamente: `"Clean modern digital illustration style, soft cel-shading, delicate thin colored outlines, smooth color gradients, minimalist clean light grey background, high-end YouTube financial channel art style."`
-- **Relación Imagen-Texto:** Si la narración habla de "tasas de interés de tarjetas de crédito", el prompt de la imagen debe mostrar una infografía o al Aprendiz siendo aplastado por una tarjeta de crédito gigante con números rojos.
+  1) **Personajes:** Tío Warren (pato anciano sabio, traje azul a rayas, lentes en el pico, plumas blancas) con expresión seria apuntando a un esquema o pizarra, al lado del Aprendiz (pato joven verde, sudadera negra con logo de Bitcoin, gorra negra) con expresión de asombro o análisis.
+  2) **Texto Gigante (Obligatorio):** Un título de 3 a 6 palabras impactantes dibujado en la imagen (Ej: "EL ORDEN DE LA RIQUEZA" o "REGLAS DEL DINERO").
+  3) **Utilería y Flechas:** Flechas rojas/verdes dibujadas apuntando a elementos clave (gráfico, balanza, bolsas de dinero).
+  4) **Estilo Visual:** `"Premium 2D cartoon vector style, clean outline, vibrant colors, custom cute duck characters style, solid clean white background, high contrast YouTube thumbnail aesthetic."`
+- **Consistencia de Personajes en `image_prompt`:**
+  - **Tío Warren:** `"wise, distinguished 60-year-old white duck character, white feathers, wearing glasses on his bill, a sharp navy blue pinstripe suit, a white dress shirt, and a yellow-orange tie, calm and authoritative posture"`.
+  - **El Aprendiz:** `"22-year-old young green duck character, green feathers, wearing a black casual hoodie with a golden Bitcoin logo on the front, wearing a black baseball cap, looking confused or expressive"`.
+- **Estilo de Ilustración Global:** El campo `style` de las escenas DEBE ser estrictamente: `"Premium 2D cartoon vector style, clean outline, vibrant colors, custom cute duck characters style, solid clean white background."`
+- **Rol de los Personajes en la Imagen:** Úsalos como **metáforas e ilustraciones visuales** de lo que dice la voz en off (Ej: si la narración habla de la agenda como presupuesto del tiempo, el Aprendiz sostiene una agenda gigante mientras el Tío Warren señala un reloj de arena).
 
 ### 🔴 IDIOMAS
 - **image_prompt:** Todos los campos de descripción visual (subjects, environment, lighting, composition, style) en **INGLÉS**. Excepción: Los textos que deban aparecer físicamente dibujados en la imagen deben estar en **ESPAÑOL** (Ej: "A folder labeled 'FIDEICOMISO'").

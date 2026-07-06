@@ -46,6 +46,7 @@ class PromptManagerLongs(BasePromptManager):
             if idea_base:
                 idea_prompt += f"\n\n**INSPIRACIÓN REFERENCIAL:** Basa tu idea estrictamente en el siguiente concepto central: '{idea_base}'.\n"
 
+        idea_data = text_gen.generate_text(idea_prompt, config.idea_model)
 
 
         # 3. Script Generation

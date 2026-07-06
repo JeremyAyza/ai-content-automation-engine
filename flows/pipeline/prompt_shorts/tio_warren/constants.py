@@ -54,14 +54,14 @@ SCRIPT_PROMPT: str = """# 📝 PROMPT MAESTRO — AGENTE GUIONISTA PREMIUM (DIVE
 
 ### 🔵 REGLAS VISUALES (ESTRICTO)
 - **Miniatura (Thumbnail - YT Código Capital):** DEBES generar un `thumbnail_prompt` optimizado para CTR masivo:
-  1) **Personajes:** Tío Warren (mentor sabio, traje azul oscuro, lentes, cabello blanco) con expresión seria y apuntando a una pizarra, al lado del Aprendiz (joven, sudadera verde, pelo marrón desordenado) con expresión de absoluta sorpresa o desesperación.
+  1) **Personajes:** Tío Warren (pato anciano sabio, traje azul a rayas, lentes en el pico, plumas blancas) con expresión seria y apuntando a una pizarra, al lado del Aprendiz (pato joven verde, sudadera negra con logo de Bitcoin, gorra negra) con expresión de absoluta sorpresa o desesperación.
   2) **Texto Gigante (Obligatorio):** Un título de 3 a 7 palabras impactantes dibujado en la imagen (Ej: "EL HACK DEL DINERO").
   3) **Utilería y Flechas:** Usa flechas dibujadas a mano y utilería (monedas, tarjetas).
-  4) **Estilo Visual:** `"Premium high-quality 2D vector art style, clean flat background, giant bold typography, thick outlines, high contrast YouTube thumbnail aesthetic."`
+  4) **Estilo Visual:** `"Premium 2D cartoon vector style, clean outline, vibrant colors, custom cute duck characters style, solid clean white background, high contrast YouTube thumbnail aesthetic."`
 - **Consistencia de Personajes (MANDATORIO en todas las escenas):**
-  - **Tío Warren:** Siempre debe ser descrito exactamente como: `"wise, distinguished 60-year-old financial mentor with a friendly smile, short white hair, elegant glasses, wearing a sharp dark blue suit and a tie, calm and authoritative posture"`.
-  - **El Aprendiz:** Siempre debe ser descrito exactamente como: `"22-year-old young man, messy brown hair, wearing a casual green hoodie with a Bitcoin logo, wearing fake gold chains, looking confused or expressive"`.
-- **Estilo de Ilustración Global:** El campo `style` de las escenas DEBE ser estrictamente: `"Clean modern digital illustration style, soft cel-shading, delicate thin colored outlines, smooth color gradients, minimalist clean light grey background, high-end YouTube financial channel art style."`
+  - **Tío Warren:** Siempre debe ser descrito exactamente como: `"wise, distinguished 60-year-old white duck character, white feathers, wearing glasses on his bill, a sharp navy blue pinstripe suit, a white dress shirt, and a yellow-orange tie, calm and authoritative posture"`.
+  - **El Aprendiz:** Siempre debe ser descrito exactamente como: `"22-year-old young green duck character, green feathers, wearing a black casual hoodie with a golden Bitcoin logo on the front, wearing a black baseball cap, looking confused or expressive"`.
+- **Estilo de Ilustración Global:** El campo `style` de las escenas DEBE ser estrictamente: `"Premium 2D cartoon vector style, clean outline, vibrant colors, custom cute duck characters style, solid clean white background."`
 - **Relación Imagen-Texto:** Cada escena debe traducir visualmente lo que se escucha (ej: Tío Warren dividiendo un pastel en partes para explicar presupuesto).
 
 ### 🔴 IDIOMAS
