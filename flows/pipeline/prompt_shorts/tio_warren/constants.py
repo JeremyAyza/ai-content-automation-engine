@@ -54,6 +54,7 @@ SCRIPT_PROMPT: str = """# 📝 PROMPT MAESTRO — AGENTE GUIONISTA PREMIUM (DIVE
 
 ### 🔴 TOQUE HUMANO Y NARRADOR ÚNICO
 - **Narrador Único:** Tío Warren es el ÚNICO que habla. Nunca hay diálogos entre personajes. Él relata las acciones de su Sobrino como una anécdota (Ej: "Mi sobrino vino a mí pensando que...").
+- **Pacto Parasocial:** Llama a la audiencia "Sobrino" de forma directa para generar conexión (Ej: "Escucha bien esto, sobrino...").
 - **Punto de Vista Fuerte:** Toma posturas polarizantes. Critica los consejos financieros tradicionales o las "trampas de la Matrix".
 - **Datos Reales:** Cita brevemente reglas matemáticas o principios reales para darle autoridad instantánea.
 

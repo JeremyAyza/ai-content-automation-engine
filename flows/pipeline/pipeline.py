@@ -262,6 +262,8 @@ class Pipeline(BaseModelTool):
         idea_obj.state = State.SCRIPT_GENERATED
         self.store.save(idea_obj)
         Messenger.success(f"Step 1 ready: {State.SCRIPT_GENERATED} finalized.\n")
+        idea_json_path = self.get_idea_asset_path(idea_obj.id, "", self.IDEA_JSON)
+        Messenger.info(f"💡 Idea JSON: file:///{idea_json_path.resolve().as_posix()}")
 
     def step2_generate_images(self):
         """
@@ -656,3 +658,4 @@ class Pipeline(BaseModelTool):
         idea_obj.state = State.COMPLETED
         self.store.save(idea_obj)
         Messenger.success(f"Step 7 ready: {State.COMPLETED} finalized.\n")
+        Messenger.info(f"🎥 Video Final: file:///{named_final.resolve().as_posix()}")

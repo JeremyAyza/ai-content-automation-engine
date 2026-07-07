@@ -14,6 +14,7 @@ class BaseIdea(BaseModel):
     """
     title: str = Field(description="Título creativo y descriptivo de la idea")
     hook: str = Field(description="Gancho de interrupción (10-15 palabras) para detener el scroll")
+    tags: str = Field(description="6 tags ideales para la temática específica del video (ej. si es del mundial: finanzas, mundial, ahorro, qatar, messi, dinero), todo en un string separado por coma")
     IDEA_PROMPT: ClassVar[str]
 
     @classmethod
