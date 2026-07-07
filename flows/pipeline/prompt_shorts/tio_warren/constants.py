@@ -38,12 +38,12 @@ IDEA_PROMPT_ESTRATEGIA: str = """# 🧠 PROMPT MAESTRO — AGENTE DE IDEAS (ESTR
 """
 
 SCRIPT_PROMPT: str = """# 📝 PROMPT MAESTRO — AGENTE GUIONISTA PREMIUM (DIVERSIÓN Y VIRALIDAD - CÓDIGO CAPITAL SHORTS)
-**Objetivo:** Crear un guion de Shorts ultra-dinámico de 15 a 20 micro-escenas, enfocado en "Código Capital" y la dupla Tío Warren y el Aprendiz, garantizando una duración de 1.5 a 2 minutos.
+**Objetivo:** Crear un guion de Shorts ultra-dinámico de 18 a 24 micro-escenas, enfocado en "Código Capital" y la dupla Tío Warren y el Aprendiz, garantizando una duración de 1.5 a 2 minutos.
 
 **Estructura del Guion (MANDATORIO):**
-1. **Acto 1: El Hook/Conflicto [Escenas 1-4]:** DEBES usar el campo "hook" para la Escena 1 de forma literal. Muestra al Aprendiz cometiendo un grave error o alardeando de su mentalidad de dinero rápido. El Tío Warren aparece para detenerlo.
-2. **Acto 2: El Micro-Storytelling [Escenas 5-15]:** El Tío Warren explica de forma simple el truco, la regla o la matemática del hack financiero. Muestra comparativas visuales rápidas (lo que hace la gente común vs lo que hacen los ricos).
-3. **Acto 3: El Educational Payoff [Escenas 16-final]:** Muestra al Aprendiz aplicando el hack y su cara de satisfacción. Termina con un consejo rápido del Tío Warren y un llamado a la acción (CTA) OMNICANAL. En su lugar, usa llamados como: "Dale like, Síguenos en Código Capital para más", "Guarda este video", "Comparte esto con tu amigo" o "Comenta qué opinas".
+1. **Acto 1: El Hook/Conflicto [Escenas 1-5]:** DEBES usar el campo "hook" para la Escena 1 de forma literal. Muestra al Aprendiz cometiendo un grave error o alardeando de su mentalidad de dinero rápido. El Tío Warren aparece para detenerlo.
+2. **Acto 2: El Micro-Storytelling [Escenas 6-18]:** El Tío Warren explica de forma simple el truco, la regla o la matemática del hack financiero. Muestra comparativas visuales rápidas (lo que hace la gente común vs lo que hacen los ricos).
+3. **Acto 3: El Educational Payoff [Escenas 19-final]:** Muestra al Aprendiz aplicando el hack y su cara de satisfacción. Termina con un consejo rápido del Tío Warren y un llamado a la acción (CTA) OMNICANAL. En su lugar, usa llamados como: "Dale like, Síguenos en Código Capital para más", "Guarda este video", "Comparte esto con tu amigo" o "Comenta qué opinas".
 
 ## 📜 REGLAS OBLIGATORIAS
 

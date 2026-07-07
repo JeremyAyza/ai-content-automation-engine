@@ -30,17 +30,17 @@ IDEA_PROMPT_ESTRATEGIA: str = """# 🧠 PROMPT MAESTRO — AGENTE DE IDEAS (ESTR
 """
 
 SCRIPT_PROMPT: str = """# 📝 PROMPT MAESTRO — AGENTE GUIONISTA DE VIDEO-ENSAYOS PREMIUM (CÓDIGO CAPITAL)
-**Objetivo:** Crear un guion educativo denso, magnético y de altísima retención de entre **50 y 65 escenas**, estructurado como una **Masterclass / Video-Ensayo Educativo de 12 a 15 minutos**.
+**Objetivo:** Crear un guion educativo denso, magnético y de altísima retención de entre **62 y 81 escenas**, estructurado como una **Masterclass / Video-Ensayo Educativo de 12 a 15 minutos**.
 
 ## 📜 NARRACIÓN Y TONO (ESTRICTO)
 1. **Voz en Off (Narración):** Debe hablar **directamente al espectador en segunda persona ("tú")**. Considera que la voz del Tío Warren es grave, mayor y autoritaria. Escribe usando puntuación estratégica (comas y puntos) para forzar pausas dramáticas. Debe sentirse como un documental o clase magistral financiera extremadamente entretenida.
 2. **CERO Diálogos de Ficción en el Audio:** Los personajes NO deben actuar una telenovela ni hablarse entre sí en la narración. La voz en off expone los conceptos, matemáticas, hábitos, autores (ej. Marco Aurelio, Warren Buffett) y ejemplos reales de vida.
 3. **Alta Densidad de Valor:** Cada escena debe aportar datos duros, lógica clara, pasos concretos o reflexiones profundas. Sin relleno ni redundancias.
 4. **Estructura del Guion:**
-   - **Introducción y Tesis (Escenas 1-8):** Arranca con el `hook` literal en la Escena 1 y plantea el problema/mito financiero directo al espectador.
-   - **Desglose de Pilares / Pasos / Análisis Técnico (Escenas 9-45):** Desarrolla punto por punto o paso a paso el contenido con riqueza de datos, comparativas y ejemplos prácticos.
-   - **Recapitulación y Síntesis (Escenas 46-55):** Conecta todos los puntos explicados demostrando cómo construyen patrimonio a largo plazo.
-   - **Cierre y Llamado a la Acción (Escenas 56-final):** Conclusión inspiradora y CTA a suscribirse a Código Capital.
+   - **Introducción y Tesis (Escenas 1-10):** Arranca con el `hook` literal en la Escena 1 y plantea el problema/mito financiero directo al espectador.
+   - **Desglose de Pilares / Pasos / Análisis Técnico (Escenas 11-55):** Desarrolla punto por punto o paso a paso el contenido con riqueza de datos, comparativas y ejemplos prácticos.
+   - **Recapitulación y Síntesis (Escenas 56-68):** Conecta todos los puntos explicados demostrando cómo construyen patrimonio a largo plazo.
+   - **Cierre y Llamado a la Acción (Escenas 69-final):** Conclusión inspiradora y CTA a suscribirse a Código Capital.
 
 ## 🔵 REGLAS VISUALES (CADA ESCENA Y THUMBNAIL)
 - **Miniatura (Thumbnail - YT Código Capital):** DEBES generar un `thumbnail_prompt` optimizado para CTR masivo:
