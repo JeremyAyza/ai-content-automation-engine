@@ -6,17 +6,19 @@ from pathlib import Path
 # Paths
 DOWNLOADS_DIR = Path(r"C:\Users\Jeremy\Downloads\Flow_Generations")
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-OUT_SHORT_DIR = PROJECT_ROOT / "flows" / "out_short"
-IDEAS_DIR = OUT_SHORT_DIR / "ideas"
-TRACKING_CSV = OUT_SHORT_DIR / "ideas_tracking.csv"
+FLOWS_DIR = PROJECT_ROOT / "flows"
 REPORT_CSV = PROJECT_ROOT / "data" / "import_report.csv"
 
-def update_csv_state(idea_id: int, new_state: str):
-    """Updates the state of an idea in the ideas_tracking.csv file."""
+def get_tracking_csv(prefix: str) -> Path:
+    return FLOWS_DIR / f"out_{prefix}" / "ideas_tracking.csv"
+
+def update_csv_state(prefix: str, idea_id: int, new_state: str):
+    """Updates the state of an idea in the corresponding ideas_tracking.csv file."""
+    tracking_csv = get_tracking_csv(prefix)
     rows = []
     updated = False
     
-    with open(TRACKING_CSV, 'r', encoding='utf-8') as f:
+    with open(tracking_csv, 'r', encoding='utf-8') as f:
         reader = csv.reader(f)
         header = next(reader)
         rows.append(header)
@@ -29,16 +31,17 @@ def update_csv_state(idea_id: int, new_state: str):
             rows.append(row)
             
     if updated:
-        with open(TRACKING_CSV, 'w', encoding='utf-8', newline='') as f:
+        with open(tracking_csv, 'w', encoding='utf-8', newline='') as f:
             writer = csv.writer(f)
             writer.writerows(rows)
 
-def get_script_generated_ids() -> set[int]:
-    """Returns a set of idea IDs that are currently in SCRIPT_GENERATED state."""
+def get_script_generated_ids(prefix: str) -> set[int]:
+    """Returns a set of idea IDs that are currently in SCRIPT_GENERATED state for a prefix."""
     valid_ids = set()
-    if not TRACKING_CSV.exists():
+    tracking_csv = get_tracking_csv(prefix)
+    if not tracking_csv.exists():
         return valid_ids
-    with open(TRACKING_CSV, 'r', encoding='utf-8') as f:
+    with open(tracking_csv, 'r', encoding='utf-8') as f:
         reader = csv.reader(f)
         next(reader, None)  # Skip header
         for row in reader:
@@ -53,34 +56,42 @@ def main():
 
     report_data = []
     
-    valid_ids = get_script_generated_ids()
-    print(f"Found {len(valid_ids)} ideas in SCRIPT_GENERATED state.")
+    valid_ids_short = get_script_generated_ids("short")
+    valid_ids_long = get_script_generated_ids("long")
     
+    print(f"Found {len(valid_ids_short)} short ideas and {len(valid_ids_long)} long ideas in SCRIPT_GENERATED state.")
     print("Starting image import process...")
+    
     for source_folder in DOWNLOADS_DIR.iterdir():
         if not source_folder.is_dir():
             continue
             
         folder_name = source_folder.name
         parts = folder_name.split("_")
-        if len(parts) < 2 or not parts[0].isdigit():
+        
+        # Parse prefix and ID, format expected: short_32_title or long_10_title
+        if len(parts) < 2 or parts[0] not in ["short", "long"] or not parts[1].isdigit():
             continue
             
-        idea_id = int(parts[0])
+        prefix = parts[0]
+        idea_id = int(parts[1])
+        dict_key = f"{prefix}_{idea_id}"
         
-        # Filtrar desde el inicio: si no está en la lista de válidos, lo ignoramos por completo
+        valid_ids = valid_ids_short if prefix == "short" else valid_ids_long
+        
+        # Filter: if not in the valid list, ignore
         if idea_id not in valid_ids:
             continue
             
-        idea_path = IDEAS_DIR / f"idea_{idea_id:06d}"
+        idea_path = FLOWS_DIR / f"out_{prefix}" / "ideas" / f"idea_{idea_id:06d}"
         
         if not idea_path.exists():
-            report_data.append([folder_name, idea_id, "FAILED", "Idea folder does not exist"])
+            report_data.append([folder_name, dict_key, "FAILED", "Idea folder does not exist"])
             continue
             
         script_path = idea_path / "script.json"
         if not script_path.exists():
-            report_data.append([folder_name, idea_id, "FAILED", "script.json not found"])
+            report_data.append([folder_name, dict_key, "FAILED", "script.json not found"])
             continue
             
         try:
@@ -90,14 +101,14 @@ def main():
             if script_data.get("thumbnail_prompt"):
                 expected_count += 1
         except Exception as e:
-            report_data.append([folder_name, idea_id, "FAILED", f"Error reading script.json: {str(e)}"])
+            report_data.append([folder_name, dict_key, "FAILED", f"Error reading script.json: {str(e)}"])
             continue
             
         # Count images in source folder
         images = [img for img in source_folder.glob("*.*") if img.is_file() and img.suffix.lower() in ['.jpg', '.jpeg', '.png']]
         
         if len(images) != expected_count:
-            report_data.append([folder_name, idea_id, "FAILED", f"Image count mismatch. Expected: {expected_count}, Found: {len(images)}"])
+            report_data.append([folder_name, dict_key, "FAILED", f"Image count mismatch. Expected: {expected_count}, Found: {len(images)}"])
             continue
             
         # Copy images without renaming
@@ -108,16 +119,16 @@ def main():
             for img in images:
                 shutil.copy2(img, dest_images_dir / img.name)
         except Exception as e:
-            report_data.append([folder_name, idea_id, "FAILED", f"Error copying images: {str(e)}"])
+            report_data.append([folder_name, dict_key, "FAILED", f"Error copying images: {str(e)}"])
             continue
             
         # Update state
         try:
-            update_csv_state(idea_id, "IMAGES_GENERATED")
-            report_data.append([folder_name, idea_id, "SUCCESS", f"Imported {len(images)} images"])
-            print(f"Successfully imported images for idea {idea_id}")
+            update_csv_state(prefix, idea_id, "IMAGES_GENERATED")
+            report_data.append([folder_name, dict_key, "SUCCESS", f"Imported {len(images)} images"])
+            print(f"Successfully imported images for idea {dict_key}")
         except Exception as e:
-            report_data.append([folder_name, idea_id, "FAILED", f"Error updating CSV: {str(e)}"])
+            report_data.append([folder_name, dict_key, "FAILED", f"Error updating CSV: {str(e)}"])
 
     # Generate Report
     with open(REPORT_CSV, 'w', encoding='utf-8', newline='') as f:
