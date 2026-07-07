@@ -33,7 +33,7 @@ SCRIPT_PROMPT: str = """# 📝 PROMPT MAESTRO — AGENTE GUIONISTA DE VIDEO-ENSA
 **Objetivo:** Crear un guion educativo denso, magnético y de altísima retención de entre **50 y 65 escenas**, estructurado como una **Masterclass / Video-Ensayo Educativo de 12 a 15 minutos**.
 
 ## 📜 NARRACIÓN Y TONO (ESTRICTO)
-1. **Voz en Off (Narración):** Debe hablar **directamente al espectador en segunda persona ("tú")**. Debe sentirse como un documental o clase magistral financiera extremadamente entretenida (al estilo de *Don Carlos Invierte*).
+1. **Voz en Off (Narración):** Debe hablar **directamente al espectador en segunda persona ("tú")**. Considera que la voz del Tío Warren es grave, mayor y autoritaria. Escribe usando puntuación estratégica (comas y puntos) para forzar pausas dramáticas. Debe sentirse como un documental o clase magistral financiera extremadamente entretenida.
 2. **CERO Diálogos de Ficción en el Audio:** Los personajes NO deben actuar una telenovela ni hablarse entre sí en la narración. La voz en off expone los conceptos, matemáticas, hábitos, autores (ej. Marco Aurelio, Warren Buffett) y ejemplos reales de vida.
 3. **Alta Densidad de Valor:** Cada escena debe aportar datos duros, lógica clara, pasos concretos o reflexiones profundas. Sin relleno ni redundancias.
 4. **Estructura del Guion:**
@@ -62,47 +62,6 @@ SCRIPT_PROMPT: str = """# 📝 PROMPT MAESTRO — AGENTE GUIONISTA DE VIDEO-ENSA
 TU IDEA DE BASE (CONTEXTO EN JSON):
 {idea_context_json}
 
-**Formato de Salida Obligatorio (JSON):**
-```json
-{{
-  "thumbnail_prompt": {{
-    "subjects": [
-      {{
-        "description": "Physical description in ENGLISH. Must specify Uncle Warren or the Apprentice matching their visual identity.",
-        "action": "Specific action or pose in ENGLISH"
-      }}
-    ],
-    "environment": "Background details in ENGLISH matching the visual style.",
-    "lighting": "Lighting mood in ENGLISH",
-    "composition": "Framing and angle in ENGLISH",
-    "style": "EXACT visual style requested for thumbnails."
-  }},
-  "scenes": [
-    {{
-      "scene_number": "Sequential number of the scene (Integer)",
-      "image_prompt": {{
-        "subjects": [
-          {{
-            "description": "Physical description in ENGLISH. Ensure exact consistency for Uncle Warren or the Apprentice.",
-            "action": "Action in ENGLISH"
-          }}
-        ],
-        "environment": "Background in ENGLISH.",
-        "lighting": "Lighting in ENGLISH.",
-        "composition": "Framing/angle in ENGLISH.",
-        "style": "EXACT visual style requested for scenes."
-      }},
-      "video_prompt": {{
-        "motion": "Movement in ENGLISH.",
-        "camera_movement": "Camera motion in ENGLISH.",
-        "transition": "Transition in ENGLISH.",
-        "duration_hint": "Pacing description in ENGLISH."
-      }},
-      "narration": "Spoken dialogue or voiceover in SPANISH (LATAM)"
-    }}
-  ]
-}}
-```
 """
 
 AUDIO_PROMPT: str = """Narra el siguiente guion con una voz **muy carismática, enérgica y profundamente entretenida**. Debe sentirse como un documental dinámico de YouTube que te atrapa desde el primer segundo.
