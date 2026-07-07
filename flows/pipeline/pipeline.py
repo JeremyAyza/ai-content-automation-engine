@@ -494,7 +494,6 @@ class Pipeline(BaseModelTool):
             height = self.SHORT_HEIGHT if self.orientation == VideoOrientation.SHORT else self.LONG_HEIGHT
             zoom_max = self.SHORT_ZOOM_MAX if self.orientation == VideoOrientation.SHORT else self.LONG_ZOOM_MAX
             rotate_angle = self.SHORT_ROTATE_ANGLE if self.orientation == VideoOrientation.SHORT else self.LONG_ROTATE_ANGLE
-            zoom_blur_transition = (self.orientation == VideoOrientation.LONG)
 
             self.ffmpeg.create_composite_scene_video(
                 img_path=image_path,
@@ -503,8 +502,7 @@ class Pipeline(BaseModelTool):
                 width=width,
                 height=height,
                 zoom_max=zoom_max,
-                rotate_angle=rotate_angle,
-                zoom_blur_transition=zoom_blur_transition
+                rotate_angle=rotate_angle
             )
             scene_videos.append(video_path)
 

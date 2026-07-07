@@ -177,40 +177,27 @@ class FFmpegTool(BaseModelTool):
         width: int = 1080,
         height: int = 1920,
         zoom_max: float = 1.05,
-        rotate_angle: float = 1.0,
-        zoom_blur_transition: bool = False
+        rotate_angle: float = 1.0
     ) -> None:
         """
         Creates a video with a 3-part dynamic sequence:
         1. Zoom In (30%)
         2. Soft Swing Loop (40%)
-        3. Zoom Out (30%) (or Zoom Blur Transition Out for long videos)
+        3. Zoom Out (30%)
         """
         duration = self.get_audio_duration(audio_path)
         fps = 30
         total_frames = int(duration * fps)
 
-        # Transition parameters
-        transition_frames = 5 if zoom_blur_transition else 9  # ~0.15 seconds for long videos
-        ft = max(0, total_frames - transition_frames)
-        t_start = ft / fps
-
         # Zoom expression (per frame) using zoom_max
         zoom_diff = zoom_max - 1.0
-        if zoom_blur_transition and total_frames > transition_frames:
-            # Zoom in fast during transition (less extreme zoom to avoid "demasiado")
-            z_expr = (
-                f"if(lt(on,{ft}), 1.0+{zoom_diff:.3f}*(on/{ft}), "
-                f"{zoom_max:.3f}+0.100*((on-{ft})/{transition_frames}))"
-            )
-        else:
-            f1 = total_frames * 0.3
-            f2 = total_frames * 0.7
-            z_expr = (
-                f"if(lt(on,{f1}), 1.0+{zoom_diff:.3f}*(on/{f1}), "
-                f"if(lt(on,{f2}), {zoom_max:.3f}, "
-                f"{zoom_max:.3f}-{zoom_diff:.3f}*((on-{f2})/({total_frames}-{f2}))))"
-            )
+        f1 = total_frames * 0.3
+        f2 = total_frames * 0.7
+        z_expr = (
+            f"if(lt(on,{f1}), 1.0+{zoom_diff:.3f}*(on/{f1}), "
+            f"if(lt(on,{f2}), {zoom_max:.3f}, "
+            f"{zoom_max:.3f}-{zoom_diff:.3f}*((on-{f2})/({total_frames}-{f2}))))"
+        )
 
         pos_filter = "x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)'"
         zoom_filter = f"zoompan=z='{z_expr}':d=1:{pos_filter}:s={width}x{height}:fps={fps},format=yuv420p"
@@ -222,16 +209,6 @@ class FFmpegTool(BaseModelTool):
 
         # Combine video filters
         vf_chain = f"{pre_filter},{zoom_filter},{rotate_filter}"
-        if zoom_blur_transition and total_frames > transition_frames:
-            # Pseudo-animated blur using 3 escalating static blurs
-            t1 = t_start
-            t2 = t_start + 0.050
-            t3 = t_start + 0.100
-            vf_chain += (
-                f",boxblur=luma_radius=3:enable='between(t,{t1:.3f},{t2:.3f})'"
-                f",boxblur=luma_radius=8:enable='between(t,{t2:.3f},{t3:.3f})'"
-                f",boxblur=luma_radius=15:enable='gt(t,{t3:.3f})'"
-            )
 
         cmd = f"""
         ffmpeg -y -loop 1 -i {shlex.quote(str(img_path))} \
