@@ -95,8 +95,8 @@ class Pipeline(BaseModelTool):
 
     # Standard Tracking Files
     IDEAS_TRACKING_CSV: ClassVar[str] = "ideas_tracking.csv"
-    SHORTS_IDEAS_BANK: ClassVar[str] = "bank_ideas_shorts.json"
-    LONGS_IDEAS_BANK: ClassVar[str] = "bank_ideas_longs.json"
+    SHORTS_IDEAS_BANK: ClassVar[str] = "bank_ideas_shorts.csv"
+    LONGS_IDEAS_BANK: ClassVar[str] = "bank_ideas_longs.csv"
 
     def __init__(self, **kwargs: Any):
         super().__init__(**kwargs)

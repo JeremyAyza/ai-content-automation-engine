@@ -66,22 +66,33 @@ class BasePromptManager(BaseModel):
         )
 
     def _get_idea_from_bank(self, bank_path: Path) -> str:
-        """Reads the ideas bank, finds an unused idea, marks it as used, and returns it."""
+        """Reads the ideas bank (CSV), finds an unused idea, marks it as used, and returns it."""
+        import csv
         if not bank_path.exists():
             return ""
 
         try:
+            rows = []
+            selected_idea = ""
+            updated = False
+            
             with open(bank_path, 'r', encoding='utf-8') as f:
-                ideas = json.load(f)
-
-            for idea in ideas:
-                if not idea.get("used", True):
-                    idea["used"] = True
-                    # Save back to file
-                    with open(bank_path, 'w', encoding='utf-8') as f:
-                        json.dump(ideas, f, indent=2, ensure_ascii=False)
-                    Messenger.info(f"💡 Banco de Ideas: Usando idea base '{idea['idea_base']}'")
-                    return idea.get("idea_base", "")
+                reader = csv.DictReader(f)
+                fieldnames = reader.fieldnames or ["idea_base", "used"]
+                for row in reader:
+                    if not updated and row.get("used", "false").lower() in ("false", "0", ""):
+                        selected_idea = row.get("idea_base", "")
+                        row["used"] = "true"
+                        updated = True
+                    rows.append(row)
+                    
+            if updated:
+                with open(bank_path, 'w', encoding='utf-8', newline='') as f:
+                    writer = csv.DictWriter(f, fieldnames=fieldnames)
+                    writer.writeheader()
+                    writer.writerows(rows)
+                Messenger.info(f"💡 Banco de Ideas: Usando idea base '{selected_idea}'")
+                return selected_idea
 
             Messenger.warning("💡 Banco de Ideas: Todas las ideas han sido usadas. Se generará una idea aleatoria.")
             return ""
