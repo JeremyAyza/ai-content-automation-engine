@@ -25,7 +25,7 @@ class BasePromptManager(BaseModel):
     ALIGNMENT_PROMPT: str = constants.ALIGNMENT_PROMPT
 
     # Voice
-    VOICE_NAME: str = "Fenrir"
+    VOICE_NAME: str = "Charon"
 
     CATEGORIES: Sequence[Type[CategoryHandler]] = []
 
