@@ -62,7 +62,7 @@ SCRIPT_PROMPT: str = """# 📝 PROMPT MAESTRO — AGENTE GUIONISTA PREMIUM (DIVE
 - **Miniatura (Thumbnail - YT Código Capital):** DEBES generar un `thumbnail_prompt` optimizado para CTR masivo:
   1) **Personajes:** Tío Warren (pato anciano sabio, traje azul a rayas, lentes en el pico, plumas blancas) con expresión seria y apuntando a una pizarra, al lado del Sobrino (pato joven verde, sudadera negra con logo de Bitcoin, gorra negra) con expresión de absoluta sorpresa o desesperación.
   2) **Texto Gigante (Obligatorio):** Un título de 3 a 7 palabras impactantes dibujado en la imagen (Ej: "EL HACK DEL DINERO").
-  3) **Utilería y Flechas:** Usa flechas dibujadas a mano y utilería (monedas, tarjetas).
+  3) **Utilería y Flecha:** Usa una flecha dibujadas a mano y utilería (monedas, tarjetas).
   4) **Estilo Visual:** `"Premium 2D cartoon vector style, clean outline, vibrant colors, custom cute duck characters style, solid clean white background, high contrast YouTube thumbnail aesthetic."`
 - **Consistencia de Personajes (MANDATORIO en todas las escenas):**
   - **Tío Warren:** Siempre debe ser descrito exactamente como: `"wise, distinguished 60-year-old white duck character, white feathers, wearing glasses on his bill, a sharp navy blue pinstripe suit, a white dress shirt, and a yellow-orange tie, calm and authoritative posture"`.

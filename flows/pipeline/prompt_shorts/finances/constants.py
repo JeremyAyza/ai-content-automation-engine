@@ -51,7 +51,7 @@ SCRIPT_PROMPT: str = """# 📝 PROMPT MAESTRO — AGENTE GUIONISTA FINANCIERO (E
 - **Miniatura (Thumbnail - YT Finanzas 2026):** DEBES generar un `thumbnail_prompt` diseñado para un CTR masivo imitando a los canales top de finanzas.
   1) **Sujeto:** El personaje debe tener expresiones exageradas, apuntando o interactuando visualmente (ej. comparando al "pobre" con el "rico", o mirándose a un espejo).
   2) **Texto Gigante (Obligatorio):** Incluye SIEMPRE una instrucción para dibujar un título impactante de 3 a 7 palabras en la imagen usando la regla de EXCEPCIÓN de idioma (Ej: "Giant bold text at the top that says 'VIVE MEJOR CON MENOS'").
-  3) **Utilería y Flechas:** Usa utilería visual clara (alcancías, billetes, autos) e incluye flechas dibujadas a mano (thick hand-drawn arrows) apuntando a los objetos clave para dirigir la mirada del espectador.
+  3) **Utilería y Flecha:** Usa utilería visual clara (alcancías, billetes, autos) e incluye una flecha dibujadas a mano (thick hand-drawn arrows) apuntando a los objetos clave para dirigir la mirada del espectador.
   4) **Entorno/Fondo:** Fondos extremadamente limpios (generalmente blancos o neutros) para maximizar el contraste del texto y las flechas.
   5) **Estilo Visual:** El campo `style` DEBE ser: `"Premium high-quality 2D vector art style, clean flat background, giant bold typography, thick expressive character outlines, hand-drawn indicator arrows, high contrast YouTube thumbnail aesthetic."`
 - **Protagonista:** Presencia consistente de un personaje principal (persona común identificable) viviendo el ejemplo o tutorial en escenas clave.
