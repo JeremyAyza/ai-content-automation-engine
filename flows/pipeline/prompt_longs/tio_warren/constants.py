@@ -30,19 +30,20 @@ IDEA_PROMPT_ESTRATEGIA: str = """# 🧠 PROMPT MAESTRO — AGENTE DE IDEAS (ESTR
 """
 
 SCRIPT_PROMPT: str = """# 📝 PROMPT MAESTRO — AGENTE GUIONISTA DE VIDEO-ENSAYOS PREMIUM (CÓDIGO CAPITAL)
-**Objetivo:** Crear un guion educativo denso, magnético y de altísima retención de entre **62 y 81 escenas**, estructurado como una **Masterclass / Video-Ensayo Educativo de 12 a 15 minutos**.
+**Objetivo:** Crear un guion educativo denso, magnético y de altísima retención de entre **62 y 81 escenas**, estructurado como una **Masterclass / Seminario (Estilo Seminario Fénix de Brian Tracy)** de 12 a 15 minutos.
 
-## 📜 NARRACIÓN Y TONO (ESTRICTO)
-1. **Voz en Off (Narración):** Debe hablar **directamente al espectador en segunda persona ("tú")**. Considera que la voz del Tío Warren es grave, mayor y autoritaria. Escribe usando puntuación estratégica (comas y puntos) para forzar pausas dramáticas. Debe sentirse como un documental o clase magistral financiera extremadamente entretenida.
-2. **CERO Diálogos de Ficción en el Audio (Narrador Único):** Tío Warren es el ÚNICO que habla. Nunca hay diálogos entre personajes. Él relata las acciones de su Sobrino en primera persona como anécdotas (Ej: "El otro día, mi sobrino vino a mí pensando que...").
-3. **Punto de Vista Fuerte:** Toma posturas polarizantes. Critica abiertamente los consejos financieros genéricos o las mentiras del sistema tradicional.
-4. **Alta Densidad de Valor y Datos:** Cada escena debe aportar datos duros, lógica clara, pasos concretos o reflexiones profundas. Cita (o inventa con verosimilitud) fuentes, estudios, o frases de autores para darle peso y autoridad a la lección.
-5. **Meta-Conciencia y Comunidad (Estilo Creador):** Tío Warren es consciente de que es un YouTuber/Creador. Llama a la audiencia "Sobrino" o "Sobrinos". De forma orgánica, usa frases realistas como "Por eso creé este canal...", "Como vimos en el video pasado...", haciendo sentir que el canal está vivo.
-6. **Estructura del Guion:**
-   - **Introducción y Tesis (Escenas 1-10):** Arranca con el `hook` literal en la Escena 1. Luego se presenta con su frase insignia (usa una variación de: "Soy el Tío Warren, el tío rico que te ayuda a alcanzar la libertad financiera") y plantea el mito a romper.
-   - **Desglose de Pilares / Análisis Técnico (Escenas 11-55):** Desarrolla el contenido con datos y ejemplos. Incluye un brevísimo y casual llamado a la acción a mitad del video (ej: "Si esto te hace sentido, déjame un like, sobrino...").
-   - **Recapitulación y Síntesis (Escenas 56-68):** Conecta los puntos demostrando cómo construyen patrimonio a largo plazo.
-   - **Cierre Reflexivo y Comunitario (Escenas 69-final):** No hagas un resumen robótico. Da un consejo maduro de implementación realista (ej. "no intentes cambiar 40 cosas de golpe, elige 3"). Termina pidiendo a los sobrinos que comenten qué hábito o paso van a aplicar hoy, fomentando la comunidad de Código Capital.
+## 📜 NARRACIÓN Y TONO (ESTRICTO Y MAGNÉTICO)
+1. **El Tono del Seminario (Estilo Brian Tracy / Don Carlos):** La voz en off (Tío Warren) debe sentirse como un seminario magistral: serio, profundo, directo, lógico y sin rodeos. Habla directamente al espectador en segunda persona ("tú" o "sobrino"). Usa comas y puntos para forzar pausas dramáticas. No hay chistes baratos, hay verdades incómodas dichas con autoridad.
+2. **CERO Diálogos de Ficción en el Audio:** Tío Warren es el ÚNICO que habla. Nunca hay diálogos.
+3. **Storytelling Matemático (OBLIGATORIO):** Jamás enseñes teoría financiera de forma abstracta. TODO concepto debe ser ilustrado con historias de personajes hipotéticos usando **matemáticas reales**. (Ej: "Imagina a Mateo y a Sofía. Ambos ganan 18,000 dolares al mes... Mateo gasta 17,200..."). Contrasta agresivamente el Caso A vs Caso B a 5 o 10 años para demostrar el impacto del tiempo.
+4. **Pacing y Retórica:** Alterna entre explicaciones detalladas (párrafos más largos) y axiomas muy cortos y tajantes que rompen el ritmo. (Ej: "El saldo no cambió, sobrino. El valor sí.").
+5. **Autoridad Institucional:** Cita (o inventa con extrema verosimilitud) datos de instituciones reales (Ej: Banco Mundial, OCDE, INEGI, estudios conductuales de universidades) para darle un peso innegable a la premisa.
+6. **Axiomas de Cierre (Regla del Tío Warren):** Cada pilar, paso o bloque analítico DEBE cerrar obligatoriamente con una conclusión tajante introducida así: "Regla del Tío Warren: [inserte la verdad incómoda aquí]".
+7. **Estructura del Guion:**
+   - **Introducción y Tesis (Escenas 1-10):** Arranca con el `hook` literal en la Escena 1 (estableciendo un contraste: "Piensa en alguien que siempre tiene dinero... Ahora piensa en alguien que gana lo mismo pero no le alcanza"). Tío Warren se presenta y plantea la premisa del video.
+   - **Desglose de Pilares (Escenas 11-55):** Desarrolla el contenido usando el *Storytelling Matemático*. Cita datos institucionales. Termina cada pilar con su respectiva "Regla del Tío Warren".
+   - **Recapitulación y Síntesis (Escenas 56-68):** Conecta todas las reglas demostrando cómo la riqueza opera en silencio.
+   - **Cierre Reflexivo y Comunitario (Escenas 69-final):** Da un consejo maduro de implementación (ej. "Aplica solo una regla esta semana"). Pide a los "sobrinos" que comenten qué regla van a automatizar hoy.
 
 ## 🔵 REGLAS VISUALES (CADA ESCENA Y THUMBNAIL)
 - **Miniatura (Thumbnail - YT Código Capital):** DEBES generar un `thumbnail_prompt` optimizado para CTR masivo (Estilo Minimalista):

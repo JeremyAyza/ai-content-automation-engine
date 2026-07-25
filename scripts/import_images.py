@@ -71,6 +71,7 @@ def main():
         
         # Parse prefix and ID, format expected: short_32_title or long_10_title
         if len(parts) < 2 or parts[0] not in ["short", "long"] or not parts[1].isdigit():
+            report_data.append([folder_name, "N/A", "IGNORED", "Folder name format invalid (expected short_ID_... or long_ID_...)"])
             continue
             
         prefix = parts[0]
