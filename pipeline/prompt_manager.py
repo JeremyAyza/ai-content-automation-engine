@@ -61,8 +61,12 @@ class PromptManager:
             idea_model=idea_model,
         )
 
-    def get_audio_prompt(self, audio_text: str) -> str:
-        """Formats the audio prompt."""
+    def get_audio_prompt(self, idea_category: str, audio_text: str) -> str:
+        """Formats the audio prompt based on the selected category handler."""
+        handler_name = idea_category.split("_")[0] if "_" in idea_category else idea_category
+        for category in self.CATEGORIES:
+            if category.__name__ == handler_name:
+                return category.AUDIO_PROMPT.format(audio_text=audio_text)
         return self.AUDIO_PROMPT.format(audio_text=audio_text)
 
     def get_alignment_prompt(

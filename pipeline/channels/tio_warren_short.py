@@ -105,6 +105,7 @@ class StrategyTioWarrenIdeaShort(BaseIdea):
 
 
 class TioWarrenHandlerShort(CategoryHandler):
+    AUDIO_PROMPT = AUDIO_PROMPT
     """
     Specialized handler for Short videos themed around Tio Warren for Código Capital.
     Encapsulates Mindset and Strategy finance variants.

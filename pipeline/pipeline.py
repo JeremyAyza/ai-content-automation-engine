@@ -236,7 +236,7 @@ class Pipeline(BaseModel):
         if not chunk_audio_path.exists():
             Messenger.info(f"Synthesizing audio for Batch {batch_num}...")
             chunk_text = "\n\n".join([s.narration for s in chunk])
-            formatted_audio = self.prompt_manager.get_audio_prompt(chunk_text)
+            formatted_audio = self.prompt_manager.get_audio_prompt(idea_obj.category, chunk_text)
             self.audio_gen.text_to_speech(formatted_audio, chunk_audio_path)
 
             # Apply speedup natively to the generated batch audio

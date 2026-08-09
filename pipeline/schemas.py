@@ -139,6 +139,7 @@ class VideoScript(BaseModel):
     thumbnail_prompt: ImagePrompt = Field(description="Structured details for the YouTube thumbnail generation, highly optimized for CTR in 2026 (high contrast, extreme expressions, clickbait visual elements).")
     scenes: List[Scene]
     SCRIPT_PROMPT: ClassVar[str]
+    AUDIO_PROMPT: ClassVar[str] = constants.AUDIO_PROMPT
     CHUNK_INSTRUCTIONS: ClassVar[str] = constants.CHUNK_INSTRUCTIONS
 
     @classmethod

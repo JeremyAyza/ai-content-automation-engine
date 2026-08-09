@@ -83,6 +83,7 @@ class SprunkiViralIdea(BaseIdea):
 
 
 class SprunkisHandler(CategoryHandler):
+    AUDIO_PROMPT = AUDIO_PROMPT
     """
     Specialized handler for Sprunkis-themed viral short videos.
     """

@@ -98,6 +98,7 @@ class StrategyFinanceIdea(BaseIdea):
 
 
 class FinancesHandler(CategoryHandler):
+    AUDIO_PROMPT = AUDIO_PROMPT
     """
     Specialized handler for Finance-themed short videos.
     Encapsulates Mindset and Strategy finance variants.
