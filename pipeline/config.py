@@ -1,0 +1,56 @@
+from pathlib import Path
+
+# Standard Output Directories
+IDEAS_DIR = "ideas"
+IMAGES_DIR = "images"
+AUDIOS_DIR = "audios"
+VIDEOS_DIR = "videos"
+EDITIONS_DIR = "editions"
+
+# Standard Output Files
+IDEA_JSON = "idea.json"
+SCRIPT_JSON = "script.json"
+RAW_VIDEO = "raw_video.mp4"
+SUBTITLED_VIDEO = "subtitled_video.mp4"
+FINAL_AUDIO = "final_audio.wav"
+FINAL_SUBS = "final_subs.srt"
+FINAL_VIDEO = "final_video.mp4"
+
+# Configuration
+SHORT_AUDIO_SPEEDUP = 1.07
+LONG_AUDIO_SPEEDUP = 1.065
+AUDIO_BATCH_SIZE = 15
+MIN_AUDIO_DURATION = 0.5
+MIN_AUDIO_SIZE_BYTES = 1024
+BG_MUSIC_VOLUME = 0.18
+
+# Video Dimension Configurations
+SHORT_WIDTH = 1080
+SHORT_HEIGHT = 1920
+LONG_WIDTH = 1920
+LONG_HEIGHT = 1080
+
+# Subtitle Font Sizes
+SHORT_FONT_SIZE = 80
+LONG_FONT_SIZE = 55
+
+# Zoom and Rotation (Swing) Configurations
+SHORT_ZOOM_MAX = 1.05
+SHORT_ROTATE_ANGLE = 1.0
+LONG_ZOOM_MAX = 1.02
+LONG_ROTATE_ANGLE = 0.3
+
+# Standard Scene Patterns
+SCENE_IMAGE_PATTERN = "scene_{}.jpg"
+SCENE_AUDIO_PATTERN = "scene_{}.wav"
+SCENE_VIDEO_PATTERN = "scene_{}.mp4"
+BATCH_AUDIO_PATTERN = "batch_{}.wav"
+
+# Standard Resource Directories
+BG_MUSIC_DIR = "bg-music"
+REFERENCES_DIR = "reference"
+
+# Standard Tracking Files
+IDEAS_TRACKING_CSV = "ideas_tracking.csv"
+SHORTS_IDEAS_BANK = "bank_ideas_shorts.csv"
+LONGS_IDEAS_BANK = "bank_ideas_longs.csv"

@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-FLOWS_DIR = PROJECT_ROOT / "flows"
+FLOWS_DIR = PROJECT_ROOT
 OUTPUT_JSON = PROJECT_ROOT / "data" / "extracted_scripts.json"
 
 def main():

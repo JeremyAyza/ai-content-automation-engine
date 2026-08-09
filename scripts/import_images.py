@@ -6,7 +6,7 @@ from pathlib import Path
 # Paths
 DOWNLOADS_DIR = Path(r"C:\Users\Jeremy\Downloads\Flow_Generations")
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-FLOWS_DIR = PROJECT_ROOT / "flows"
+FLOWS_DIR = PROJECT_ROOT
 REPORT_CSV = PROJECT_ROOT / "data" / "import_report.csv"
 
 def get_tracking_csv(prefix: str) -> Path:

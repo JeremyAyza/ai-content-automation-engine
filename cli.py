@@ -24,7 +24,7 @@ def main():
     subparsers = parser.add_subparsers(dest="command", help="Comandos disponibles", required=True)
 
     # Comando 'run'
-    run_parser = subparsers.add_parser("run", help="Ejecutar un paso del pipeline (flows.pipeline.main)")
+    run_parser = subparsers.add_parser("run", help="Ejecutar un paso del pipeline (pipeline.main)")
     run_parser.add_argument(
         "format",
         choices=["short", "long"],
@@ -43,7 +43,7 @@ def main():
     args = parser.parse_args()
 
     if args.command == "run":
-        cmd = ["poetry", "run", "python", "-m", "flows.pipeline.main", args.format, args.step]
+        cmd = ["poetry", "run", "python", "-m", "pipeline.main", args.format, args.step]
         run_command(cmd)
 
     elif args.command == "import-images":
