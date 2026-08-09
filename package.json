@@ -1,0 +1,13 @@
+{
+  "name": "generate-videos-cli",
+  "version": "1.0.0",
+  "description": "CLI super simple para generar videos",
+  "bin": {
+    "generate": "./bin/generate.js"
+  },
+  "scripts": {
+    "install-global": "npm install -g ."
+  },
+  "author": "Jeremy",
+  "license": "ISC"
+}
