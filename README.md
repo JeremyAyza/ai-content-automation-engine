@@ -1,174 +1,95 @@
-# AI Content Automation Engine
+# 🎬 AI Video Automation Pipeline
 
-A powerful, modular framework designed to automate professional video creation workflows. This project follows a strict **Tools & Pipelines** architecture, orchestrating atomic infrastructure (tools) into comprehensive, high-quality video products (pipelines).
+¡Bienvenido al motor de automatización de creación de videos! Este proyecto es un **Pipeline (Tubería de procesos)** diseñado para generar videos automatizados (tanto cortos verticales como largos horizontales) desde cero, utilizando IA para escribir el guion, generar imágenes, locución, subtítulos y edición de video.
+
+Este documento está diseñado para ser la guía definitiva. No importa si eres un Product Owner, un Project Manager o un desarrollador Junior: aquí entenderás exactamente **cómo funciona la magia** y **cómo usarla**.
 
 ---
 
-## ⚡ Setup & Installation
+## 🧠 ¿Cómo funciona el flujo? (El Pipeline)
 
-### Prerequisites
-- Python 3.11+
-- [Poetry](https://python-poetry.org/docs/#installation)
-- [FFmpeg](https://ffmpeg.org/download.html)
-- [Whisper.cpp](https://github.com/ggerganov/whisper.cpp) (for transcription)
-  - Ensure you have the `whisper-cli` installed and available in your PATH.
-  - **Model Required**: Download the `small` model (`ggml-small.bin`) and place it in `models/whisper/`.
-- Google Gemini API Key
+El proyecto funciona como una línea de ensamblaje de una fábrica. Toma una idea básica y la pasa por **7 pasos** secuenciales hasta tener un video finalizado. 
 
-### Installation
-1. Clone the repository.
-2. Install dependencies:
-   ```bash
-   poetry install
-   ```
-3. Configure environment:
-   ```env
-   # .env
-   GOOGLE_API_KEY=your_key_here
-   ```
+Estos son los 7 pasos mágicos:
 
-### 🏃 Running the Pipeline (Quick Start)
-After installation, you can execute the full automation pipeline for **Shorts** with a single command:
+1. **📝 Paso 1: Generar Historia/Guion (`step1`)**
+   Toma una idea de nuestra base de datos (un archivo CSV) y genera un guion completo usando IA.
+2. **🎨 Paso 2: Generar Imágenes (`step2`)**
+   Lee el guion generado y crea las imágenes o escenas visuales necesarias para el video.
+3. **🎙️ Paso 3: Generar Audio (`step3`)**
+   Convierte el texto del guion en voz (Text-to-Speech) para la narración del video.
+4. **🎞️ Paso 4: Ensamblar Video (`step4`)**
+   Junta las imágenes generadas con la narración de audio para crear un primer corte del video.
+5. **🔤 Paso 5: Generar Subtítulos (`step5`)**
+   Analiza el audio y crea subtítulos sincronizados, superponiéndolos en el video.
+6. **🎵 Paso 6: Añadir Música de Fondo (`step6`)**
+   Agrega una pista de música de fondo para darle el toque final y equilibrar los volúmenes.
+7. **✅ Paso 7: Finalizar Video (`step7`)**
+   Renombra y empaqueta el video final para que esté listo para publicarse.
+
+---
+
+## 🚀 ¿Cómo usarlo?
+
+Tienes dos formas principales de interactuar con el proyecto: usando el archivo **`cli.py` (Línea de Comandos)** o usando los atajos de **`Makefile`**. 
+
+El flujo requiere que especifiques dos cosas siempre:
+- **Formato**: `short` (Video vertical, ideal para TikTok/Reels) o `long` (Video horizontal, ideal para YouTube).
+- **Paso a ejecutar**: Puede ser un paso específico (`step1`, `step2`, etc.), o modos automáticos como `all` o `fixed`.
+
+### Modos Automáticos (Los más útiles)
+
+- **Modo `all` (Bucle Infinito):** Ejecuta todo el proceso desde el paso 1 hasta el 7 y luego vuelve a empezar con una nueva idea. Nunca se detiene. Ideal para dejarlo trabajando toda la noche.
+- **Modo `fixed` (Terminar Pendientes):** Busca ideas en la base de datos que se quedaron a medias (por ejemplo, tienen guion pero falló el audio) y continúa el proceso desde donde se quedó hasta terminarlas todas.
+
+---
+
+### 💻 Opción 1: Usando el CLI (Python)
+
+Abre tu terminal en la carpeta del proyecto y usa el siguiente comando:
 
 ```bash
-make icg-s-all
+python cli.py run [formato] [paso]
 ```
 
-This will run all 7 steps sequentially (Script -> Images -> Audio -> Video -> Subtitles -> Music -> Cleanup). You can also run individual steps using `make icg-s-step<N>` (e.g., `make icg-s-step1`).
-
-
-### 🛠️ Tech Stack
-- **Language**: Python 3.11+
-- **Dependency Management**: [Poetry](https://python-poetry.org/)
-- **AI Engine**: [Google Gemini](https://ai.google.dev/) — text, image & audio generation
-- **Transcription**: [Whisper.cpp](https://github.com/ggerganov/whisper.cpp) — local, fast, offline
-- **Video Core**: [FFmpeg](https://ffmpeg.org/)
-- **Data Layer**: CSV-based lifecycle tracking
+**Ejemplos:**
+- Generar un guion para un video corto: `python cli.py run short step1`
+- Ejecutar el pipeline completo para videos cortos sin parar: `python cli.py run short all`
+- Retomar todos los videos largos incompletos y terminarlos: `python cli.py run long fixed`
 
 ---
 
-## 🚀 Usage
+### 🛠️ Opción 2: Usando Makefile (Atajos rápidos)
 
-The framework uses modular, resumable steps to ensure stability and state persistence.
+Si tienes `make` instalado, es mucho más rápido. Los comandos siguen esta estructura: `make icg-[s o l]-[paso]`.
+- `s` = short
+- `l` = long
 
-1. Define your niche/project by selecting a `PromptManager` (`Shorts` or `Longs`).
-2. Run the pipeline steps sequentially:
-
-| Step | Method | Description |
-|------|--------|-------------|
-| 1 | `step1_generate_story` | Generates idea + full script via Gemini |
-| 2 | `step2_generate_images` | Generates one image per scene via Gemini Imagen |
-| 3 | `step3_generate_audios` | Batched TTS narration + Whisper alignment |
-| 4 | `step4_generate_videos` | Stitches image + audio into scene clips via FFmpeg |
-| 5 | `step5_generate_subtitles` | Adds SRT subtitles to the raw video |
-| 6 | `step6_add_background_music` | Mixes a random background track at low volume |
-| 7 | `step7_rename_final_video` | Renames output to the idea's slugified title |
-
-3. Monitor progress in the tracking CSV (`ideas_tracking.csv`).
+**Ejemplos de comandos rápidos:**
+- `make icg-s-step1` (Paso 1 para Short)
+- `make icg-l-all` (Loop infinito para Long)
+- `make icg-s-fixed` (Terminar pendientes de Shorts)
 
 ---
 
-## 🏗️ Architecture: Tools & Pipelines
+## 📂 ¿Dónde se guarda todo?
 
-### 🛠️ Tools (`tools/`)
-Shared, reusable atomic components that handle all infrastructure tasks:
+- **Tus Ideas Base:** Se encuentran en `flows/resource/`. Aquí hay archivos `.csv` (como `bank_ideas_shorts.csv`) donde puedes alimentar al sistema con nuevas ideas.
+- **Tus Videos Terminados:** Los resultados y los archivos intermedios se guardan en dos carpetas:
+  - `flows/out_short/` (Para formato vertical)
+  - `flows/out_long/` (Para formato horizontal)
 
-| Tool | Description |
-|------|-------------|
-| `text_generation/gemini.py` | Gemini-driven text/JSON generation (scripts, ideas, alignment) |
-| `image_generation/gemini.py` | Gemini Imagen batch generator with `txt2img` and `img2img` modes |
-| `audio_generation/gemini.py` | Gemini TTS engine — configurable voice, outputs WAV |
-| `video_editing/ffmpeg.py` | FFmpeg wrappers for stitching, transitions, subtitles, and music |
-| `video_editing/whisper.py` | Whisper.cpp wrappers for transcription and SRT generation |
-| `common/` | Messenger, retry logic, base models, and shared utilities |
-
-### 🚀 Pipelines (`flows/`)
-Concrete video product implementations. Each flow coordinates tools into a multi-step workflow:
-
-- **`image_content_generator/`**: The core automated video factory. Transforms a raw niche idea into a fully-produced video (Shorts 9:16 or Longs 16:9) with synchronized AI imagery, narration, subtitles, and background music.
-
-### 🧠 Core Innovation: Modular Prompting
-
-This framework uses a **Pydantic-Driven, Niche-Pluggable Prompt Architecture**:
-
-- **Logic-Inside-Models**: Pydantic models (`BaseIdea`, `VideoScript`, `CategoryHandler`) generate their own structured prompt instructions.
-- **Dynamic JSON Scaling**: Mandatory output schemas are auto-injected based on field descriptions — no manual formatting needed.
-- **Niche-Isolated Categories**: Each content niche (e.g., `finances`) lives in its own isolated module with `models.py`, `constants.py`, and `__init__.py`, cleanly registered into the manager without touching core logic.
-- **Multi-format Managers**: `PromptManagerShorts` targets 9:16 Shorts; `PromptManagerLongs` targets 16:9 Longs with chunked script generation (6 chunks × 20 scenes).
+Cada video tendrá su propia subcarpeta con su ID, donde podrás ver el guion generado, las imágenes, el audio y el archivo de video final `.mp4`.
 
 ---
 
-## 📂 Project Structure
+## ⚙️ Requisitos previos para el equipo Técnico (Setup)
 
-```
-video-automation/
-├── flows/
-│   └── image_content_generator/
-│       ├── pipeline/
-│       │   ├── pipeline.py           # Main orchestrator (7 steps)
-│       │   ├── schemas.py            # Core enums and state machine
-│       │   ├── storage_csv.py        # CSV-based idea tracking
-│       │   ├── prompt_base/          # Shared base models & manager
-│       │   ├── prompt_shorts/        # Niche handlers for Shorts (9:16)
-│       │   │   └── finances/         # Finance niche (Mindset & Strategy variants)
-│       │   └── prompt_longs/         # Niche handlers for Longs (16:9)
-│       │       └── finances/         # Finance niche (long-form variant)
-│       └── resource/                 # Style references & background music
-├── tools/
-│   ├── text_generation/              # Gemini text/JSON generation
-│   ├── image_generation/             # Gemini image generation (batch)
-│   ├── audio_generation/             # Gemini TTS + WAV writing
-│   ├── video_editing/                # FFmpeg + Whisper wrappers
-│   └── common/                       # Shared utilities & base classes
-├── .rules/                           # Architecture patterns & coding standards
-└── out_short/                        # Generated assets (IGNORED in git)
-```
+Si eres el desarrollador que va a configurar esto por primera vez, asegúrate de tener:
 
----
+1. **Python 3.10+**
+2. **Poetry** (Manejador de dependencias): Ejecuta `poetry install` para instalar todo.
+3. **FFmpeg** instalado en tu sistema operativo (Esencial para la edición de video).
+4. Configurar tus **Variables de Entorno** (API Keys de IA, etc.). Copia el archivo `.env.sample` a `.env` y llénalo.
 
-## 🎨 Niche System
-
-Content niches are self-contained modules registered in the prompt managers. The public version ships with a **Finance** niche for both Shorts and Longs:
-
-### Shorts — `prompt_shorts/finances/`
-| Variant | Idea Model | Focus |
-|---------|-----------|-------|
-| Mindset | `MindsetFinanceIdea` | Financial mindset transformation |
-| Strategy | `StrategyFinanceIdea` | Practical financial strategy tips |
-
-### Longs — `prompt_longs/finances/`
-| Variant | Description |
-|---------|-------------|
-| `FinancesHandlerLong` | Long-form finance storytelling (chunked, 120 scenes) |
-
-> **Adding your own niche**: Create a new folder inside `prompt_shorts/` or `prompt_longs/` with `models.py`, `constants.py`, and `__init__.py`. Register the handler class in the corresponding manager's `CATEGORIES` list.
-
----
-
-## 🖼️ Image Generation
-
-The image pipeline uses **Google Gemini Imagen** exclusively:
-
-- **Aspect ratio**: Auto-selected based on orientation (`9:16` for Shorts, `16:9` for Longs).
-- **Style references**: Drop `.png` files in `resource/reference/` — the generator injects them as visual anchors for every scene.
-- **Batch processing**: All scenes are processed sequentially with built-in rate-limit delays.
-- **Mode**: `txt2img` by default; switches to `img2img` when style or sequence references are provided.
-
----
-
-## 🔊 Audio Generation
-
-The TTS pipeline uses **Google Gemini TTS**:
-
-- Configurable `voice_name` (default: `Fenrir`) — set per niche in the prompt manager.
-- Outputs raw PCM → auto-converted to `.wav`.
-- Batched narration (15 scenes per batch) with Whisper-based alignment for precise per-scene splitting.
-
----
-
-## 🛠️ Standards & Guidelines
-
-For a deep dive into our patterns, check the [`.rules/`](.rules/onboarding_checklist.md) directory:
-- `01_architecture_patterns.md` — Layout and structural requirements.
-- `02_coding_standards.md` — Python and Pydantic best practices.
-- `standards/prompts.md` — Guidelines for the modular prompting system.
+¡Y eso es todo! Ya estás listo para generar videos en automático. 🍿
