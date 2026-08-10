@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Sequence, Tuple, Type
+from typing import Sequence, Tuple, Type, Optional
 import random
 
 from pipeline.schemas import (
@@ -26,33 +26,52 @@ class PromptManager:
     Unified Prompt Manager for both Shorts and Longs.
     Handles dynamic category routing and common prompt logic.
     """
-    def __init__(self, orientation: VideoOrientation):
+    def __init__(self, orientation: VideoOrientation, channel: str = "random"):
         self.orientation = orientation
+        self.channel = channel
         self.VOICE_NAME = "Charon"
         
         if self.orientation == VideoOrientation.SHORT:
-            self.CATEGORIES: Sequence[Type[CategoryHandler]] = [
-                TioWarrenHandlerShort,
-                # FinancesHandlerShort,
-                # SprunkisHandler,
-            ]
+            if self.channel == "codigo_capital":
+                from pipeline.channels.codigo_capital import CodigoCapitalHandlerShort
+                self.CATEGORIES: Sequence[Type[CategoryHandler]] = [CodigoCapitalHandlerShort]
+            elif self.channel == "tio_warren":
+                self.CATEGORIES: Sequence[Type[CategoryHandler]] = [TioWarrenHandlerShort]
+            else:
+                self.CATEGORIES: Sequence[Type[CategoryHandler]] = [
+                    TioWarrenHandlerShort,
+                ]
             # Use short-specific audio prompt logic if needed
             self.AUDIO_PROMPT = base_constants.AUDIO_PROMPT
             
         elif self.orientation == VideoOrientation.LONG:
-            self.CATEGORIES: Sequence[Type[CategoryHandler]] = [
-                TioWarrenHandlerLong,
-                # FinancesHandlerLong,
-            ]
+            if self.channel == "codigo_capital":
+                from pipeline.channels.codigo_capital import CodigoCapitalHandlerLong
+                self.CATEGORIES: Sequence[Type[CategoryHandler]] = [CodigoCapitalHandlerLong]
+            elif self.channel == "tio_warren":
+                self.CATEGORIES: Sequence[Type[CategoryHandler]] = [TioWarrenHandlerLong]
+            else:
+                self.CATEGORIES: Sequence[Type[CategoryHandler]] = [
+                    TioWarrenHandlerLong,
+                ]
             self.AUDIO_PROMPT = base_constants.AUDIO_PROMPT
             
         else:
             raise ValueError(f"Orientation {self.orientation} not supported.")
 
-    def select_random_config(self) -> SelectedConfig:
-        """Picks a random handler and idea variant, returning a unified configuration object."""
+    def select_config(self, categoria: str = "") -> SelectedConfig:
+        """Picks a handler and idea variant based on optional category, returning a unified configuration object."""
         selected_category = random.choice(self.CATEGORIES)
-        idea_model = selected_category.get_random_idea_variant()
+        
+        idea_model = None
+        if categoria:
+            for variant in selected_category.idea_variants:
+                if categoria.lower() in variant.__name__.lower():
+                    idea_model = variant
+                    break
+                    
+        if not idea_model:
+            idea_model = selected_category.get_random_idea_variant()
 
         return SelectedConfig(
             category=f"{selected_category.__name__}_{idea_model.__name__}",
@@ -89,15 +108,16 @@ class PromptManager:
             expected_count=len(script_scenes)
         )
 
-    def _get_idea_from_bank(self, bank_path: Path) -> str:
-        """Reads the ideas bank (CSV), finds an unused idea, marks it as used, and returns it."""
+    def _get_idea_from_bank(self, bank_path: Path) -> Tuple[str, str]:
+        """Reads the ideas bank (CSV), finds an unused idea, marks it as used, and returns (idea_base, categoria)."""
         import csv
         if not bank_path.exists():
-            return ""
+            return "", ""
 
         try:
             rows = []
             selected_idea = ""
+            categoria = ""
             updated = False
             
             with open(bank_path, 'r', encoding='utf-8') as f:
@@ -106,6 +126,7 @@ class PromptManager:
                 for row in reader:
                     if not updated and row.get("used", "false").lower() in ("false", "0", ""):
                         selected_idea = row.get("idea_base", "")
+                        categoria = row.get("categoria", "")
                         row["used"] = "true"
                         updated = True
                     rows.append(row)
@@ -115,31 +136,35 @@ class PromptManager:
                     writer = csv.DictWriter(f, fieldnames=fieldnames)
                     writer.writeheader()
                     writer.writerows(rows)
-                Messenger.info(f"💡 Banco de Ideas: Usando idea base '{selected_idea}'")
-                return selected_idea
+                Messenger.info(f"💡 Banco de Ideas: Usando idea base '{selected_idea}' (Categoría: {categoria or 'Aleatoria'})")
+                return selected_idea, categoria
 
             Messenger.warning("💡 Banco de Ideas: Todas las ideas han sido usadas. Se generará una idea aleatoria.")
-            return ""
+            return "", ""
         except Exception as e:
             Messenger.error(f"Error reading ideas bank: {e}")
-            return ""
+            return "", ""
 
     def generate_full_story(
         self, content_gen: GeminiTextGenerator, ideas_bank_path: Path = None
     ) -> Tuple[BaseIdea, VideoScript, str]:
         """
         Executes the generation loop in 3 steps:
-        1. Random Selection: Pick a category config.
+        1. Random Selection: Pick a category config (optionally forced by CSV 'categoria').
         2. Idea Generation: Prompt for initial idea (seeded by bank if available).
         3. Script Generation: Build structured script from idea.
         """
-        config = self.select_random_config()
-        idea_prompt = config.idea_prompt
+        idea_base = ""
+        categoria = ""
         
         if ideas_bank_path:
-            idea_base = self._get_idea_from_bank(ideas_bank_path)
-            if idea_base:
-                idea_prompt += f"\n\n**INSPIRACIÓN REFERENCIAL:** Basa tu idea estrictamente en el siguiente concepto central: '{idea_base}'.\n"
+            idea_base, categoria = self._get_idea_from_bank(ideas_bank_path)
+
+        config = self.select_config(categoria)
+        idea_prompt = config.idea_prompt
+        
+        if idea_base:
+            idea_prompt += f"\n\n**INSPIRACIÓN REFERENCIAL:** Basa tu idea estrictamente en el siguiente concepto central: '{idea_base}'.\n"
 
         idea_data = content_gen.generate_text(idea_prompt, config.idea_model)
 

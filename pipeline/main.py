@@ -1,6 +1,11 @@
 import argparse
+import os
 from enum import Enum
 from pathlib import Path
+from dotenv import load_dotenv
+
+load_dotenv()
+DEFAULT_CHANNEL = os.getenv("DEFAULT_CHANNEL", "codigo_capital")
 
 from pipeline.pipeline import Pipeline
 from pipeline.schemas import VideoOrientation, State
@@ -31,6 +36,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("orientation", type=VideoOrientation, choices=list(VideoOrientation))
     parser.add_argument("step", type=PipelineStep, choices=list(PipelineStep))
+    parser.add_argument("--channel", type=str, default=DEFAULT_CHANNEL, help="Canal a utilizar")
     args = parser.parse_args()
 
     # Determine output base based on orientation
@@ -39,7 +45,8 @@ def main():
     pipeline = Pipeline(
         out_base=out_base,
         resource_base=RESOURCE_BASE,
-        orientation=args.orientation
+        orientation=args.orientation,
+        channel=args.channel
     )
 
     # Map Enum members to their corresponding pipeline methods

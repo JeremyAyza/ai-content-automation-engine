@@ -60,10 +60,23 @@ icg-l-fixed:
 
 
 icg-import-images:
-	poetry run python import_images.py
+	poetry run python scripts/import_images.py
 
 icg-extract-scripts:
-	poetry run python extract_scripts.py
+	poetry run python scripts/extract_scripts.py
 
 
-# for i in {1..10}; do poetry run python -m pipeline.main short step1; done
+# ============================================================================
+# CÓDIGO CAPITAL CHANNELS
+# ============================================================================
+icg-cc-s-all:
+	poetry run python -m pipeline.main short all --channel codigo_capital
+
+icg-cc-l-all:
+	poetry run python -m pipeline.main long all --channel codigo_capital
+
+icg-cc-s-step1:
+	poetry run python -m pipeline.main short step1 --channel codigo_capital
+
+icg-cc-l-step1:
+	poetry run python -m pipeline.main long step1 --channel codigo_capital

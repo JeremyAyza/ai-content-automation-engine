@@ -37,6 +37,7 @@ class Pipeline(BaseModel):
     out_base: Path
     resource_base: Path
     orientation: VideoOrientation
+    channel: str = "random"
 
     _text_gen: Optional[GeminiTextGenerator] = PrivateAttr(default=None)
     _image_gen: Optional[GeminiImageGenerator] = PrivateAttr(default=None)
@@ -110,9 +111,9 @@ class Pipeline(BaseModel):
     def prompt_manager(self) -> PromptManager:
         if self._prompt_manager is None:
             if self.orientation == VideoOrientation.SHORT:
-                self._prompt_manager = PromptManager(orientation=self.orientation)
+                self._prompt_manager = PromptManager(orientation=self.orientation, channel=self.channel)
             elif self.orientation == VideoOrientation.LONG:
-                self._prompt_manager = PromptManager(orientation=self.orientation)
+                self._prompt_manager = PromptManager(orientation=self.orientation, channel=self.channel)
             else:
                 raise ValueError(f"Orientation {self.orientation} not supported.")
         return self._prompt_manager
