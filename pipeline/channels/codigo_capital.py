@@ -127,26 +127,27 @@ La idea base es SAGRADA y es la ÚNICA idea que se desarrolla en todo el guion.
 2. **Ritmo de short real:** nada de introducciones largas. Al segundo 2 ya debe estar el gancho.
 3. **Sin auto-referencias al canal** dentro del short (no digas "en mi canal ya hablé de esto") — rompe la inmersión rápida que necesita un short.
 
-## 🔵 PERSONAJES (HUMANOS — NO ANIMALES)
+## 🔵 REGLAS VISUALES (CRÍTICO: CONTENIDO > ESTILO)
 
-- **Mentor (Tío Warren):** `distinguished man in his late 50s-60s, short grey hair, well-groomed beard, wearing a sharp navy blue suit with a light dress shirt, warm but authoritative expression, confident posture, often gesturing with open hand to explain a point`
-- **Aprendiz (uso opcional, solo si la idea requiere ilustrar un error de alguien):** `young adult in casual clothes (hoodie or plain t-shirt), everyday appearance, relatable expression of confusion, mild frustration or surprise`
+Para garantizar la consistencia visual y permitir que nuestro motor asimile el estilo de las imágenes de referencia, debes priorizar el "Qué" (contenido) y minimizar el "Cómo" (estilo).
 
-Usa SIEMPRE estas descripciones textuales en `image_prompt` para mantener consistencia entre escenas.
+### 1. El "Qué" (Contenido Súper Detallado)
+Describe con precisión los sujetos y sus acciones, pero mantén su apariencia física muy simple para que la imagen de referencia haga el trabajo.
+- **Mentor (Tío Warren):** `older man with round glasses and grey hair, wearing a navy blue pinstripe suit`
+- **Aprendiz (Sobrino):** `young man in a black hoodie, blue jeans, and black baseball cap`
+- **Entorno/Objetos:** Sé extremadamente literal. (Ej. `holding a glowing golden coin`, `standing next to a giant rising line chart`, `a wooden desk`).
 
-### Estilo visual global (usar en TODAS las escenas):
+### 2. El "Cómo" (Estilo Minimalista Obligatorio)
+NO inventes descripciones atmosféricas ni añadas palabras de diseño complejas. Usa ÚNICAMENTE esta plantilla exacta en el campo de estilo para todas las escenas:
 
 ```
-"Premium 2D flat vector illustration style, clean bold outlines, warm modern color palette, realistic human proportions, high contrast, editorial finance-education aesthetic, solid or softly gradiented background."
+"Minimalist 2D vector illustration, clean lines, flat colors, pure solid white background."
 ```
 
-### Thumbnail:
-
-- Fondo limpio (blanco o color sólido de marca).
-- Mentor en primer plano con expresión clara (serio, señalando, o sorprendido según el tema).
-- Texto GIGANTE en negro/alto contraste, 4-6 palabras.
-- Una flecha dibujada a mano simple si ayuda a dirigir la mirada.
-- Style: `"Premium 2D vector art, giant bold typography, high contrast clean background, hand-drawn accent arrow, YouTube thumbnail aesthetic."`
+### 3. Thumbnail (Miniatura)
+- Aplican las mismas reglas de contenido detallado y estilo minimalista.
+- Mentor en primer plano, texto GIGANTE en negro (3-6 palabras), fondo blanco sólido y una flecha dibujada a mano.
+- Style: `"Minimalist 2D vector illustration, clean lines, flat colors, giant bold black typography, pure solid white background."`
 
 ### Sincronía:
 
@@ -257,27 +258,27 @@ La idea base es SAGRADA. Todo el guion desarrolla exclusivamente esa idea.
 3. **Datos con verosimilitud:** puedes citar cifras de estudios o instituciones conocidas para dar peso, siempre que sea razonable y no inventes fuentes específicas falsas con nombre y apellido.
 4. **Auto-referencias permitidas aquí (a diferencia del short):** en formato largo sí puedes mencionar de forma breve que esto es parte de una serie o que hay más contenido relacionado — pero sin que se sienta como publicidad forzada.
 
-## 🔵 PERSONAJES (HUMANOS — NO ANIMALES)
+## 🔵 REGLAS VISUALES (CRÍTICO: CONTENIDO > ESTILO)
 
-- **Mentor (Tío Warren):** `distinguished man in his late 50s-60s, short grey hair, well-groomed beard, wearing a sharp navy blue suit with a light dress shirt, warm but authoritative expression, confident posture, often gesturing with open hand to explain a point`
-- **Aprendiz (opcional, solo cuando la escena ilustra un ejemplo o error de alguien):** `young adult in casual clothes (hoodie or plain t-shirt), everyday appearance, relatable expression of confusion, mild frustration or realization`
+Para garantizar la consistencia visual y permitir que nuestro motor asimile el estilo de las imágenes de referencia, debes priorizar el "Qué" (contenido) y minimizar el "Cómo" (estilo).
 
-Usa estas descripciones EXACTAS en cada `image_prompt` donde aparezcan, para mantener consistencia visual escena a escena.
+### 1. El "Qué" (Contenido Súper Detallado)
+Describe con precisión los sujetos y sus acciones, pero mantén su apariencia física muy simple para que la imagen de referencia haga el trabajo.
+- **Mentor (Tío Warren):** `older man with round glasses and grey hair, wearing a navy blue pinstripe suit`
+- **Aprendiz (Sobrino):** `young man in a black hoodie, blue jeans, and black baseball cap`
+- **Entorno/Objetos:** Sé extremadamente literal. (Ej. `holding a glowing golden coin`, `standing next to a giant rising line chart`, `a wooden desk`).
 
-### Estilo visual global:
+### 2. El "Cómo" (Estilo Minimalista Obligatorio)
+NO inventes descripciones atmosféricas ni añadas palabras de diseño complejas. Usa ÚNICAMENTE esta plantilla exacta en el campo de estilo para todas las escenas:
 
 ```
-"Premium 2D flat vector illustration style, clean bold outlines, warm modern color palette, realistic human proportions, high contrast, editorial finance-education aesthetic, solid or softly gradiented background."
+"Minimalist 2D vector illustration, clean lines, flat colors, pure solid white background."
 ```
 
-### Thumbnail:
-
-- Fondo limpio, minimalista (blanco o color sólido).
-- Mentor en primer plano, expresión fuerte y clara.
-- Una sola metáfora visual grande (reloj de arena, montaña de monedas, balanza, gráfica ascendente) — no sobrecargar la imagen.
-- Texto GIGANTE en negro/alto contraste, 3-6 palabras.
-- Flecha dibujada a mano si ayuda a dirigir la mirada.
-- Style: `"Premium 2D vector art, giant bold typography, minimalist clean background, hand-drawn accent arrow, high contrast YouTube thumbnail aesthetic."`
+### 3. Thumbnail (Miniatura)
+- Aplican las mismas reglas de contenido detallado y estilo minimalista.
+- Mentor en primer plano, texto GIGANTE en negro (3-6 palabras), fondo blanco sólido y una flecha dibujada a mano.
+- Style: `"Minimalist 2D vector illustration, clean lines, flat colors, giant bold black typography, pure solid white background."`
 
 ### Sincronía:
 
