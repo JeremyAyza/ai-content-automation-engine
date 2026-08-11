@@ -17,7 +17,6 @@ from tools.whisper_schemas import WhisperTranscriptionSegment
 # Import all channels dynamically
 from pipeline.channels.tio_warren_short import TioWarrenHandlerShort
 from pipeline.channels.finances_short import FinancesHandler as FinancesHandlerShort
-# from pipeline.channels.sprunkis_short import SprunkisHandler
 from pipeline.channels.tio_warren_long import TioWarrenHandlerLong
 from pipeline.channels.finances_long import FinancesHandlerLong
 
@@ -30,7 +29,7 @@ class PromptManager:
         self.orientation = orientation
         self.channel = channel
         self.VOICE_NAME = "Charon"
-        
+
         if self.orientation == VideoOrientation.SHORT:
             if self.channel == "codigo_capital":
                 from pipeline.channels.codigo_capital import CodigoCapitalHandlerShort
@@ -43,7 +42,7 @@ class PromptManager:
                 ]
             # Use short-specific audio prompt logic if needed
             self.AUDIO_PROMPT = base_constants.AUDIO_PROMPT
-            
+
         elif self.orientation == VideoOrientation.LONG:
             if self.channel == "codigo_capital":
                 from pipeline.channels.codigo_capital import CodigoCapitalHandlerLong
@@ -55,21 +54,21 @@ class PromptManager:
                     TioWarrenHandlerLong,
                 ]
             self.AUDIO_PROMPT = base_constants.AUDIO_PROMPT
-            
+
         else:
             raise ValueError(f"Orientation {self.orientation} not supported.")
 
     def select_config(self, categoria: str = "") -> SelectedConfig:
         """Picks a handler and idea variant based on optional category, returning a unified configuration object."""
         selected_category = random.choice(self.CATEGORIES)
-        
+
         idea_model = None
         if categoria:
             for variant in selected_category.idea_variants:
                 if categoria.lower() in variant.__name__.lower():
                     idea_model = variant
                     break
-                    
+
         if not idea_model:
             idea_model = selected_category.get_random_idea_variant()
 
@@ -119,7 +118,7 @@ class PromptManager:
             selected_idea = ""
             categoria = ""
             updated = False
-            
+
             with open(bank_path, 'r', encoding='utf-8') as f:
                 reader = csv.DictReader(f)
                 fieldnames = reader.fieldnames or ["idea_base", "used"]
@@ -130,7 +129,7 @@ class PromptManager:
                         row["used"] = "true"
                         updated = True
                     rows.append(row)
-                    
+
             if updated:
                 with open(bank_path, 'w', encoding='utf-8', newline='') as f:
                     writer = csv.DictWriter(f, fieldnames=fieldnames)
@@ -156,13 +155,13 @@ class PromptManager:
         """
         idea_base = ""
         categoria = ""
-        
+
         if ideas_bank_path:
             idea_base, categoria = self._get_idea_from_bank(ideas_bank_path)
 
         config = self.select_config(categoria)
         idea_prompt = config.idea_prompt
-        
+
         if idea_base:
             idea_prompt += f"\n\n**INSPIRACIÓN REFERENCIAL:** Basa tu idea estrictamente en el siguiente concepto central: '{idea_base}'.\n"
 
