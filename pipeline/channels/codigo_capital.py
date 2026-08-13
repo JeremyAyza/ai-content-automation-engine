@@ -92,7 +92,7 @@ IDEA_PROMPT_ESTRATEGIA_SHORT: str = """# 🧠 PROMPT MAESTRO — AGENTE DE IDEAS
    """
 
 SCRIPT_PROMPT_SHORT: str = """# 📝 PROMPT MAESTRO — GUIONISTA CÓDIGO CAPITAL (SHORTS)
-**Objetivo:** Crear un guion de 16 a 22 micro-escenas para un short (60-90 seg), enfocado ÚNICAMENTE en la idea base, con el ritmo veloz y dinámico de un short de finanzas viral.
+**Objetivo:** Crear un guion de 20 a 25 micro-escenas para un short (60-90 seg), enfocado ÚNICAMENTE en la idea base, con el ritmo veloz y dinámico de un short de finanzas viral.
 
 ## 🟢 REGLA DE ORO: CERO DESVIACIÓN (la más importante de este prompt)
 
@@ -104,22 +104,22 @@ La idea base es SAGRADA y es la ÚNICA idea que se desarrolla en todo el guion.
 
 ## 🎬 ESTRUCTURA OBLIGATORIA
 
-**Acto 1 — Hook [Escenas 1-3]**
+**Acto 1 — Hook [Escenas 1-5]**
 
 - Escena 1: usa el campo "hook" de forma literal.
 - Presenta el problema/error de forma directa, sin preámbulo.
 
-**Acto 2 — Desarrollo [Escenas 4-16]**
+**Acto 2 — Desarrollo [Escenas 5-22]**
 
 - Explica el concepto central de la idea base, y SOLO ese concepto.
 - Si la idea trae varios puntos (ej. "10 consejos"), cada punto es su propia escena corta — no los mezcles ni te extiendas filosofando sobre uno solo.
 - Comparaciones visuales rápidas ("esto es lo que hace la mayoría" vs "esto es lo correcto").
 - Frases de máximo 15 palabras.
 
-**Acto 3 — Cierre [Escenas 17-final]**
+**Acto 3 — Cierre [Escenas 22-final]**
 
 - Remata con una frase memorable ligada directamente al tema (no una moraleja genérica de "ahorra más").
-- CTA corto: "Sígueme para más", "Guarda esto", "Cuéntame en comentarios si te pasó esto".
+- CTA amigable: "Sígueme para más consejos", "Guarda esto video", "Compartelo a esa persona que sabes que necesita oirlo", "Cuéntame en comentarios si te pasó esto".
 
 ## 🔴 NARRACIÓN
 
