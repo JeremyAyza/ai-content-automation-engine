@@ -1,4 +1,5 @@
 from pathlib import Path
+import os
 
 # Standard Output Directories
 IDEAS_DIR = "ideas"
@@ -16,8 +17,13 @@ FINAL_AUDIO = "final_audio.wav"
 FINAL_SUBS = "final_subs.srt"
 FINAL_VIDEO = "final_video.mp4"
 
-# Configuration
-SHORT_AUDIO_SPEEDUP = 1.10
+# --- Audio & Image Configuration ---
+AUDIO_PROVIDER: str = os.getenv("AUDIO_PROVIDER", "gemini") # "gemini" or "fish"
+IMAGE_PROVIDER = "playwright" # "api" or "playwright"
+FLOW_PROJECT_URL: str = os.getenv("FLOW_PROJECT_URL", "https://labs.google/fx/es/tools/flow/project/a4c59561-19b9-4709-92a6-5e2c76789fb1")
+
+# --- Gemini Configuration ---
+SHORT_AUDIO_SPEEDUP = 1.07
 LONG_AUDIO_SPEEDUP = 1.065
 AUDIO_BATCH_SIZE = 15
 MIN_AUDIO_DURATION = 0.5

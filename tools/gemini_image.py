@@ -8,20 +8,13 @@ from PIL import Image
 from pydantic import BaseModel
 
 from tools.gemini_base import GeminiBase
+from tools.image_provider import ImageProvider, ImageTask
 from tools.messenger import Messenger
 from tools.notifications import send_windows_notification
 from tools.time_utils import sleep_with_countdown, api_spinner
 
 
-class ImageTask(BaseModel):
-    """
-    Represents a single image generation task for batch processing.
-    """
-    prompt: str
-    output_path: Path
-
-
-class GeminiImageGenerator(GeminiBase):
+class GeminiImageGenerator(GeminiBase, ImageProvider):
     image_model: str = "gemini-3.1-flash-image-preview"
     aspect_ratio: str
     style_references: List[Path] = []

@@ -16,7 +16,7 @@ from tools.audio_tool import AudioTool
 from tools.gemini_audio import GeminiAudioGenerator
 from pydantic import ConfigDict
 from tools.messenger import Messenger
-from tools.gemini_image import GeminiImageGenerator, ImageTask
+from tools.image_provider import ImageProvider, ImageProviderFactory, ImageTask
 from tools.gemini_text import GeminiTextGenerator
 
 from tools.time_utils import retry
@@ -40,7 +40,7 @@ class Pipeline(BaseModel):
     channel: str = "random"
 
     _text_gen: Optional[GeminiTextGenerator] = PrivateAttr(default=None)
-    _image_gen: Optional[GeminiImageGenerator] = PrivateAttr(default=None)
+    _image_gen: Optional[ImageProvider] = PrivateAttr(default=None)
     _audio_gen: Optional[GeminiAudioGenerator] = PrivateAttr(default=None)
     _ffmpeg: Optional[FFmpegTool] = PrivateAttr(default=None)
     _whisper: Optional[WhisperTool] = PrivateAttr(default=None)
@@ -71,10 +71,11 @@ class Pipeline(BaseModel):
         return self._text_gen
 
     @property
-    def image_gen(self) -> GeminiImageGenerator:
+    def image_gen(self) -> ImageProvider:
         if self._image_gen is None:
             ar_value = "9:16" if self.orientation == VideoOrientation.SHORT else "16:9"
-            self._image_gen = GeminiImageGenerator(
+            self._image_gen = ImageProviderFactory.get_provider(
+                config.IMAGE_PROVIDER,
                 aspect_ratio=ar_value,
                 reference_dir=self.resource_base / config.REFERENCES_DIR,
             )
