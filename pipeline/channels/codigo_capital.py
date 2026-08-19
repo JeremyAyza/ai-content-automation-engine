@@ -92,7 +92,7 @@ IDEA_PROMPT_ESTRATEGIA_SHORT: str = """# 🧠 PROMPT MAESTRO — AGENTE DE IDEAS
    """
 
 SCRIPT_PROMPT_SHORT: str = """# 📝 PROMPT MAESTRO — GUIONISTA CÓDIGO CAPITAL (SHORTS)
-**Objetivo:** Crear un guion de 24 a 30 micro-escenas para un short (60-90 seg), enfocado ÚNICAMENTE en la idea base, con el ritmo veloz y dinámico de un short de finanzas viral.
+**Objetivo:** Crear un guion de 20 a 25 micro-escenas para un short (aprox 70-90 seg, apuntando a un promedio de 80 segundos / 1min20), enfocado ÚNICAMENTE en la idea base, con el ritmo veloz y dinámico de un short de finanzas viral.
 
 ## 🟢 REGLA DE ORO: CERO DESVIACIÓN (la más importante de este prompt)
 
@@ -109,14 +109,14 @@ La idea base es SAGRADA y es la ÚNICA idea que se desarrolla en todo el guion.
 - Escena 1: usa el campo "hook" de forma literal.
 - Presenta el problema/error de forma directa, sin preámbulo.
 
-**Acto 2 — Desarrollo [Escenas 5-26]**
+**Acto 2 — Desarrollo [Escenas 5-22]**
 
 - Explica el concepto central de la idea base, y SOLO ese concepto.
 - Si la idea trae varios puntos (ej. "10 consejos"), cada punto es su propia escena corta — no los mezcles ni te extiendas filosofando sobre uno solo.
 - Comparaciones visuales rápidas ("esto es lo que hace la mayoría" vs "esto es lo correcto").
-- Frases de máximo 15 palabras.
+- Frases de 8 a 14 palabras por escena (NUNCA menos de 8) — es el rango que, narrado a ritmo enérgico, dura 3-5 segundos y ayuda a cerrar el short cerca de 1min20 con 20-25 escenas. Una escena de 4-6 palabras dura ~2 segundos y rompe el ritmo objetivo.
 
-**Acto 3 — Cierre [Escenas 26-final]**
+**Acto 3 — Cierre [Escenas 22-final]**
 
 - Remata con una frase memorable ligada directamente al tema (no una moraleja genérica de "ahorra más").
 - CTA amigable: "Sígueme para más consejos", "Guarda esto video", "Compartelo a esa persona que sabes que necesita oirlo", "Cuéntame en comentarios si te pasó esto".
@@ -160,6 +160,16 @@ Usa ÚNICAMENTE esta plantilla exacta en el campo de estilo para todas las escen
 - Cambio visual cada 3-5 segundos para mantener el ritmo de short.
 - Varía composición, fondo y pose constantemente — nunca 3+ escenas seguidas con el mismo fondo/pose.
 
+## 🟣 AUTO-CHEQUEO DE DURACIÓN (OBLIGATORIO ANTES DE ENTREGAR)
+
+Antes de finalizar el guion, cuenta el total de palabras de todas las narraciones sumadas y divide entre 2.6 (palabras/segundo a ritmo enérgico):
+
+`total_palabras ÷ 2.6 = duración estimada en segundos`
+
+- Debe caer entre 70 y 90 segundos, apuntando a un promedio de 80 segundos (1min20).
+- Si da MENOS de 70: **alarga las narraciones existentes** (más detalle, más contexto en cada frase) — NUNCA agregues más escenas para compensar, eso rompe el ritmo y diluye el foco.
+- Si da MÁS de 90: recorta palabras por escena, no elimines escenas completas si rompe la progresión lógica.
+
 ## 🟠 IDIOMAS (ESTRICTO)
 
 - **image_prompt:** INGLÉS (subjects, environment, lighting, composition, style). Excepción: texto dibujado dentro de la imagen → ESPAÑOL.
@@ -168,7 +178,7 @@ Usa ÚNICAMENTE esta plantilla exacta en el campo de estilo para todas las escen
 
 ## 📊 SALIDA
 
-- 24-30 escenas | 60-90 segundos | ritmo alto | cero relleno | cero desviación del tema.
+- 20-25 escenas | 70-90 segundos (promedio 80) | 8-14 palabras por escena | ritmo alto | cero relleno | cero desviación del tema.
 
 TU IDEA BASE:
 {idea_context_json}
@@ -250,6 +260,7 @@ La idea base es SAGRADA. Todo el guion desarrolla exclusivamente esa idea.
   Ej: "Martín gana $2,000 al mes y gasta $1,900. Sofía gana lo mismo y gasta $1,500. A 10 años, Martín tiene $0 ahorrado. Sofía tiene $60,000."
 - Cada pilar cierra con una frase-conclusión corta y memorable (tu "verdad tajante" de cierre de bloque) — dale un formato consistente en todo el canal, por ejemplo: "Y ahí está la diferencia: no es cuánto ganas, es cuánto te quedas."
 - Alterna párrafos explicativos más largos con frases cortas de remate para variar el ritmo.
+- Rango de palabras por escena: 15-40 palabras (las de remate/conclusión pueden ser más cortas, 8-12 palabras, pero no la mayoría del guion) — evita que el promedio caiga muy bajo, o el video terminará muy por debajo de los 10-15 minutos aunque el número de escenas sea correcto.
 
 **Acto 3 — Síntesis + Cierre [Escenas 56-final]**
 
@@ -296,6 +307,16 @@ Usa ÚNICAMENTE esta plantilla exacta en el campo de estilo para todas las escen
 - Cada imagen ilustra literalmente el ejemplo o dato que se narra en ese momento.
 - Cambios visuales cada 15-20 segundos (más pausado que el short, pero sin escenas estáticas largas ni fondos repetidos).
 
+## 🟣 AUTO-CHEQUEO DE DURACIÓN (OBLIGATORIO ANTES DE ENTREGAR)
+
+Antes de finalizar el guion, cuenta el total de palabras de todas las narraciones sumadas y divide entre 2.3 (palabras/segundo a ritmo pausado-magnético, más lento que el short):
+
+`total_palabras ÷ 2.3 = duración estimada en segundos`
+
+- Debe caer entre 600 y 900 segundos (10-15 min).
+- Si da MENOS de 600: **alarga las narraciones existentes** (más desarrollo por pilar, más ejemplos con números) — NUNCA agregues escenas nuevas fuera de los pilares definidos para compensar.
+- Si da MÁS de 900: recorta palabras dentro de cada escena, prioriza cortar relleno antes que ejemplos con cifras.
+
 ## 🟠 IDIOMAS (ESTRICTO)
 
 - **image_prompt:** INGLÉS. Excepción: texto dibujado dentro de la imagen → ESPAÑOL.
@@ -304,7 +325,7 @@ Usa ÚNICAMENTE esta plantilla exacta en el campo de estilo para todas las escen
 
 ## 📊 SALIDA
 
-- 55-70 escenas | 10-15 minutos | máximo 2-3 pilares | cero relleno filosófico | cero desviación del tema.
+- 55-70 escenas | 10-15 minutos | 15-40 palabras por escena | máximo 2-3 pilares | cero relleno filosófico | cero desviación del tema.
 
 TU IDEA BASE:
 {idea_context_json}

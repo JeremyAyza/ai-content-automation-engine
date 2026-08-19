@@ -13,9 +13,10 @@ T = TypeVar("T", bound=BaseModel)
 
 
 
+from pipeline.config import GEMINI_TEXT_MODEL
+
 class GeminiTextGenerator(GeminiBase):
-    # text_model: str = "gemini-2.5-flash-lite"
-    text_model: str = "gemini-2.5-pro"
+    text_model: str = GEMINI_TEXT_MODEL
 
 
     def __init__(self, **kwargs: Any):
@@ -29,7 +30,7 @@ class GeminiTextGenerator(GeminiBase):
         """
         sleep_with_countdown(20, "Pausa anti-bloqueo (Texto)")
 
-        model = "gemini-2.5-pro" if low else self.text_model
+        model = self.text_model
 
         retries = [360, 360, 360, 360]
         attempt = 0

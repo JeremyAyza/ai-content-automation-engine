@@ -23,7 +23,8 @@ IMAGE_PROVIDER = "playwright" # "api" or "playwright"
 FLOW_PROJECT_URL: str = os.getenv("FLOW_PROJECT_URL", "https://labs.google/fx/es/tools/flow/project/a4c59561-19b9-4709-92a6-5e2c76789fb1")
 
 # --- Gemini Configuration ---
-SHORT_AUDIO_SPEEDUP = 1.07
+GEMINI_TEXT_MODEL = "gemini-3.1-pro-preview"
+SHORT_AUDIO_SPEEDUP = 1.06
 LONG_AUDIO_SPEEDUP = 1.065
 AUDIO_BATCH_SIZE = 15
 MIN_AUDIO_DURATION = 0.5

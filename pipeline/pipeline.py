@@ -1,4 +1,5 @@
 
+import re
 import shutil
 from pathlib import Path
 from typing import Any, ClassVar, List, Optional, Type, TypeVar, Union
@@ -252,9 +253,41 @@ class Pipeline(BaseModel):
 
         return chunk_audio_path
 
+    @staticmethod
+    def _normalize_for_match(text: str) -> str:
+        text = text.lower()
+        text = re.sub(r"[^\w\s]", "", text, flags=re.UNICODE)
+        return re.sub(r"\s+", " ", text).strip()
+
+    def _detect_repeated_narration(self, segments: List[Any], chunk: List[Any]) -> bool:
+        """
+        Detecta un fallo conocido de gemini-2.5-flash-preview-tts en llamadas
+        largas: el modelo reinicia la narración desde el inicio a mitad del
+        audio del batch. Si eso ocurre, la frase de apertura del batch aparece
+        dos veces en la transcripción de Whisper del audio crudo.
+        """
+        if not chunk or not segments:
+            return False
+
+        opening_words = self._normalize_for_match(chunk[0].narration).split()[:6]
+        if len(opening_words) < 3:
+            return False
+        fingerprint = " ".join(opening_words)
+
+        full_transcript = self._normalize_for_match(" ".join(s.text for s in segments))
+        return full_transcript.count(fingerprint) >= 2
+
     def _align_batch_audio(self, chunk: List[Any], chunk_audio_path: Path, batch_num: int) -> AudioAlignment:
         Messenger.info(f"Transcribing Batch {batch_num} for alignment...")
         segments = self.whisper.get_transcription_segments(chunk_audio_path)
+
+        if self._detect_repeated_narration(segments, chunk):
+            chunk_audio_path.unlink(missing_ok=True)
+            chunk_audio_path.with_name(chunk_audio_path.name + ".json").unlink(missing_ok=True)
+            raise RuntimeError(
+                f"Batch {batch_num}: la narración TTS se reinició desde el inicio a mitad "
+                "del audio (fallo conocido de Gemini TTS con textos largos). Forzando reintento."
+            )
 
         Messenger.info(f"Aligning Batch {batch_num} via Gemini...")
         chunk_script_texts = [s.narration for s in chunk]
@@ -273,6 +306,25 @@ class Pipeline(BaseModel):
                 f"Expected {len(chunk)}, got {len(alignment.alignments)}"
             )
             raise RuntimeError(error_msg)
+
+        # Defense-in-depth: reject alignments that are not strictly
+        # chronological. A non-monotonic start_time means Gemini pointed a
+        # scene at an earlier/overlapping point in the batch audio (e.g. a
+        # duplicated/restarted narration segment), which would otherwise
+        # produce a scene audio with the wrong content while the video
+        # still advances normally.
+        ordered = sorted(alignment.alignments, key=lambda a: a.scene_number)
+        prev_end = -1.0
+        for al in ordered:
+            if al.start_time < prev_end - 0.05 or al.end_time <= al.start_time:
+                chunk_audio_path.unlink(missing_ok=True)
+                chunk_audio_path.with_name(chunk_audio_path.name + ".json").unlink(missing_ok=True)
+                raise RuntimeError(
+                    f"Batch {batch_num}: alignment no cronológico en la escena "
+                    f"{al.scene_number} (start={al.start_time:.3f}, prev_end={prev_end:.3f}). "
+                    "Posible narración duplicada/reiniciada. Forzando reintento."
+                )
+            prev_end = al.end_time
 
         Messenger.info(f"Splitting Batch {batch_num} into {len(chunk)} scene audios...")
         for al in alignment.alignments:
