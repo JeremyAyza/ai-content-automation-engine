@@ -129,30 +129,36 @@ La idea base es SAGRADA y es la ÚNICA idea que se desarrolla en todo el guion.
 
 ## 🔵 REGLAS VISUALES (CRÍTICO: CONTENIDO > ESTILO)
 
-Para garantizar la consistencia visual y permitir que nuestro motor asimile el estilo de las imágenes de referencia, debes priorizar el "Qué" (contenido) y minimizar el "Cómo" (estilo).
+Estilo calibrado al rendimiento visual de "Hackea tu Riqueza" (personaje expresivo, un color de acento, poses exageradas, cómic) en vez del estilo plano/corporativo anterior. Prioriza el "Qué" (contenido) y dirige el "Cómo" (estilo) hacia un lenguaje de cómic/sketch dinámico.
 
-### 1. El "Qué" (Contenido Súper Detallado)
-Describe con precisión los sujetos y sus acciones, pero mantén su apariencia física muy simple para que la imagen de referencia haga el trabajo.
-- **Mentor (Tío Warren):** `older man with round glasses and grey hair, wearing a navy blue pinstripe suit`
-- **Aprendiz (Sobrino):** `young man in a black hoodie, blue jeans, and black baseball cap`
-- **Entorno/Objetos:** Sé extremadamente literal. (Ej. `holding a glowing golden coin`, `standing next to a giant rising line chart`, `a wooden desk`).
+### 1. El "Qué" (Contenido Súper Detallado, con pose y gesto obligatorios)
+- **Mentor (Tío Warren):** `older man with round glasses and grey hair, wearing a navy blue pinstripe suit, thick expressive comic-style outlines, exaggerated body language matching the scene's emotion (pointing, leaning forward, arms wide open, jumping, reacting with shock or triumph)`
+- **Aprendiz (Sobrino):** `young man in a black hoodie, blue jeans, and black baseball cap, exaggerated comic-style body language matching the scene's emotion`
+- **Pose obligatoria por escena:** describe siempre una pose/gesto específico y exagerado (ej. `pointing directly at the falling price tag`, `covering his face in shock`, `crossing his arms confidently`, `jumping with excitement holding coins`) — nunca una pose neutra tipo "standing" por defecto.
+- **Dirección de mirada/gesto:** el personaje mira o señala hacia el elemento clave de la escena (el número, el error, el objeto) para guiar el ojo del espectador.
+- **Entorno/Objetos:** Sé extremadamente literal (Ej. `holding a glowing golden coin`, `standing next to a giant rising line chart`). Varía el fondo/escenario entre escenas (oficina, calle, casa, banco, tienda) — evita repetir el mismo fondo o la misma pose en 2+ escenas seguidas.
 
-### 2. El "Cómo" (Estilo Minimalista Obligatorio)
-NO inventes descripciones atmosféricas ni añadas palabras de diseño complejas. Usa ÚNICAMENTE esta plantilla exacta en el campo de estilo para todas las escenas:
+### 2. El "Cómo" (Estilo Cómic/Sketch Obligatorio)
+Usa ÚNICAMENTE esta plantilla exacta en el campo de estilo para todas las escenas:
 
 ```
-"Minimalist 2D vector illustration, clean lines, flat colors, pure solid white background."
+"Dynamic hand-drawn 2D webcomic sketch style, thick expressive black ink outlines, vibrant minimalist color palette for highlights, clean shading, white background with glowing accents."
 ```
 
-### 3. Thumbnail (Miniatura)
-- Aplican las mismas reglas de contenido detallado y estilo minimalista.
-- Mentor en primer plano, texto GIGANTE en negro (3-6 palabras), fondo blanco sólido y una flecha dibujada a mano.
-- Style: `"Minimalist 2D vector illustration, clean lines, flat colors, giant bold black typography, pure solid white background."`
+- **Un solo color de acento por escena:** elige UN color dominante con significado (rojo = error/alerta, verde = ahorro/solución, dorado = logro/premio) sobre fondo blanco/neutro — nunca una paleta completa compitiendo por atención.
+
+### 3. Thumbnail (Miniatura) — optimizada para CTR
+- Mentor en primer plano con expresión y pose exagerada, comparando o señalando (ej. "antes vs después", "el que ahorra vs el que no").
+- Texto GIGANTE en negro (3-7 palabras) integrado como elemento gráfico del diseño, no como etiqueta pegada encima.
+- Flechas gruesas dibujadas a mano apuntando al elemento clave.
+- Fondo blanco o neutro extremadamente limpio para maximizar contraste (thumbnail-safe: debe leerse a tamaño de miniatura pequeña).
+- Style: `"Premium high-quality 2D vector art style, clean flat background, giant bold typography, thick expressive character outlines, hand-drawn indicator arrows, high contrast YouTube thumbnail aesthetic."`
 
 ### Sincronía:
 
 - Cada imagen ilustra literalmente lo que se narra en ese momento (no metáforas abstractas difíciles de generar).
 - Cambio visual cada 3-5 segundos para mantener el ritmo de short.
+- Varía composición, fondo y pose constantemente — nunca 3+ escenas seguidas con el mismo fondo/pose.
 
 ## 🟠 IDIOMAS (ESTRICTO)
 
@@ -260,30 +266,35 @@ La idea base es SAGRADA. Todo el guion desarrolla exclusivamente esa idea.
 
 ## 🔵 REGLAS VISUALES (CRÍTICO: CONTENIDO > ESTILO)
 
-Para garantizar la consistencia visual y permitir que nuestro motor asimile el estilo de las imágenes de referencia, debes priorizar el "Qué" (contenido) y minimizar el "Cómo" (estilo).
+Estilo calibrado al rendimiento visual de "Hackea tu Riqueza" (personaje expresivo, un color de acento, poses exageradas, cómic) en vez del estilo plano/corporativo anterior. Prioriza el "Qué" (contenido) y dirige el "Cómo" (estilo) hacia un lenguaje de cómic/sketch dinámico. En formato largo modera la exageración frente al short (menos "cómic puro", más "ilustración editorial con carácter"), pero mantén siempre pose y gesto específicos, nunca neutros.
 
-### 1. El "Qué" (Contenido Súper Detallado)
-Describe con precisión los sujetos y sus acciones, pero mantén su apariencia física muy simple para que la imagen de referencia haga el trabajo.
-- **Mentor (Tío Warren):** `older man with round glasses and grey hair, wearing a navy blue pinstripe suit`
-- **Aprendiz (Sobrino):** `young man in a black hoodie, blue jeans, and black baseball cap`
-- **Entorno/Objetos:** Sé extremadamente literal. (Ej. `holding a glowing golden coin`, `standing next to a giant rising line chart`, `a wooden desk`).
+### 1. El "Qué" (Contenido Súper Detallado, con pose y gesto obligatorios)
+- **Mentor (Tío Warren):** `older man with round glasses and grey hair, wearing a navy blue pinstripe suit, thick expressive comic-style outlines, deliberate body language matching the scene's emotion (gesturing while explaining, leaning forward with authority, reacting with concern or satisfaction)`
+- **Aprendiz (Sobrino):** `young man in a black hoodie, blue jeans, and black baseball cap, expressive body language matching the scene's emotion`
+- **Pose obligatoria por escena:** describe siempre una pose/gesto específico (ej. `pointing at a rising chart with confidence`, `sitting thoughtfully at a desk with a calculator`, `comparing two piles of coins side by side`) — nunca una pose neutra tipo "standing" por defecto.
+- **Dirección de mirada/gesto:** el personaje mira o señala hacia el elemento clave de la escena (el número, la comparativa, el dato) para guiar el ojo del espectador.
+- **Entorno/Objetos:** Sé extremadamente literal (Ej. `holding a glowing golden coin`, `standing next to a giant rising line chart`, `a wooden desk`). Varía el fondo/escenario entre escenas (oficina, casa, banco, calle) — evita repetir el mismo fondo o la misma pose en escenas consecutivas.
 
-### 2. El "Cómo" (Estilo Minimalista Obligatorio)
-NO inventes descripciones atmosféricas ni añadas palabras de diseño complejas. Usa ÚNICAMENTE esta plantilla exacta en el campo de estilo para todas las escenas:
+### 2. El "Cómo" (Estilo Cómic/Sketch Obligatorio)
+Usa ÚNICAMENTE esta plantilla exacta en el campo de estilo para todas las escenas:
 
 ```
-"Minimalist 2D vector illustration, clean lines, flat colors, pure solid white background."
+"Dynamic hand-drawn 2D webcomic sketch style, thick expressive black ink outlines, vibrant minimalist color palette for highlights, clean shading, white background with glowing accents."
 ```
 
-### 3. Thumbnail (Miniatura)
-- Aplican las mismas reglas de contenido detallado y estilo minimalista.
-- Mentor en primer plano, texto GIGANTE en negro (3-6 palabras), fondo blanco sólido y una flecha dibujada a mano.
-- Style: `"Minimalist 2D vector illustration, clean lines, flat colors, giant bold black typography, pure solid white background."`
+- **Un solo color de acento por escena:** elige UN color dominante con significado (rojo = error/riesgo, verde = ahorro/solución, dorado = logro/resultado) sobre fondo blanco/neutro — nunca una paleta completa compitiendo por atención.
+
+### 3. Thumbnail (Miniatura) — optimizada para CTR
+- Mentor en primer plano con expresión y pose marcada, comparando o señalando (ej. "antes vs después", persona A vs persona B).
+- Texto GIGANTE en negro (3-7 palabras) integrado como elemento gráfico del diseño, no como etiqueta pegada encima.
+- Flechas gruesas dibujadas a mano apuntando al elemento clave.
+- Fondo blanco o neutro extremadamente limpio para maximizar contraste (thumbnail-safe: debe leerse a tamaño de miniatura pequeña).
+- Style: `"Premium high-quality 2D vector art style, clean flat background, giant bold typography, thick expressive character outlines, hand-drawn indicator arrows, high contrast YouTube thumbnail aesthetic."`
 
 ### Sincronía:
 
 - Cada imagen ilustra literalmente el ejemplo o dato que se narra en ese momento.
-- Cambios visuales cada 15-20 segundos (más pausado que el short, pero sin escenas estáticas largas).
+- Cambios visuales cada 15-20 segundos (más pausado que el short, pero sin escenas estáticas largas ni fondos repetidos).
 
 ## 🟠 IDIOMAS (ESTRICTO)
 
