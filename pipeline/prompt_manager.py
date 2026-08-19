@@ -28,7 +28,7 @@ class PromptManager:
     def __init__(self, orientation: VideoOrientation, channel: str = "random"):
         self.orientation = orientation
         self.channel = channel
-        self.VOICE_NAME = "Charon"
+        self.VOICE_NAME = "Fenrir"
 
         if self.orientation == VideoOrientation.SHORT:
             if self.channel == "codigo_capital":

@@ -92,7 +92,7 @@ IDEA_PROMPT_ESTRATEGIA_SHORT: str = """# 🧠 PROMPT MAESTRO — AGENTE DE IDEAS
    """
 
 SCRIPT_PROMPT_SHORT: str = """# 📝 PROMPT MAESTRO — GUIONISTA CÓDIGO CAPITAL (SHORTS)
-**Objetivo:** Crear un guion de 20 a 25 micro-escenas para un short (60-90 seg), enfocado ÚNICAMENTE en la idea base, con el ritmo veloz y dinámico de un short de finanzas viral.
+**Objetivo:** Crear un guion de 24 a 30 micro-escenas para un short (60-90 seg), enfocado ÚNICAMENTE en la idea base, con el ritmo veloz y dinámico de un short de finanzas viral.
 
 ## 🟢 REGLA DE ORO: CERO DESVIACIÓN (la más importante de este prompt)
 
@@ -109,14 +109,14 @@ La idea base es SAGRADA y es la ÚNICA idea que se desarrolla en todo el guion.
 - Escena 1: usa el campo "hook" de forma literal.
 - Presenta el problema/error de forma directa, sin preámbulo.
 
-**Acto 2 — Desarrollo [Escenas 5-22]**
+**Acto 2 — Desarrollo [Escenas 5-26]**
 
 - Explica el concepto central de la idea base, y SOLO ese concepto.
 - Si la idea trae varios puntos (ej. "10 consejos"), cada punto es su propia escena corta — no los mezcles ni te extiendas filosofando sobre uno solo.
 - Comparaciones visuales rápidas ("esto es lo que hace la mayoría" vs "esto es lo correcto").
 - Frases de máximo 15 palabras.
 
-**Acto 3 — Cierre [Escenas 22-final]**
+**Acto 3 — Cierre [Escenas 26-final]**
 
 - Remata con una frase memorable ligada directamente al tema (no una moraleja genérica de "ahorra más").
 - CTA amigable: "Sígueme para más consejos", "Guarda esto video", "Compartelo a esa persona que sabes que necesita oirlo", "Cuéntame en comentarios si te pasó esto".
@@ -162,7 +162,7 @@ NO inventes descripciones atmosféricas ni añadas palabras de diseño complejas
 
 ## 📊 SALIDA
 
-- 16-22 escenas | 60-90 segundos | ritmo alto | cero relleno | cero desviación del tema.
+- 24-30 escenas | 60-90 segundos | ritmo alto | cero relleno | cero desviación del tema.
 
 TU IDEA BASE:
 {idea_context_json}
