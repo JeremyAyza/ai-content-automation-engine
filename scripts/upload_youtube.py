@@ -2,13 +2,13 @@ import json
 import random
 from datetime import datetime, timedelta
 from pathlib import Path
-import os
-import time
+from typing import Callable, Optional
 
 from pipeline.schemas import State
 from pipeline.storage_csv import CsvStore, Column
 from tools.messenger import Messenger
 from tools.time_utils import api_spinner
+
 
 def get_next_schedule(csv_store: CsvStore) -> datetime:
     df = csv_store.read_all()
@@ -77,6 +77,217 @@ def format_youtube_time(dt: datetime) -> str:
     return dt.strftime("%H:%M")
 
 
+def _fill_details(page, idea_dir: Path, title: str, tags: str, capture: Callable[[any, str], None]):
+    # Wait for details screen
+    Messenger.info("[DEBUG] Esperando pantalla de Detalles (Buscando textbox del título)...")
+    page.wait_for_selector("#textbox", timeout=60000)
+    capture(page, "pantalla_detalles")
+    
+    # Title
+    Messenger.info("[DEBUG] Escribiendo título...")
+    title_box = page.locator("#textbox").first
+    title_box.clear()
+    title_box.type(title, delay=50) # Type slowly to trigger React events
+    page.wait_for_timeout(1000)
+    capture(page, "titulo_escrito")
+    
+    # Thumbnail
+    thumbnail_path = idea_dir / "images" / "thumbnail.jpg"
+    if thumbnail_path.exists():
+        Messenger.info("[DEBUG] Subiendo miniatura...")
+        # El input de miniatura suele tener el ID file-loader o ser el segundo input file de la página
+        thumb_input = page.locator("input#file-loader")
+        if thumb_input.count() == 0:
+            # Fallback al uploader
+            thumb_input = page.locator("ytcp-thumbnails-compact-editor-uploader input[type='file']")
+        
+        if thumb_input.count() > 0:
+            thumb_input.set_input_files(str(thumbnail_path))
+            Messenger.info("[DEBUG] Esperando 3 segundos a que cargue la miniatura...")
+            page.wait_for_timeout(3000)
+            capture(page, "miniatura_subida")
+        else:
+            Messenger.error("[DEBUG] No se encontró el botón de miniatura.")
+    else:
+        Messenger.info("[DEBUG] No se encontró miniatura, se omitirá este paso.")
+    
+    # Playlists (Listas)
+    try:
+        Messenger.info("[DEBUG] Buscando Listas de Reproducción...")
+        # The playlist dropdown usually has an ID or class.
+        dropdown = page.locator("div.ytcp-text-dropdown-trigger:has-text('Seleccionar')")
+        if dropdown.count() > 0:
+            dropdown.scroll_into_view_if_needed()
+            dropdown.click()
+            page.wait_for_timeout(1000)
+            
+            Messenger.info("[DEBUG] Seleccionando lista 'Shorts'...")
+            # Try to find "Shorts" playlist
+            shorts_list = page.locator("tp-yt-paper-checkbox[aria-label*='Shorts']")
+            if shorts_list.count() > 0:
+                shorts_list.click()
+            else:
+                # Click the first one available
+                first_list = page.locator("tp-yt-paper-checkbox").first
+                if first_list.count() > 0:
+                    first_list.click()
+                    
+            # Click "Hecho"
+            Messenger.info("[DEBUG] Clic en 'Hecho' (Listas)...")
+            capture(page, "lista_seleccionada")
+            done_btn = page.locator("ytcp-button:has-text('Hecho')")
+            if done_btn.count() > 0:
+                done_btn.click()
+    except Exception as e:
+        Messenger.error(f"No se pudo seleccionar lista: {e}")
+    
+    # Tags
+    Messenger.info("[DEBUG] Expandiendo 'Mostrar más' para Tags...")
+    page.wait_for_timeout(1000)
+    
+    more_btn = page.locator("ytcp-button#toggle-button") # 'Mostrar más'
+    if more_btn.count() > 0:
+        more_btn.scroll_into_view_if_needed()
+        if more_btn.is_visible():
+            more_btn.click()
+            page.wait_for_timeout(1000)
+        
+    Messenger.info("[DEBUG] Escribiendo Tags...")
+    tags_input = page.locator("input[aria-label*='Etiquetas']")
+    if tags_input.count() > 0:
+        tags_input.scroll_into_view_if_needed()
+        tags_input.type(tags, delay=20)
+        tags_input.press("Enter")
+        capture(page, "tags_escritos")
+
+
+def _fill_visibility(page, date_str_yt: str, time_str_yt: str, capture: Callable[[any, str], None]) -> str:
+    # Go to Visibility
+    Messenger.info("[DEBUG] Avanzando a la pestaña 'Visibilidad'...")
+    # Click Siguiente multiple times until Visibility is active
+    for _ in range(3):
+        next_btn = page.locator("ytcp-button#next-button")
+        if next_btn.is_visible() and not next_btn.is_disabled():
+            next_btn.click()
+            page.wait_for_timeout(1500)
+    capture(page, "pestana_visibilidad")
+            
+    # Programar
+    Messenger.info("[DEBUG] Seleccionando opción 'Programar'...")
+    
+    # Click #second-container
+    programar_container = page.locator("#second-container")
+    if programar_container.count() > 0:
+        programar_container.scroll_into_view_if_needed()
+        programar_container.click(force=True)
+        page.wait_for_timeout(1000)
+        
+        # Date
+        Messenger.info("[DEBUG] Estableciendo fecha de programación...")
+        datepicker_trigger = page.locator("#datepicker-trigger")
+        if datepicker_trigger.count() > 0:
+            datepicker_trigger.click(force=True)
+            page.wait_for_timeout(500)
+            
+            # El input dentro de datepicker
+            date_input = page.locator("ytcp-date-picker #labelAndInputContainer input").last
+            if date_input.count() > 0 and date_input.is_visible():
+                date_input.clear()
+                date_input.type(date_str_yt, delay=50)
+                date_input.press("Enter")
+                page.wait_for_timeout(500)
+                
+        # Time
+        Messenger.info("[DEBUG] Estableciendo hora de programación...")
+        time_container = page.locator("ytcp-form-input-container#time-of-day-container")
+        if time_container.count() > 0:
+            time_container.click(force=True)
+            page.wait_for_timeout(500)
+            
+            time_input = time_container.locator("input").last
+            if time_input.count() > 0 and time_input.is_visible():
+                time_input.clear()
+                time_input.type(time_str_yt, delay=50)
+                # Blur to format automatically
+                time_input.press("Enter")
+                page.wait_for_timeout(500)
+                
+    capture(page, "fecha_hora_programadas")
+    
+    # Extract link
+    Messenger.info("[DEBUG] Extrayendo enlace del video...")
+    link_locator = page.locator(".ytcp-video-info a.style-scope.ytcp-video-info")
+    video_url = ""
+    if link_locator.count() > 0:
+        video_url = link_locator.inner_text()
+    
+    return video_url
+
+
+def _finalize_upload(page, capture: Callable[[any, str], None]) -> Optional[str]:
+    # Esperar 1 minuto antes de programar para asegurar avance de subida
+    Messenger.info("[DEBUG] Esperando 1 minuto antes de darle a Programar...")
+    page.wait_for_timeout(60000)
+    
+    Messenger.info("[DEBUG] Haciendo clic en botón 'Programar' final...")
+    page.wait_for_selector("ytcp-button#done-button:not([disabled])", timeout=60000)
+    done_btn = page.locator("ytcp-button#done-button")
+    done_btn.scroll_into_view_if_needed()
+    done_btn.click(force=True)
+    capture(page, "click_programar")
+    
+    # Si sale el popup "Publicar de todas formas" o "Programar de todas formas"
+    page.wait_for_timeout(3000)
+    warning_btn = page.locator("ytcp-button", has_text="todas formas")
+    if warning_btn.count() > 0 and warning_btn.is_visible():
+        Messenger.info("[DEBUG] Apareció popup de advertencia, forzando...")
+        warning_btn.click(force=True)
+        capture(page, "popup_todas_formas_click")
+    
+    # Wait for success dialog (o dialog de procesando)
+    Messenger.info("[DEBUG] Esperando modal de éxito o progreso...")
+    try:
+        page.wait_for_selector("ytcp-video-share-dialog, ytcp-dialog[open]", timeout=60000)
+    except Exception:
+        pass
+    capture(page, "modal_exito")
+    
+    video_url = None
+    Messenger.info("[DEBUG] Verificando progreso de subida en el modal...")
+    for _ in range(120): # Max 10 minutes
+        # Verificar si ya está el botón de copiar vínculo (éxito total)
+        copy_btn = page.locator("ytcp-icon-button[aria-label*='Copiar']")
+        if copy_btn.count() > 0 and copy_btn.first.is_visible():
+            Messenger.info("[DEBUG] Se detectó botón de copiar. Subida y programación exitosa.")
+            # Extraer el enlace final desde el modal por si acaso
+            share_link = page.locator("ytcp-video-share-dialog a.style-scope").first
+            if share_link.count() > 0:
+                video_url = share_link.inner_text()
+            break
+            
+        # Si no está el botón, verificar si hay un modal activo con progreso
+        dialog_loc = page.locator("ytcp-dialog[open]").last
+        if dialog_loc.count() > 0:
+            text = dialog_loc.inner_text().lower()
+            if "subiendo" in text or "procesando" in text or "verificando" in text or "%" in text:
+                if "completad" in text or "finalizad" in text or "se completaron las verificaciones" in text:
+                    break
+                page.wait_for_timeout(5000)
+            else:
+                break
+        else:
+            break
+    
+    capture(page, "subida_completada_modal_final")
+    
+    # Si el botón "Cerrar" está en el modal, cerrarlo de forma segura
+    close_btn = page.locator("ytcp-button:has-text('Cerrar')").last
+    if close_btn.count() > 0 and close_btn.is_visible():
+        close_btn.click(force=True)
+        
+    return video_url
+
+
 def upload_video():
     csv_path = Path("out_short") / "ideas_tracking.csv"
     if not csv_path.exists():
@@ -126,14 +337,13 @@ def upload_video():
     # Preparar directorio de debug
     debug_dir = idea_dir / "debug_screenshots"
     debug_dir.mkdir(exist_ok=True, parents=True)
-    step_count = 1
     
+    step_count = [1] # Usar lista para que sea mutable en el closure
     def capture(p_page, name: str):
-        nonlocal step_count
         try:
-            path = str(debug_dir / f"{step_count:02d}_{name}.png")
+            path = str(debug_dir / f"{step_count[0]:02d}_{name}.png")
             p_page.screenshot(path=path)
-            step_count += 1
+            step_count[0] += 1
         except Exception as e:
             Messenger.error(f"[DEBUG] Falló la captura '{name}': {e}")
     
@@ -158,208 +368,13 @@ def upload_video():
             file_input.set_input_files(str(video_path))
             
         with api_spinner("Subiendo video y configurando detalles..."):
-            # Wait for details screen
-            Messenger.info("[DEBUG] Esperando pantalla de Detalles (Buscando textbox del título)...")
-            page.wait_for_selector("#textbox", timeout=60000)
-            capture(page, "pantalla_detalles")
-            
-            # Title
-            Messenger.info("[DEBUG] Escribiendo título...")
-            title_box = page.locator("#textbox").first
-            title_box.clear()
-            title_box.type(title, delay=50) # Type slowly to trigger React events
-            page.wait_for_timeout(1000)
-            capture(page, "titulo_escrito")
-            
-            # Thumbnail
-            thumbnail_path = idea_dir / "images" / "thumbnail.jpg"
-            if thumbnail_path.exists():
-                Messenger.info("[DEBUG] Subiendo miniatura...")
-                # El input de miniatura suele tener el ID file-loader o ser el segundo input file de la página
-                thumb_input = page.locator("input#file-loader")
-                if thumb_input.count() == 0:
-                    # Fallback al uploader
-                    thumb_input = page.locator("ytcp-thumbnails-compact-editor-uploader input[type='file']")
-                
-                if thumb_input.count() > 0:
-                    thumb_input.set_input_files(str(thumbnail_path))
-                    Messenger.info("[DEBUG] Esperando 3 segundos a que cargue la miniatura...")
-                    page.wait_for_timeout(3000)
-                    capture(page, "miniatura_subida")
-                else:
-                    Messenger.error("[DEBUG] No se encontró el botón de miniatura.")
-            else:
-                Messenger.info("[DEBUG] No se encontró miniatura, se omitirá este paso.")
-            
-            # Playlists (Listas)
-            try:
-                Messenger.info("[DEBUG] Buscando Listas de Reproducción...")
-                # The playlist dropdown usually has an ID or class.
-                dropdown = page.locator("div.ytcp-text-dropdown-trigger:has-text('Seleccionar')")
-                if dropdown.count() > 0:
-                    dropdown.scroll_into_view_if_needed()
-                    dropdown.click()
-                    page.wait_for_timeout(1000)
+            _fill_details(page, idea_dir, title, tags, capture)
+            video_url = _fill_visibility(page, date_str_yt, time_str_yt, capture)
                     
-                    Messenger.info("[DEBUG] Seleccionando lista 'Shorts'...")
-                    # Try to find "Shorts" playlist
-                    shorts_list = page.locator("tp-yt-paper-checkbox[aria-label*='Shorts']")
-                    if shorts_list.count() > 0:
-                        shorts_list.click()
-                    else:
-                        # Click the first one available
-                        first_list = page.locator("tp-yt-paper-checkbox").first
-                        if first_list.count() > 0:
-                            first_list.click()
-                            
-                    # Click "Hecho"
-                    Messenger.info("[DEBUG] Clic en 'Hecho' (Listas)...")
-                    capture(page, "lista_seleccionada")
-                    done_btn = page.locator("ytcp-button:has-text('Hecho')")
-                    if done_btn.count() > 0:
-                        done_btn.click()
-            except Exception as e:
-                Messenger.error(f"No se pudo seleccionar lista: {e}")
-            
-            # Tags
-            Messenger.info("[DEBUG] Expandiendo 'Mostrar más' para Tags...")
-            page.wait_for_timeout(1000)
-            
-            more_btn = page.locator("ytcp-button#toggle-button") # 'Mostrar más'
-            if more_btn.count() > 0:
-                more_btn.scroll_into_view_if_needed()
-                if more_btn.is_visible():
-                    more_btn.click()
-                    page.wait_for_timeout(1000)
-                
-            Messenger.info("[DEBUG] Escribiendo Tags...")
-            tags_input = page.locator("input[aria-label*='Etiquetas']")
-            if tags_input.count() > 0:
-                tags_input.scroll_into_view_if_needed()
-                tags_input.type(tags, delay=20)
-                tags_input.press("Enter")
-                capture(page, "tags_escritos")
-                
-            # Go to Visibility
-            Messenger.info("[DEBUG] Avanzando a la pestaña 'Visibilidad'...")
-            # Click Siguiente multiple times until Visibility is active
-            for _ in range(3):
-                next_btn = page.locator("ytcp-button#next-button")
-                if next_btn.is_visible() and not next_btn.is_disabled():
-                    next_btn.click()
-                    page.wait_for_timeout(1500)
-            capture(page, "pestana_visibilidad")
-                    
-            # Programar
-            Messenger.info("[DEBUG] Seleccionando opción 'Programar'...")
-            
-            # Click #second-container
-            programar_container = page.locator("#second-container")
-            if programar_container.count() > 0:
-                programar_container.scroll_into_view_if_needed()
-                programar_container.click(force=True)
-                page.wait_for_timeout(1000)
-                
-                # Date
-                Messenger.info("[DEBUG] Estableciendo fecha de programación...")
-                datepicker_trigger = page.locator("#datepicker-trigger")
-                if datepicker_trigger.count() > 0:
-                    datepicker_trigger.click(force=True)
-                    page.wait_for_timeout(500)
-                    
-                    # El input dentro de datepicker
-                    date_input = page.locator("ytcp-date-picker #labelAndInputContainer input").last
-                    if date_input.count() > 0 and date_input.is_visible():
-                        date_input.clear()
-                        date_input.type(date_str_yt, delay=50)
-                        date_input.press("Enter")
-                        page.wait_for_timeout(500)
-                        
-                # Time
-                Messenger.info("[DEBUG] Estableciendo hora de programación...")
-                time_container = page.locator("ytcp-form-input-container#time-of-day-container")
-                if time_container.count() > 0:
-                    time_container.click(force=True)
-                    page.wait_for_timeout(500)
-                    
-                    time_input = time_container.locator("input").last
-                    if time_input.count() > 0 and time_input.is_visible():
-                        time_input.clear()
-                        time_input.type(time_str_yt, delay=50)
-                        # Blur to format automatically
-                        time_input.press("Enter")
-                        page.wait_for_timeout(500)
-                        
-            capture(page, "fecha_hora_programadas")
-            
-            # Extract link
-            Messenger.info("[DEBUG] Extrayendo enlace del video...")
-            link_locator = page.locator(".ytcp-video-info a.style-scope.ytcp-video-info")
-            video_url = ""
-            if link_locator.count() > 0:
-                video_url = link_locator.inner_text()
-                    
-        # Wait for video upload to finish before saving
         with api_spinner("Finalizando y esperando subida en modal final..."):
-            
-            # Esperar 1 minuto antes de programar para asegurar avance de subida
-            Messenger.info("[DEBUG] Esperando 1 minuto antes de darle a Programar...")
-            page.wait_for_timeout(60000)
-            
-            Messenger.info("[DEBUG] Haciendo clic en botón 'Programar' final...")
-            page.wait_for_selector("ytcp-button#done-button:not([disabled])", timeout=60000)
-            done_btn = page.locator("ytcp-button#done-button")
-            done_btn.scroll_into_view_if_needed()
-            done_btn.click(force=True)
-            capture(page, "click_programar")
-            
-            # Si sale el popup "Publicar de todas formas" o "Programar de todas formas"
-            page.wait_for_timeout(3000)
-            warning_btn = page.locator("ytcp-button", has_text="todas formas")
-            if warning_btn.count() > 0 and warning_btn.is_visible():
-                Messenger.info("[DEBUG] Apareció popup de advertencia, forzando...")
-                warning_btn.click(force=True)
-                capture(page, "popup_todas_formas_click")
-            
-            # Wait for success dialog (o dialog de procesando)
-            Messenger.info("[DEBUG] Esperando modal de éxito o progreso...")
-            try:
-                page.wait_for_selector("ytcp-video-share-dialog, ytcp-dialog[open]", timeout=60000)
-            except Exception:
-                pass
-            capture(page, "modal_exito")
-            
-            Messenger.info("[DEBUG] Verificando progreso de subida en el modal...")
-            for _ in range(120): # Max 10 minutes
-                # Verificar si ya está el botón de copiar vínculo (éxito total)
-                copy_btn = page.locator("ytcp-icon-button[aria-label*='Copiar']")
-                if copy_btn.count() > 0 and copy_btn.first.is_visible():
-                    Messenger.info("[DEBUG] Se detectó botón de copiar. Subida y programación exitosa.")
-                    # Extraer el enlace final desde el modal por si acaso
-                    share_link = page.locator("ytcp-video-share-dialog a.style-scope").first
-                    if share_link.count() > 0:
-                        video_url = share_link.inner_text()
-                    break
-                    
-                # Si no está el botón, verificar si hay un modal activo con progreso
-                dialog_loc = page.locator("ytcp-dialog[open]").last
-                if dialog_loc.count() > 0:
-                    text = dialog_loc.inner_text().lower()
-                    if "subiendo" in text or "procesando" in text or "verificando" in text or "%" in text:
-                        if "completad" in text or "finalizad" in text or "se completaron las verificaciones" in text:
-                            break
-                        page.wait_for_timeout(5000)
-                    else:
-                        break
-                else:
-                    break
-            
-            capture(page, "subida_completada_modal_final")
-            
-            # Si el botón "Cerrar" está en el modal, cerrarlo de forma segura
-            close_btn = page.locator("ytcp-button:has-text('Cerrar')").last
-            if close_btn.count() > 0 and close_btn.is_visible():
-                close_btn.click(force=True)
+            final_url = _finalize_upload(page, capture)
+            if final_url:
+                video_url = final_url
             
         Messenger.success("¡Video programado y subido a YouTube exitosamente!")
         

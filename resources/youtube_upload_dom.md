@@ -38,31 +38,39 @@ El botón "Siguiente" avanza a través de "Elementos del vídeo" y "Comprobació
 ## 4. Pestaña: Visibilidad
 Esta es la última pestaña del modal.
 ### Modalidad
-- **Selector Radio "Programar":** `tp-yt-paper-radio-button[name='SCHEDULE']`
-- **Acción:** `click()`
+- **Selector Radio "Programar":** `#second-container`
+- **Acción:** `scroll_into_view_if_needed()` -> `click(force=True)`
 
 ### Fecha y Hora
-- **Selector Fecha:** `ytcp-date-picker input`
+- **Selector Disparador Fecha:** `#datepicker-trigger`
+- **Acción:** `click(force=True)`
+- **Selector Input Fecha:** `ytcp-date-picker #labelAndInputContainer input`
 - **Acción:** `clear()` -> `type("28 ago 2026", delay=50)` -> `press("Enter")`
-- **Selector Hora:** `input[aria-label*='hora']` (o `ytcp-time-of-day-picker input`)
-- **Acción:** `clear()` -> `type("18:30", delay=50)` -> `press("Enter")`
+- **Selector Disparador Hora:** `ytcp-form-input-container#time-of-day-container`
+- **Acción:** `click(force=True)`
+- **Selector Input Hora:** `ytcp-form-input-container#time-of-day-container input`
+- **Acción:** `clear()` -> `type("18:30", delay=50)` -> `press("Enter")` (para activar autocompletado on-blur).
 
 ### Extracción de Enlace
 - **Selector Link:** `.ytcp-video-info a.style-scope.ytcp-video-info`
 - **Acción:** `inner_text()`
 
 ## 5. Finalización
-El botón para programar definitivamente. No esperamos a que procese antes de hacer clic, lo hacemos directo.
+### Espera Estratégica (Crucial)
+- **Acción:** Esperar 1 minuto (60 segundos) ANTES de hacer clic en el botón de programar final. Esto permite que el video termine de subir o avance lo suficiente para evitar advertencias de procesamiento.
+
+### Confirmación
 - **Selector Botón Final:** `ytcp-button#done-button:not([disabled])`
-- **Acción:** `click()`
+- **Acción:** `scroll_into_view_if_needed()` -> `click(force=True)`
 
 ### Popup de Advertencia (Opcional)
 Si el video no ha subido al 100%, YouTube lanza una advertencia.
 - **Selector Botón Forzar:** `ytcp-button:has-text('todas formas')`
-- **Acción:** `click()`
+- **Acción:** `click(force=True)`
 
-### Modal de Éxito y Espera de Subida
-Aquí sí esperamos a que el video termine de subir para no cortar el navegador prematuramente.
-- **Selector Modal Éxito:** `ytcp-video-share-dialog`
-- **Acción:** `wait_for_selector()`
-- **Comprobación de Subida:** Extraer `inner_text()` del modal repetidamente. Si dice "Subiendo", "Procesando" o muestra un "%" sin decir "Completado" o "Finalizado", aplicar un delay de 5 segundos y repetir. Al terminar, guardar todo y cerrar.
+### Modal de Éxito y Extracción de URL Definitiva
+Aquí verificamos si el proceso fue exitoso usando el botón de copiar.
+- **Selector Botón Copiar:** `ytcp-icon-button[aria-label*='Copiar']`
+- **Selector Link en Modal:** `ytcp-video-share-dialog a.style-scope`
+- **Comprobación de Subida:** Extraer `inner_text()` de modales activos (`ytcp-dialog[open]`). Si dice "Subiendo", "Procesando" o muestra un "%" sin decir "Completad", aplicar delay de 5 segundos y repetir. Si detecta el botón de copiar, copiar el link final, la subida es exitosa.
+- **Selector Botón Cerrar:** `ytcp-button:has-text('Cerrar')` (.last) para finalizar limpio.
