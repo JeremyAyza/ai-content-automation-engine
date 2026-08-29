@@ -44,11 +44,14 @@ class CsvStore(CsvProcessor):
         return self.get_by_index(int(idx[0]))
 
     def get_incomplete_idea(self) -> IdeaRaw | None:
-        """Returns the first idea that is not COMPLETED."""
+        """Returns the first idea that is not COMPLETED and not UPLOADED."""
         df = self.read_all()
         if df.empty:
             return None
-        idx = cast(Any, df.index)[df[Column.STATE.value] != State.COMPLETED.value]
+            
+        mask = (df[Column.STATE.value] != State.COMPLETED.value) & (df[Column.STATE.value] != State.UPLOADED.value)
+        idx = cast(Any, df.index)[mask]
+        
         if len(idx) == 0:
             return None
         return self.get_by_index(int(idx[0]))
