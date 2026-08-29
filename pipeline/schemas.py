@@ -17,6 +17,7 @@ class State(str, Enum):
     VIDEO_SUBTITLED = "VIDEO_SUBTITLED"
     VIDEO_MUSIC_GENERATED = "VIDEO_MUSIC_GENERATED"
     COMPLETED = "COMPLETED"
+    UPLOADED = "UPLOADED"
 
 
 class VideoOrientation(str, Enum):
@@ -39,6 +40,7 @@ class IdeaRaw(BaseModel):
     title: str
     state: State
     category: str
+    scheduled_date: str | None = None
 
 
 class BaseIdea(BaseModel):

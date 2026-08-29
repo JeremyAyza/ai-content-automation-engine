@@ -4,6 +4,7 @@ from pathlib import Path
 
 from google.genai import types
 
+from pipeline import config
 from tools.gemini_base import GeminiBase
 from tools.messenger import Messenger
 from tools.time_utils import sleep_with_countdown, api_spinner
@@ -12,7 +13,11 @@ from tools.time_utils import run_with_timeout
 
 
 class GeminiAudioGenerator(GeminiBase):
-    tts_model: str = "gemini-2.5-flash-preview-tts"
+    # Configurable vía GEMINI_TTS_MODEL en .env; default sin cambios de
+    # comportamiento (gemini-2.5-flash-preview-tts). Permite probar/activar
+    # un modelo TTS distinto (ej. gemini-3.1-flash-tts-preview) sin editar
+    # código.
+    tts_model: str = config.GEMINI_TTS_MODEL
     voice_name: str = "Fenrir"
 
     def text_to_speech(

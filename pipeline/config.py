@@ -24,9 +24,23 @@ FLOW_PROJECT_URL: str = os.getenv("FLOW_PROJECT_URL", "https://labs.google/fx/es
 
 # --- Gemini Configuration ---
 GEMINI_TEXT_MODEL = "gemini-3.1-pro-preview"
-SHORT_AUDIO_SPEEDUP = 1.06
+# En prueba: gemini-3.1-flash-tts-preview (más costoso: $1.00/$20.00 por M
+# tokens vs $0.50/$10.00 del anterior "gemini-2.5-flash-preview-tts").
+# Revertir a la línea anterior si la voz/consistencia no convence.
+GEMINI_TTS_MODEL = "gemini-2.5-flash-preview-tts"
+SHORT_AUDIO_SPEEDUP = 1.02
 LONG_AUDIO_SPEEDUP = 1.065
-AUDIO_BATCH_SIZE = 15
+# Escenas por batch de audio TTS. Elegido para minimizar "costuras" de tono
+# entre llamadas (cada llamada al TTS es stateless, ver TECH_DEBT/notas de
+# investigación) sin arriesgar el techo real del modelo (~16k tokens de
+# salida =~ 10 min de audio continuo):
+#   - Shorts (20-25 escenas, 8-14 palabras/escena): caben SIEMPRE en 1 solo
+#     batch (25 escenas x 14 palabras = 350 palabras =~ 2.5 min, muy por
+#     debajo del techo).
+#   - Longs (55-70 escenas, 15-40 palabras/escena): peor caso 25 escenas x
+#     40 palabras = 1000 palabras =~ 7.2 min por batch, con margen de
+#     seguridad bajo el techo de ~10 min.
+AUDIO_BATCH_SIZE = 25
 MIN_AUDIO_DURATION = 0.5
 MIN_AUDIO_SIZE_BYTES = 1024
 BG_MUSIC_VOLUME = 0.18

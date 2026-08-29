@@ -13,6 +13,7 @@ class Column(str, Enum):
     TITLE = "title"
     STATE = "state"
     CATEGORY = "category"
+    SCHEDULED_DATE = "scheduled_date"
 
 # TODO: Solve casts
 
@@ -69,6 +70,7 @@ class CsvStore(CsvProcessor):
             Column.TITLE.value: title,
             Column.STATE.value: State.NEW.value,
             Column.CATEGORY.value: category,
+            Column.SCHEDULED_DATE.value: "",
         }
         self.add_row(row_data)
         return self._map_row(pd.Series(row_data))
@@ -87,7 +89,8 @@ class CsvStore(CsvProcessor):
             Column.ID.value: idea_obj.id,
             Column.TITLE.value: idea_obj.title,
             Column.STATE.value: idea_obj.state.value,
-            Column.CATEGORY.value: idea_obj.category
+            Column.CATEGORY.value: idea_obj.category,
+            Column.SCHEDULED_DATE.value: idea_obj.scheduled_date if idea_obj.scheduled_date else "",
         }
         self.update_row(row_index, row_data)
 
@@ -95,10 +98,15 @@ class CsvStore(CsvProcessor):
         idea_id = int(row[Column.ID.value])
 
         # Create the object
+        scheduled = row.get(Column.SCHEDULED_DATE.value)
+        if pd.isna(scheduled) or not scheduled:
+            scheduled = None
+
         idea_obj = IdeaRaw(
             id=idea_id,
             title=row[Column.TITLE.value],
             state=row[Column.STATE.value],
             category=row[Column.CATEGORY.value],
+            scheduled_date=scheduled,
         )
         return idea_obj
