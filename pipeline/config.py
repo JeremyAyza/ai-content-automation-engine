@@ -29,7 +29,7 @@ GEMINI_TEXT_MODEL = "gemini-3.1-pro-preview"
 # Revertir a la línea anterior si la voz/consistencia no convence.
 GEMINI_TTS_MODEL = "gemini-2.5-flash-preview-tts"
 SHORT_AUDIO_SPEEDUP = 1.02
-LONG_AUDIO_SPEEDUP = 1.065
+LONG_AUDIO_SPEEDUP = 1.069
 # Escenas por batch de audio TTS. Elegido para minimizar "costuras" de tono
 # entre llamadas (cada llamada al TTS es stateless, ver TECH_DEBT/notas de
 # investigación) sin arriesgar el techo real del modelo (~16k tokens de
