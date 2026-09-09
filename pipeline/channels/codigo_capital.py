@@ -119,7 +119,7 @@ La idea base es SAGRADA y es la ÚNICA idea que se desarrolla en todo el guion.
 **Acto 3 — Cierre [Escenas 22-final]**
 
 - Remata con una frase memorable ligada directamente al tema (no una moraleja genérica de "ahorra más").
-- CTA amigable: "Sígueme para más consejos", "Guarda esto video", "Compartelo a esa persona que sabes que necesita oirlo", "Cuéntame en comentarios si te pasó esto".
+- CTA estrategico: "Dale like y comparte para que recibas mas ingresos", "Sígueme para no perderte mas consejos financieros", "Comparteselo a tu primer compartido de Whatsapp", "Eviale este video a ese amigo o familiar que siempre le falta dinero" "Guarda esto video", "Compartelo a esa persona que sabes que necesita oirlo", "Cuéntame en comentarios si te pasó esto".
 
 ## 🔴 NARRACIÓN
 

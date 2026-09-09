@@ -109,9 +109,9 @@ class PlaywrightImageGenerator(ImageProvider):
                 page.locator('[data-testid="btn-add-queue"]').click()
 
             with api_spinner("Esperando que la extensión genere y descargue las imágenes (puede tardar minutos)..."):
-                # Wait for the progress text to hit 100%
-                page.wait_for_selector('[data-testid="progress-text"]:has-text("100%")', timeout=600000) # 10 min timeout
-                
+                # Esperamos el badge 'complete' renderizado por la extensión (o 100% como fallback)
+                page.wait_for_selector('[data-testid="complete"], [data-testid="progress-text"]:has-text("100%")', timeout=60 * 15 * 1000)
+
                 # Esperamos 45 segundos adicionales para que la extensión termine de mandar
                 # a la papelera lo generado y no se sature la UI de Flow.
                 Messenger.info("Imágenes generadas. Esperando 45s para la limpieza automática de la UI...")
@@ -125,13 +125,13 @@ class PlaywrightImageGenerator(ImageProvider):
     def _move_downloaded_images(self, script_name: str, target_dir: Path, expected_count: int):
         Messenger.info("Revisando imágenes descargadas en la carpeta del proyecto...")
         target_dir.mkdir(parents=True, exist_ok=True)
-        
+
         # Como forzamos a Chrome a descargar en target_dir, las imágenes pueden estar:
         # 1. En target_dir/Flow_Generations/SCRIPTNAME/scene_X.png (si Chrome respetó la ruta de la extensión)
         # 2. Directamente en target_dir/ como archivos UUID o sin extensión (si Chrome ignoró la ruta)
-        
+
         moved_count = 0
-        
+
         # Caso 1: Chrome respetó la ruta de la extensión
         flow_dir = target_dir / "Flow_Generations"
         if flow_dir.exists():
@@ -142,32 +142,32 @@ class PlaywrightImageGenerator(ImageProvider):
                         dest_path = target_dir / (file_path.stem + ".jpg")
                         shutil.copy(file_path, dest_path)
                         moved_count += 1
-            
+
             # Limpiar la carpeta temporal creada por la extensión dentro de images/
             try:
                 shutil.rmtree(flow_dir)
             except Exception:
                 pass
-                
+
         # Caso 2: Chrome las tiró sueltas en la carpeta con nombres raros (UUIDs)
         if moved_count == 0:
             # Buscar archivos recientes sueltos en target_dir (ignorando directorios)
             downloaded_files = [f for f in target_dir.iterdir() if f.is_file() and not f.name.endswith(".jpg")]
-            
+
             if downloaded_files:
                 # Ordenar por fecha de creación/modificación para deducir el orden de las escenas
                 downloaded_files.sort(key=lambda x: x.stat().st_mtime)
-                
+
                 for i, file_path in enumerate(downloaded_files):
                     # Renombrar: el primero es el thumbnail, el resto son escenas
                     if i == 0:
                         dest_path = target_dir / "thumbnail.jpg"
                     else:
                         dest_path = target_dir / f"scene_{i}.jpg"
-                        
+
                     shutil.copy(file_path, dest_path)
                     moved_count += 1
-                    
+
                     # Eliminar el archivo original suelto
                     try:
                         file_path.unlink()
@@ -176,5 +176,5 @@ class PlaywrightImageGenerator(ImageProvider):
 
         if moved_count == 0:
             raise FileNotFoundError(f"No se encontraron las imágenes generadas en {target_dir}")
-            
+
         Messenger.success(f"Se procesaron {moved_count}/{expected_count} imágenes exitosamente.")

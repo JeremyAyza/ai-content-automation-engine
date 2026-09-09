@@ -38,7 +38,7 @@ def get_next_schedule(csv_store: CsvStore) -> datetime:
             
         count_target = valid_dates.count(target_date)
         
-    if count_target >= 3:
+    if count_target >= 4:
         target_date = target_date + timedelta(days=1)
         
     # Determine time based on day of week
