@@ -1,0 +1,85 @@
+{
+  "channel_names_suggestions": [
+    "Dinero Dibujado",
+    "Finanzas en Sketch",
+    "Bolsillo Ágil",
+    "Capital Corto",
+    "Mente Rica"
+  ],
+  "bio": "Educación financiera rápida, dibujada y al grano. Aprende a dominar tu dinero, salir de deudas e invertir en menos de 2 minutos. 💸🧠",
+  "target_audience": "Jóvenes adultos (18-35) buscando mejorar sus finanzas personales, salir de deudas y aprender a invertir sin terminología aburrida o compleja.",
+  "niche": "finanzas personales",
+  "language": "es-LA",
+  "content_format": "short-form vertical video (9:16)",
+  "posting_frequency_suggestion": "1 video por día",
+
+  "visual_identity": {
+    "style": "Dynamic hand-drawn 2D webcomic sketch style, minimalist, expressive black ink on white background with vibrant accents (green/gold).",
+    "primary_color": "#22C55E",
+    "accent_color": "#EAB308",
+    "background": "#FFFFFF",
+    "font_style": "bold, geometric sans-serif"
+  },
+
+  "logo_prompt": "A minimalist, hand-drawn 2D sketch style logo for a channel named 'Hackea tu Riqueza'. A stylized glowing lightbulb with a green lightning bolt filament inside and dynamic wings on the sides. The text 'HACKEA TU RIQUEZA' is written below in bold, sketchy geometric font. Drawn with thick expressive black ink outlines on a clean white background. Vibrant green highlights. Clean shading, modern webcomic aesthetic.",
+
+  "banner_prompt": "A dynamic, hand-drawn 2D webcomic sketch style banner for a YouTube channel named 'Hackea tu Riqueza'. Thick expressive black ink outlines on a clean white background. The central focal point is the winged lightbulb logo with a glowing green lightning bolt inside. To the left, a stylized laptop screen displays upward-trending charts. To the right, golden coins and digital matrix code float upwards. The text 'HACKEA TU RIQUEZA' spans across the composition in a bold, sketchy geometric font. Vibrant minimalist color palette with green and gold highlights. Clean shading, glowing accents, wide horizontal panoramic layout.",
+
+  "outro_prompt": {
+    "tool_suggestion": "Veo 3 / Imagen 4 (Google Flow)",
+    "duration_seconds": 3,
+    "description": "Animated logo outro for the channel 'Hackea tu Riqueza', hand-drawn 2D webcomic sketch style. The scene starts with a clean white background. A striking green lightning bolt flashes down from the top center. Instantly, thick expressive black ink lines rapidly sketch the channel logo (a lightbulb with wings) around the lightning bolt. The lightbulb pulses with a vibrant green glow, and the wings do a quick, energetic flap. The channel name 'HACKEA TU RIQUEZA' materializes below in bold, sketchy green and black font. The outro ends with the winged lightbulb centered, glowing softly. Clean, energetic, 3-second loop-friendly. No voiceover."
+  },
+
+  "tags": {
+    "youtube_shorts": [
+      "FinanzasPersonales",
+      "DineroInteligente",
+      "AhorroDinero",
+      "InteresCompuesto",
+      "InversionParaPrincipiantes",
+      "LibertadFinanciera",
+      "HabitosMillonarios",
+      "EducacionFinanciera",
+      "TarjetaDeCredito",
+      "PresupuestoPersonal",
+      "Shorts",
+      "ShortFinanzas"
+    ],
+    "tiktok": [
+      "#finanzaspersonales",
+      "#dinerointeligente",
+      "#ahorros",
+      "#inversiones",
+      "#educacionfinanciera",
+      "#libertadfinanciera",
+      "#habitos",
+      "#tipsdinero",
+      "#fyp",
+      "#parati",
+      "#aprendeentiktok"
+    ],
+    "instagram_reels": [
+      "#FinanzasPersonales",
+      "#DineroInteligente",
+      "#Inversiones",
+      "#AhorroInteligente",
+      "#EducacionFinanciera",
+      "#TipsFinancieros",
+      "#LibertadFinanciera",
+      "#Reels",
+      "#MenteMilenial",
+      "#CreceConTuDinero"
+    ]
+  },
+
+  "call_to_action_suggestions": [
+    "Sígueme para más tips de finanzas cada día 💸",
+    "¿Te sirvió? Compártelo con alguien que lo necesite 🙌",
+    "Comenta: ¿Cuál de estos errores has cometido? 👇",
+    "Guarda este video para no olvidarlo 📌",
+    "Activa la 🔔 para no perderte ningún tip"
+  ],
+
+  "pinned_comment_template": "💰 Sígueme para educación financiera práctica todos los días. Si este video te ayudó, compártelo con alguien que lo necesite. ¡Tu futuro financiero empieza hoy! 🧠💸"
+}

@@ -16,6 +16,8 @@ pillow = "^12.1.0"
 pydantic = "^2.12.5"
 selenium = "^4.41.0"
 pydantic-settings = "^2.13.1"
+winotify = "^1.1.0"
+playwright = "^1.62.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^26.3.1"
