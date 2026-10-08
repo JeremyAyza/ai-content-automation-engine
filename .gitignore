@@ -1,27 +1,10 @@
-# OS
-.DS_Store
-
-# IDE
-**.log
-
-# Byte-compiled / optimized / DLL files
 __pycache__/
-
-# Environments
-**/.env
-**/.venv
-
-# folders
-models
-**/out
-**/out_long
-**/out_short
-**.dll
-**.exe
-# future versions
-**/video_content_generator
-
-**/desktop.ini
-import_report.csv
-extracted_scripts.json
-/.browser_profile
+*.pyc
+.venv/
+.env
+output/
+*.log
+*.WAV
+*.wav
+.vscode/
+.rules/

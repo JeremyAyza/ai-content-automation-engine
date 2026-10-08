@@ -1,28 +1,70 @@
-# Generate Videos CLI
+# AI Content Automation Engine
 
-CLI automatizado para generar y subir videos cortos (`short`) y largos (`long`).
+Pipeline de automatización asistido por IA para la generación de guiones, creación de imágenes en Google Flow, renderizado de escenas y publicación automatizada en YouTube.
 
-## Instalación Global
+> **Demostración de rendimiento:** Este pipeline fue utilizado para generar más de 190 videos automatizados en el canal [Hackea Tu Riqueza](https://www.youtube.com/@Hackea_Tu_Riqueza), reduciendo el costo estimado de producción por video de 2.50 USD a menos de 0.50 USD.
 
-Asegúrate de estar en el directorio raíz del proyecto y corre:
-```bash
-npm install -g .
+## Qué resuelve
+
+Automatiza de principio a fin la cadena de producción de contenido audiovisual. Genera estructuras narrativas mediante la API de Gemini, automatiza la creación de assets visuales en Google Flow con Playwright, procesa audio y subtítulos con Whisper en GPU, y automatiza la programación de publicaciones en canales de YouTube.
+
+## Cómo funciona
+
+```mermaid
+graph TD
+    A[Inicio: CLI gen] --> B[Generación de Guion: Gemini API]
+    B --> C[Automatización Visual: Playwright en Google Flow]
+    C --> D[Procesamiento de Audio: Whisper GPU]
+    D --> E[Ensamblaje y Renderizado de Escenas]
+    E --> F[Publicación Automatizada: Selenium / YouTube API]
 ```
 
-## Uso Básico
-El comando principal ahora es `gen`.
+1. **Generación narrativa:** Solicita a la API de Gemini los textos, estructura por escenas y prompts visuales.
+2. **Generación visual:** Controla un navegador headless vía Playwright para generar imágenes en Google Flow.
+3. **Transcripción y Audio:** Procesa la síntesis de voz y transcripción temporal mediante Whisper ejecutado en GPU.
+4. **Publicación:** Carga los contenidos finales y los programa en los canales de YouTube configurados.
 
-### Comandos de Generación
-- `gen short new` : Genera un nuevo video (ejecuta todo el pipeline desde el paso 1 hasta el final).
-- `gen short s1` : Ejecuta solo un paso específico (puedes usar `s1`, `s2`, `s3`, `s4`, `s5`, `s6`, `s7`, `fixed`, `all`).
+## Guía de uso
 
-### Comando de Subida
-- `gen short up` : Ejecuta el script de subida (`upload_youtube.py`) para el primer video pendiente.
+### Requisitos
+- Python 3.11+
+- Poetry (gestor de dependencias)
+- GPU NVIDIA (requerido para aceleración de Whisper en local)
+- Google Chrome instalado
 
-### Multiplicadores (Repetición en bucle)
-Puedes agregar `x[n]` al final de cualquier comando para ejecutarlo `n` veces automáticamente. ¡Ideal para automatizar lotes!
+### Instalación
+```bash
+git clone https://github.com/JeremyAyza/ai-video-automation-pipeline.git
+cd ai-video-automation-pipeline
+poetry install
+```
 
-**Ejemplos prácticos:**
-- `gen short new x3` : Genera **3 videos nuevos** de corrido.
-- `gen short up x5` : Sube **5 videos pendientes** seguidos a YouTube.
-- `gen short s1 x10` : Ejecuta el paso 1 (creación de ideas) 10 veces consecutivas.
+### Configuración
+Copia el archivo de ejemplo y configura tu clave de API:
+```bash
+cp .env.sample .env
+```
+
+### Ejecución
+```bash
+poetry run gen --help
+```
+
+## Decisiones técnicas
+
+- **Poetry:** Utilizado para garantizar un entorno determinista de dependencias de Python (pydantic, selenium, google-genai).
+- **Playwright para Flow:** Permite automatizar la creación de assets en interfaces web modernas sin depender de APIs privadas.
+- **Whisper Local (GPU):** Reduce los costos de transcripción al ejecutar el modelo de procesamiento de voz directamente en la GPU local.
+- **Arquitectura Modular por Flujos:** Organizado en carpetas independientes (`flows/`) para aislar la lógica de generación de imágenes, audio y publicación.
+
+## Estado y límites conocidos
+
+- **Estado:** Proyecto funcional probado en entorno de producción local con Windows y GPU NVIDIA.
+- **Límites:** La ejecución completa requiere entorno Windows con tarjeta gráfica NVIDIA (debido a dependencias de Winotify y aceleración CUDA de Whisper).
+- **Pruebas:** Verificación ejecutada mediante inspección estática del código.
+
+## Créditos y licencia
+
+- **Autor de las extensiones:** Jeremy Ayza ([JeremyAyza](https://github.com/JeremyAyza))
+- **Proyecto Base:** Basado en el proyecto open-source *AI Content Automation Engine* (abril de 2026).
+- **Licencia:** MIT License
