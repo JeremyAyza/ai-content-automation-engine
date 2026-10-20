@@ -1,23 +1,21 @@
 [tool.poetry]
-name = "video-automation"
+name = "ai-content-automation-engine"
 version = "0.1.0"
-description = "Video Automation Project"
-authors = ["Hans <hans.acha.brand@gmail.com>"]
+description = "Pipeline that turns an idea into a narrated, subtitled short or long video"
+authors = ["Hans <hans.acha.brand@gmail.com>", "Jeremy Ayza"]
 readme = "README.md"
-packages = [{ include = "flows" }]
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.11"
 pandas = "^2.2.0"
 python-dotenv = "^1.0.1"
-rich = "^13.7.1"
 google-genai = "^1.56.0"
 pillow = "^12.1.0"
 pydantic = "^2.12.5"
-selenium = "^4.41.0"
-pydantic-settings = "^2.13.1"
-winotify = "^1.1.0"
+winotify = { version = "^1.1.0", markers = "sys_platform == 'win32'" }
 playwright = "^1.62.0"
+tenacity = "^9.0.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^26.3.1"
@@ -37,7 +35,7 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.pyright]
-include = ["flows", "tools", "models"]
+include = ["pipeline", "tools", "scripts"]
 exclude = ["**/node_modules", "**/__pycache__", ".venv"]
 venvPath = "."
 venv = ".venv"
@@ -45,9 +43,4 @@ typeCheckingMode = "strict"
 reportMissingImports = true
 reportMissingTypeStubs = false
 pythonVersion = "3.11"
-pythonPlatform = "Darwin"
-executionEnvironments = [
-  { root = "flows" },
-  { root = "tools" },
-  { root = "models" }
-]
+pythonPlatform = "Windows"
