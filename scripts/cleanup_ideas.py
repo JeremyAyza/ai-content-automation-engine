@@ -3,7 +3,7 @@ import shutil
 from pathlib import Path
 
 def cleanup_ideas():
-    base_dir = Path(__file__).resolve().parent.parent / "flows"
+    base_dir = Path(__file__).resolve().parent.parent
     
     # We have out_long and out_short
     out_dirs = [base_dir / "out_long" / "ideas", base_dir / "out_short" / "ideas"]
@@ -16,7 +16,7 @@ def cleanup_ideas():
         if not out_dir.exists():
             continue
             
-        print(f"\nScanning: {out_dir.relative_to(base_dir.parent.parent)}")
+        print(f"\nScanning: {out_dir.relative_to(base_dir)}")
         for idea_dir in out_dir.iterdir():
             if not idea_dir.is_dir():
                 continue
