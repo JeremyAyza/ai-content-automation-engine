@@ -1,13 +1,14 @@
 {
   "name": "generate-videos-cli",
   "version": "1.0.0",
-  "description": "CLI super simple para generar videos",
+  "description": "gen CLI: batch wrapper around python -m pipeline.main",
   "bin": {
     "gen": "./bin/gen.js"
   },
   "scripts": {
     "install-global": "npm install -g ."
   },
-  "author": "Jeremy",
-  "license": "ISC"
+  "author": "Jeremy Ayza",
+  "license": "UNLICENSED",
+  "private": true
 }
