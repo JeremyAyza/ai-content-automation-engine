@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import ClassVar, List
 
 from pydantic import BaseModel, ConfigDict
+from pipeline import config
 from tools.whisper_schemas import (
     WhisperTranscription,
     WhisperTranscriptionSegment,
@@ -35,7 +36,7 @@ class WhisperTool(BaseModel):
         json_path = audio_path.with_name(audio_path.name + ".json")
         if not json_path.exists():
             # Construir ruta absoluta al binario
-            whisper_bin = Path("bin/whisper/whisper-cli.exe").absolute()
+            whisper_bin = Path(config.WHISPER_CLI_PATH).absolute()
             # -ojf: output json full (tokens with timestamps)
             cmd_args = [
                 str(whisper_bin),

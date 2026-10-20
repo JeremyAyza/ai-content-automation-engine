@@ -1,6 +1,10 @@
 from pathlib import Path
 import os
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 # Standard Output Directories
 IDEAS_DIR = "ideas"
 IMAGES_DIR = "images"
@@ -19,8 +23,12 @@ FINAL_VIDEO = "final_video.mp4"
 
 # --- Audio & Image Configuration ---
 AUDIO_PROVIDER: str = os.getenv("AUDIO_PROVIDER", "gemini") # "gemini" or "fish"
-IMAGE_PROVIDER = "playwright" # "api" or "playwright"
-FLOW_PROJECT_URL: str = os.getenv("FLOW_PROJECT_URL", "https://flow.google.com/project/6cacf741-8c7e-4e1f-b214-7fc91deefc72")
+IMAGE_PROVIDER: str = os.getenv("IMAGE_PROVIDER", "playwright") # "api" or "playwright"
+FLOW_PROJECT_URL: str = os.getenv("FLOW_PROJECT_URL", "")
+FLOW_EXTENSION_PATH: str = os.getenv("FLOW_EXTENSION_PATH", "")
+
+# --- Whisper Configuration ---
+WHISPER_CLI_PATH: str = os.getenv("WHISPER_CLI_PATH", "bin/whisper/whisper-cli.exe")
 
 # --- Gemini Configuration ---
 GEMINI_TEXT_MODEL = "gemini-3.1-pro-preview"

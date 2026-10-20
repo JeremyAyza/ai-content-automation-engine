@@ -12,7 +12,7 @@ from tools.time_utils import api_spinner
 from pipeline import config
 
 class PlaywrightImageGenerator(ImageProvider):
-    extension_path: str = r"C:\Users\Jeremy\Documents\LAB\generate-image-ext\.output\chrome-mv3"
+    extension_path: str = config.FLOW_EXTENSION_PATH
 
     def __init__(self, **kwargs: Any):
         super().__init__(**kwargs)
@@ -25,6 +25,12 @@ class PlaywrightImageGenerator(ImageProvider):
         """
         if not tasks:
             return
+
+        if not self.extension_path or not config.FLOW_PROJECT_URL:
+            raise ValueError(
+                "Configura FLOW_EXTENSION_PATH (carpeta .output/chrome-mv3 de la extensión) "
+                "y FLOW_PROJECT_URL en .env para generar imágenes con Flow."
+            )
 
         try:
             from playwright.sync_api import sync_playwright, expect

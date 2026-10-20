@@ -14,6 +14,8 @@ def main():
     # URL de Flow
     from pipeline import config
     target_url = config.FLOW_PROJECT_URL
+    if not target_url:
+        raise SystemExit("Configura FLOW_PROJECT_URL en .env antes de iniciar sesión.")
 
     print("=====================================================")
     print("🚀 INICIADOR DE SESIÓN DE PLAYWRIGHT")
