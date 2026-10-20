@@ -29,7 +29,7 @@ def main():
     with sync_playwright() as p:
         browser_context = p.chromium.launch_persistent_context(
             user_data_dir,
-            channel="chrome", # Bypasses Google's 'This browser or app may not be secure' block
+            channel="chrome", # Use the installed Chrome so the sign-in page accepts the browser
             headless=False,
             args=["--disable-blink-features=AutomationControlled"]
             # No cargamos la extensión aquí para que no interfiera, 
