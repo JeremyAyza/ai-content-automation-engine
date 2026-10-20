@@ -1,10 +1,31 @@
+# Python
 __pycache__/
 *.pyc
 .venv/
+
+# Local config and session (never commit: .browser_profile holds your Google/YouTube cookies)
 .env
+/.browser_profile/
+
+# Pipeline output
+/out_short/
+/out_long/
 output/
 *.log
-*.WAV
-*.wav
+import_report.csv
+extracted_scripts.json
+
+# Local binaries and models (whisper.cpp)
+/models/
+/bin/whisper/
+*.exe
+*.dll
+
+# Background music: add your own royalty-free tracks to resources/bg-music/
+resources/bg-music/*
+!resources/bg-music/.gitkeep
+
+# Editor / OS
 .vscode/
-.rules/
+.DS_Store
+desktop.ini
